@@ -6,7 +6,7 @@ async function Login(req,res,next){
     await Service.Login(req.body, res, function(result){
       
         
-        return res.json({message : result.message})
+        return res.json({message : result.message , })
 
     })
 

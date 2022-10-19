@@ -1,27 +1,27 @@
-import mongoose from 'mongoose';
-import crypto from 'crypto';
+import mongoose from "mongoose";
+import crypto from "crypto";
 
+const userSchema = new mongoose.Schema(
+  {
+    patient_id: { type: String, require: true, unique: true },
+    first_name: { type: String, require: true },
+    last_name: { type: String, require: true },
+    dob: { type: String, require: true },
+    gender: { type: String, enaum: ["male", "female", "others"] },
+    monile_number: { type: String, maxlength: 10, require: true },
+    alternate_number: { type: String, maxlength: 10, required: false },
+    email: { type: String, require: false },
+    patient_history: { type: Object, require: false },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const userSchema = new mongoose.Schema({
-    uuid:{type:String, require:true, unique:true},
-    name:{type:String, require:true},
-    email:{type:String, require:true},
-    password:{type:String, require:true},
-    phoneNumber:{type:String, maxlength:10, require:true},
-    loginStatus:{type:String, require:false},
-    // role:{type:String, enaum : ['admin','user'], default:'user', require:false},
-    isAdmin:{type:Boolean, default:true},
-    active : {type:Boolean, default:false},
-    loginStatus : {type:Boolean, default:false},
-    token:{type:String}
-},
-{
-    timestamps:true
+userSchema.pre("save", function (next) {
+  this.patient_id =
+    "PA-" + crypto.pseudoRandomBytes(6).toString("hex").toUpperCase();
+  next();
 });
 
-userSchema.pre('save', function(next){
-    this.uuid="USR-"+crypto.pseudoRandomBytes(6).toString('hex').toUpperCase()
-    next()
-})
-
-export default mongoose.model('user', userSchema)
+export default mongoose.model("user", userSchema, "user");

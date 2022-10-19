@@ -13,7 +13,7 @@ const adminSchema = new mongoose.Schema({
 });
 
 adminSchema.pre('save', function(next){
-    this.admin_id="Admin-"+crypto.pseudoRandomBytes(6).toString('hex').toUpperCase()
+    this.admin_id="Admin-"+crypto.pseudoRandomBytes(3).toString('hex').toUpperCase()
     next()
 })
 

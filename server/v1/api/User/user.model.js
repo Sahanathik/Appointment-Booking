@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
     last_name: { type: String, require: true },
     dob: { type: String, require: true },
     gender: { type: String, enaum: ["male", "female", "others"] },
-    monile_number: { type: String, maxlength: 10, require: true },
+    mobile_number: { type: String, maxlength: 10, require: true },
     alternate_number: { type: String, maxlength: 10, required: false },
     email: { type: String, require: false },
     patient_history: { type: Object, require: false },

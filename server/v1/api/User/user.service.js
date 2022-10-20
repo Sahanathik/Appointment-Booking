@@ -13,7 +13,7 @@ try {
   }
 
   let userdata = new userSchema(req)
-  let data = userdata.save()
+  let data = await userdata.save()
   return res.status(200).json({status:'success', message:'register successed', result:data});
   
 } catch (error) {

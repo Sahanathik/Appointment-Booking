@@ -55,10 +55,6 @@
   background: #ffffff4d;
 }
 
-.site-layout .site-layout-background {
+.site .site-layout-background {
   background: #fff;
-}
-
-.footer-background {
-  background-color: rgb(4, 24, 53);
 }

@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
     first_name: { type: String, require: true },
     last_name: { type: String, require: true },
     dob: { type: String, require: true },
-    gender: { type: String, enum: ["male", "female", "others"] },
+    gender: { type: String, enaum: ["male", "female", "others"] },
     mobile_number: { type: String, maxlength: 10, require: true },
     alternate_number: { type: String, maxlength: 10, required: false },
     email: { type: String, require: false },

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
+import moment from 'moment';
 
 const specialistSchema = new mongoose.Schema({
     specialist_id:{type:String, require:true, unique:true},

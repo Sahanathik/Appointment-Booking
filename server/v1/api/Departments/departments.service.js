@@ -13,7 +13,7 @@ async function addDepartments(req,res){
             return res.json({status:true, message:"department added successfully"})
         }
     } catch (error) {
-        return res.json({status:false, message:error})
+        return res.json({status:false, error})
     }
 }
 
@@ -24,7 +24,7 @@ async function getAllDepartments(req,res){
             return res.json({status : true, message : "Departments details fetched", data })
         }
     } catch (error) {
-        
+        return res.json({status : false,  error })
     }
 }
 

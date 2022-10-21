@@ -9,6 +9,8 @@ console.log("router")
 
 router.post('/register', Controller.register)
 
+router.post('/login', Controller.login)
+
 // router.get('/register',  function(req, res){
 //     // register
 // })

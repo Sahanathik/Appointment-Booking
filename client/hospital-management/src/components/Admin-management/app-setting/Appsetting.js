@@ -1,6 +1,7 @@
 import "antd/dist/antd.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import formData from "form-data"
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Input,
@@ -16,6 +17,48 @@ import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 const Appsetting = () => {
+
+    const [form] = Form.useForm();
+
+    const [state, setState] = useState({
+      logo : "",
+    });
+
+  const formSubmit = (values)=>{
+
+    console.log('values.logo',values.logo)
+
+    values.logo = state.logo;
+
+    console.log('state.logo',state.logo)
+
+    let data = values
+    
+    console.log("data", data)
+    const formData = new FormData();
+
+    formData.append('logo', data.logo);
+    formData.append('title', data.title);
+    formData.append('policy', data.policy);
+    formData.append('contact_us', data.contact_us);
+    formData.append('mobilenumber', data.mobilenumber);
+    formData.append('emergency_number', data.emergency_number);
+
+    const headerCongif ={
+      "Content-Type": "multipart/form-data"
+    }
+
+    axios.post("http://localhost:8080/v1/api/appSettings/addAppSettings", formData, headerCongif)
+    .then((res)=>{
+      console.log(res)
+    }).catch(error =>{
+      console.log(error)
+    })
+
+    console.log('formReqData',)
+    
+  }
+
   const responsive_layout = {
     labelCol: {
       xs: { span: 24 },
@@ -43,7 +86,7 @@ const Appsetting = () => {
       <Title level={3} style={{ textAlign: "center" }} className="mb-4">
         App Information
       </Title>
-      <Form {...responsive_layout}>
+      <Form {...responsive_layout} form={form} onFinish={formSubmit}>
         <Form.Item
           label="Organisation Name"
           type="text"
@@ -126,7 +169,16 @@ const Appsetting = () => {
           />
         </Form.Item>
         <Form.Item name="logo" label="Upload Logo">
-          <Upload listType="picture">
+          <Upload 
+          listType="picture"
+          beforeUpload={(file) => {
+            console.log(file)
+            setState({
+              logo : file
+            })
+            return false
+          }}
+          >
             <Button icon={<UploadOutlined />}>Click to Upload logo</Button>
           </Upload>
         </Form.Item>

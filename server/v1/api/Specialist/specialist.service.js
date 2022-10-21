@@ -42,16 +42,17 @@ async function getAllSpecialist(req,res,next){
 
 async function getSingleSpecialist(req,res,next){
     try {
-        let data = await specialistSchema.findOne({id:req.specialist_id}).exec();
+        let data = await specialistSchema.findOne({specialist_id:req.specialist_id}).exec();
+        console.log(data.available_slot.slot1)
         return res.json({status : true, message : "Specialist details are fetched", data })
     } catch (error) {
         return res.json({status : false, error })
     }
 }
 
+
 export default {
     addSpecialist,
     getAllSpecialist,
-    getSingleSpecialist
-
+    getSingleSpecialist,
 }

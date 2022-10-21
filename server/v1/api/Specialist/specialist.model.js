@@ -7,21 +7,29 @@ const specialistSchema = new mongoose.Schema({
     department_id:{type:String, require:true},
     specialist_name:{type:String, require:true},
     available_date: {type : Date},
-    available_slot:{
-        slot1 : {
+    available_slot:{ 
+    slot1 : {
+        timing : {
             type : String
-        },
-        slot2 : {
+        }
+    },
+    slot2 : {
+        timing : {
             type : String
-        },
-        slot3 : {
+        }
+    },
+    slot3 : {
+        timing : {
             type : String
-        },
-        slot4 : {
+        }
+    },
+    slot4 : {
+        timing : {
             type : String
-        },
+        }
     }
-},
+}
+    },
 {
     timestamps:true
 });

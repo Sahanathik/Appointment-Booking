@@ -19,8 +19,11 @@ async function getSingleSpecialist(req,res){
 }
 
 
+
+
 export default {
     addSpecialist,
     getAllSpecialist,
-    getSingleSpecialist
+    getSingleSpecialist,
+
 }

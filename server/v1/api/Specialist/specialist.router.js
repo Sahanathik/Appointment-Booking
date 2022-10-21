@@ -8,4 +8,5 @@ router.get('/getAllSpecialist', Controller.getAllSpecialist)
 router.get('/getSingleSpecialist', Controller.getSingleSpecialist)
 
 
+
 export default router

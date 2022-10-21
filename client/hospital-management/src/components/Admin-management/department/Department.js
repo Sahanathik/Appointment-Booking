@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Input, Button, Form, Card, Image, Typography } from "antd";
 const { Title } = Typography;
 const Department = () => {
@@ -63,7 +63,7 @@ const Department = () => {
           </Form.Item>
           <Form.Item {...buttonLayout}>
             <Button type="primary" htmlType="submit" block className="mt-3">
-              Update Information
+              Add Information
             </Button>
           </Form.Item>
         </Form>

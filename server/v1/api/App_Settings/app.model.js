@@ -7,7 +7,9 @@ const appSettingsSchema = new mongoose.Schema({
     title:{type:String, require:true},
     logo:{type:String, require:true},
     policy:{type:String, require:true},
-    contact_us : {type:String, require:true}
+    contact_us : {type:String, require:true},
+    mobilenumber : {type:String, requite:true},
+    emergency_number : {type:String, require:true}
     
 },
 {

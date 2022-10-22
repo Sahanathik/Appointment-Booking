@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Dashboard />
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/home" element={<Homepage />} />
           {/* <Route path="/admin" element={<Dashboard />} /> */}
         </Routes>
       </Router>

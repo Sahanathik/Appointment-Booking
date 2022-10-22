@@ -14,7 +14,7 @@ const Sidebar_menu = [
     key: "1",
     title: "Home",
     icon: <HomeOutlined />,
-    link: "/",
+    link: "/home",
   },
   {
     key: "2",

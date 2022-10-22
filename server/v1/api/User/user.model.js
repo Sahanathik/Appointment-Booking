@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
     mobile_number: { type: String, maxlength: 10, require: true },
     alternate_number: { type: String, maxlength: 10, required: false },
     email: { type: String, require: false },
+    patient_status:{type:String, require:false, default:"new_user"},
     patient_history: { type: Object, require: false },
   },
   {

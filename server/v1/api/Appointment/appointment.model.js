@@ -21,8 +21,8 @@ const appointmentSchema = new mongoose.Schema({
         type : String
     },
 },
-   new_user_status:{type:Boolean, require:false},
-   existing_user_status:{type:Boolean, require:false},
+    appointment_staus:{type:String, require:false},
+   
 },{
     timestamps:true
 })

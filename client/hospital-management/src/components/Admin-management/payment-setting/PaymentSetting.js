@@ -22,9 +22,9 @@ const PaymentSetting = () => {
   const buttonLayout = {
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 22, offset: 1 },
-      md: { span: 22, offset: 1 },
-      lg: { span: 22, offset: 1 },
+      sm: { span: 12, offset: 12 },
+      md: { span: 12, offset: 8 },
+      lg: { span: 12, offset: 8 },
     },
   };
   return (
@@ -49,7 +49,7 @@ const PaymentSetting = () => {
             />
           </Form.Item>
           <Form.Item {...buttonLayout}>
-            <Button type="primary" htmlType="submit" block className="mt-3">
+            <Button type="primary" htmlType="submit" className="mt-3">
               Add key
             </Button>
           </Form.Item>

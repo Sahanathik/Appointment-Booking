@@ -20,13 +20,13 @@ const Sidebar_menu = [
     key: "2",
     icon: <SettingOutlined />,
     title: "App Setting",
-    link: "/app-Setting",
+    link: "/Setting",
   },
   {
     key: "3",
     icon: <DesktopOutlined />,
     title: "Department",
-    link: "/department",
+    link: "/department-setting",
   },
   {
     key: "4",

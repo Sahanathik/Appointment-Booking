@@ -15,15 +15,16 @@ import {
 import { Layout, Menu } from "antd";
 import "./Dashboard.css";
 // import Sidebarmenu from "./";
-
-import Appsetting from "../app-setting/Appsetting";
+import Setting from "../app-setting/Setting";
+// import Appsetting from "../app-setting/Appsetting";
 import Department from "../department/Department";
 import Specialist from "../specialist/Specialist";
 import PaymentSetting from "../payment-setting/PaymentSetting";
 import Doctorlog from "../doctor_log/Doctorlog";
 import Patientlog from "../patientlog/Patientlog";
 import Sidebar_menu from "./Sidebar_menu";
-import Update_Doctor from "../doctor_log/Update_doc_data";
+
+import Departmentsetting from "../department/Departmentsetting";
 
 const { Header, Sider, Content, Footer } = Layout;
 const Dashboard = () => {
@@ -89,13 +90,18 @@ const Dashboard = () => {
             <div style={{ padding: 24, background: "#fff" }}>
               <Routes>
                 {/* <Route exact path="/home" element={<Homepage />} /> */}
-                <Route exact path="/app-setting" element={<Appsetting />} />
-                <Route exact path="/department" element={<Department />} />
+                <Route exact path="/Setting" element={<Setting />} />
+
+                <Route
+                  exact
+                  path="/department-setting"
+                  element={<Departmentsetting />}
+                />
                 <Route exact path="/specialist" element={<Specialist />} />
                 <Route exact path="/patient-log" element={<Patientlog />} />
                 <Route exact path="/doctor-log" element={<Doctorlog />} />
                 <Route path="/payment-setting" element={<PaymentSetting />} />
-                <Route path="/update-doctor" element={<Update_Doctor />} />
+
                 {/* <Route path="/Logout" element= {<Logout/>} /> */}
               </Routes>
             </div>

@@ -1,8 +1,7 @@
 import "antd/dist/antd.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import formData from "form-data";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../../Globals";
 import {
   Input,
@@ -40,7 +39,6 @@ const Appsetting = () => {
     
     console.log("data", data)
     const formData = new FormData();
-
     formData.append("logo", data.logo);
     formData.append("title", data.title);
     formData.append("policy", data.policy);
@@ -70,6 +68,16 @@ const Appsetting = () => {
     
   }
 
+
+  useEffect(() => {
+    localStorage.setItem('adminmail', 'adminId678@gmail.com')
+    let data = localStorage.getItem('adminmail')
+    console.log(data)
+    form.setFieldsValue({
+      admin_email : data
+    })
+  }, []);
+
   const responsive_layout = {
     labelCol: {
       xs: { span: 24 },
@@ -98,6 +106,22 @@ const Appsetting = () => {
         App Information
       </Title>
       <Form {...responsive_layout} form={form} onFinish={formSubmit}>
+
+      <Form.Item
+          label="Admin Email"
+          type="text"
+          name="admin_email"
+          
+        >
+          <Input
+            placeholder="Admin Email"
+            type="text"
+            name="admin_email"
+            id="admin_email"
+            disabled
+          />
+          </Form.Item>
+
         <Form.Item
           label="Organisation Name"
           type="text"

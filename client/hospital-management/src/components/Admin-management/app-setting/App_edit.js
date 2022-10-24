@@ -1,26 +1,64 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import formData from "form-data";
-import { useNavigate, useLocation } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
+import {SERVER_URL} from '../../../Globals'
 import {
   Input,
-  InputNumber,
   Button,
   Upload,
   Form,
   Card,
   Image,
   Typography,
+  Avatar
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 const App_edit = () => {
+
   const [state, setState] = useState({
-    logo: "",
+    picture: "",
   });
 
-  const formSubmit = (values) => {};
+  const [logo, setLogo] = useState({
+    image: "",
+  });
+
+  //CREATE FORM VARIABLE
+  const [form] = Form.useForm()
+  
+  //INITIALIZE DEFAULT VALUES WHEN FORM LOADED
+     useEffect(() => {
+      axios
+        .get(SERVER_URL+"api/appSettings/getAppSettings")
+        .then((res) => {
+          console.log(res.data.data[0].title);
+          console.log(res.data.data);
+          let data = localStorage.getItem('adminmail')
+          setState({
+            picture : res.data.data[0].logo
+          })
+          form.setFieldsValue({
+            title : res.data.data[0].title,
+            policy : res.data.data[0].policy,
+            mobilenumber : res.data.data[0].mobilenumber,
+            emergency_number : res.data.data[0].emergency_number,
+            contact_us : res.data.data[0].contact_us,
+            admin_email : data
+          })
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }, []);
+
+
+  const formSubmit = (values) => {
+    console.log(values)
+  };
+
+//FORM LAYOUT
   const responsive_layout = {
     labelCol: {
       xs: { span: 24 },
@@ -44,41 +82,62 @@ const App_edit = () => {
     },
   };
 
-  //   useEffect(() => {
-  //     axios
-  //       .get("http://localhost:8080/v1/api/appSettings/")
-  //       .then((res) => {
-  //
-  //         console.log(res.data.data);
-  //         console.log(state.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.message);
-  //       });
-  //   }, []);
+ 
   return (
     <>
       <Card style={{ width: "50%", margin: "0 auto" }} className=" rounded-3">
+
         <Title level={3} style={{ textAlign: "center" }} className="mb-4">
           Edit Information
         </Title>
-        <Form {...responsive_layout} onFinish={formSubmit}>
+
+        <Form {...responsive_layout} form={form} onFinish={formSubmit}>
+
           <Form.Item label="App Logo">
-            <Image width={100} src="" alt="logo" />
+            {/* <Image width={100} src="" alt="logo" /> */}
+            <Avatar
+                  src={
+                  <Image
+                  src= {SERVER_URL+"uploads/logo/"+ state.picture}
+                  style={{
+                  width: 32,
+                  }}
+                  />
+                  }
+              />
           </Form.Item>
+
           <Form.Item name="logo" label="Upload Logo">
             <Upload
               listType="picture"
               beforeUpload={(file) => {
                 console.log(file);
-                setState({
-                  logo: file,
+                setLogo({
+                  image: file,
                 });
                 return false;
               }}
             >
               <Button icon={<UploadOutlined />}>Click to Edit logo</Button>
             </Upload>
+          </Form.Item>
+
+          <Form.Item
+            label="Admin Email"
+            type="text"
+            name="admin_email"
+          >
+            <Input
+              style={{
+                borderBottom: "2px solid #d9d9d9",
+              }}
+              bordered={false}
+              placeholder="Admin email"
+              type="text"
+              name="admin_email"
+              id="admin"
+              disabled
+            />
           </Form.Item>
 
           <Form.Item
@@ -113,7 +172,7 @@ const App_edit = () => {
               placeholder="mobile number"
               type="text"
               name="mobilenumber"
-              id="mobile-number"
+              id="mobilenumber"
             />
           </Form.Item>
 

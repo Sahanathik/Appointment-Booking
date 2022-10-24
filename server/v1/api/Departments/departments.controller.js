@@ -5,7 +5,7 @@ import Service from './departments.service.js';
 async function addDepartments(req,res,next){
     console.log("Controller")
 
-    await Service.addDepartments(req.body, res, function(result){
+    await Service.addDepartments(req, res, function(result){
             return res.json({message : result.message})
 
     })

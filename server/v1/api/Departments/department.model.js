@@ -6,6 +6,7 @@ const departmentSchema = new mongoose.Schema({
     department_id:{type:String, require:true, unique:true},
     department_name:{type:String, require:true},
     password:{type:String, require:true},
+    department_image : {type : String, require : true}
 },
 {
     timestamps:true

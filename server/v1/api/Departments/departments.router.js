@@ -1,9 +1,22 @@
 import express from 'express';
-import Controller from './departments.controller.js'
+import Controller from './departments.controller.js';
+import multer from 'multer';
+import path from 'path';
+
+const storage = multer.diskStorage({
+    destination(req, file, callback){
+        callback(null, 'v1/uploads/department_img')
+    },
+    filename(req,file,callback){
+        callback(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+    }
+})
+
+const upload = multer({ storage });
 
 const router = express.Router()
 
-router.post('/addDepartments', Controller.addDepartments);
+router.post('/addDepartments', upload.single('department_image'), Controller.addDepartments);
 router.get('/getAllDepartments', Controller.getAllDepartments)
 
 export default router

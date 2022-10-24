@@ -7,15 +7,46 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import { Input, Button, Form, Card, Image, Typography, Upload } from "antd";
+import { SERVER_URL } from "../../../Globals";
+import formData from "form-data";
+
 const { Title } = Typography;
+
 const Department = () => {
+
   const [form] = Form.useForm();
 
   const [department, setDepartment] = useState({
-    department_name: "",
-    password: "",
     department_image: "",
   });
+
+  const formSubmit = (values) => {
+    console.log(values)
+
+    values.department_image = department.department_image;
+
+    const data = values;
+
+    const config = {
+      "Content-Type": "multipart/form-data",
+    }
+
+    const formData = new FormData();
+
+    
+    console.log(data.department_name)
+    formData.append('department_name', data.department_name)
+    formData.append('department_image', data.department_image)
+    formData.append('password', data.password)
+    console.log('formData', formData)
+
+    axios.post(SERVER_URL+"api/departements/addDepartments", formData, config)
+    .then((res)=>{
+      console.log('res', res)
+    }).catch((err)=>{
+      console.log('err', err)
+    })
+  }
 
   const responsive_layout = {
     labelCol: {
@@ -45,7 +76,7 @@ const Department = () => {
         <Title level={3} style={{ textAlign: "center" }} className="mb-4">
           Department Detail
         </Title>
-        <Form {...responsive_layout}>
+        <Form {...responsive_layout} form={form} onFinish={formSubmit}>
           <Form.Item
             label="Department Name"
             type="text"
@@ -81,10 +112,8 @@ const Department = () => {
           >
             <Upload
               listType="picture"
-              //   action={"http://localhost:8000/items/admin/additemweb"}
               beforeUpload={(file) => {
                 setDepartment({
-                  ...department,
                   department_image: file,
                 });
                 console.log({ file });

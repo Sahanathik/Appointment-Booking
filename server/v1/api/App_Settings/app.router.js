@@ -17,5 +17,6 @@ const upload = multer({ storage });
 const router = express.Router();
 
 router.use('/addAppSettings', upload.single('logo'),Controller.addAppSettings);
+router.use('/getAppSettings', Controller.getAppSettings);
 
 export default router

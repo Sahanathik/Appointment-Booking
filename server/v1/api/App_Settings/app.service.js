@@ -14,6 +14,23 @@ async function addAppSettings(req,res,next){
     }
 }
 
+async function getAppSettings(req,res,next){
+    try {
+        let data = await appSettingsSchema.find().exec()
+      
+        if(data){
+            return res.json({status : true, message: "App settings fetched", data }) 
+        } else {
+            return res.json({status : false, message: "data not found", data }) 
+        }
+
+    } catch (error) {
+        return res.json({status : false, error })
+    }
+}
+
+
 export default {
     addAppSettings,
+    getAppSettings,
 }

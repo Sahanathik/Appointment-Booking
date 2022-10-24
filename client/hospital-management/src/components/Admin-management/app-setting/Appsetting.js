@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import formData from "form-data"
 import { useNavigate, useLocation } from "react-router-dom";
+import { SERVER_URL } from "../../../Globals";
 import {
   Input,
   InputNumber,
@@ -12,6 +13,7 @@ import {
   Card,
   Image,
   Typography,
+  Avatar
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
@@ -24,19 +26,20 @@ const Appsetting = () => {
       logo : "",
     });
 
+    const [pic, setPic] = useState({
+      picture : ""
+    })
+
   const formSubmit = (values)=>{
 
     console.log('values.logo',values.logo)
-
     values.logo = state.logo;
-
     console.log('state.logo',state.logo)
-
     let data = values
-    
     console.log("data", data)
-    const formData = new FormData();
 
+    //Form Data Conversion
+    const formData = new FormData();
     formData.append('logo', data.logo);
     formData.append('title', data.title);
     formData.append('policy', data.policy);
@@ -48,9 +51,16 @@ const Appsetting = () => {
       "Content-Type": "multipart/form-data"
     }
 
-    axios.post("http://localhost:8080/v1/api/appSettings/addAppSettings", formData, headerCongif)
+    axios.post(SERVER_URL+"api/appSettings/addAppSettings", formData, headerCongif)
     .then((res)=>{
-      console.log(res)
+      console.log(res);
+      axios.get(SERVER_URL+"api/appSettings/getAppSettings")
+      .then((res)=>{
+        console.log("data_set", res)
+        setPic({
+          picture : res.data.data[0].logo
+        })
+      })
     }).catch(error =>{
       console.log(error)
     })
@@ -104,7 +114,10 @@ const Appsetting = () => {
         <Form.Item
           label="Contact Number"
           name="mobilenumber"
-          rules={[{ required: true, message: "Enter contact Number" }]}
+          rules={[{ required: true, message: "Enter contact Number", 
+          pattern: new RegExp(/^\+?([0-9]{2})\)?([0-9]{4})?([0-9]{4})$/)},
+          
+        ]}
         >
           <Input
             addonBefore="+91"
@@ -112,12 +125,18 @@ const Appsetting = () => {
             type="text"
             name="mobilenumber"
             id="mobile-number"
+            maxLength = {10}
+            minLength = {10}
           />
         </Form.Item>
 
         <Form.Item
           label="Emergency Number"
           name="emergency_number"
+          rules={[{ message: "Enter contact Number", 
+          pattern: new RegExp(/^\+?([0-9]{2})\)?([0-9]{4})?([0-9]{4})$/)},
+          
+        ]}
           // rules={[{ required: true, message: "Enter contact Number!" }]}
         >
           <Input
@@ -183,7 +202,17 @@ const Appsetting = () => {
           </Upload>
         </Form.Item>
         <Form.Item label="App Logo">
-          <Image width={100} src="" alt="logo" />
+          {/* <Image width={100} src="" alt="logo" /> */}
+              <Avatar
+                  src={
+                  <Image
+                  src= {SERVER_URL+"uploads/logo/"+ pic.picture}
+                  style={{
+                  width: 32,
+                  }}
+                  />
+                  }
+              />
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button type="primary" htmlType="submit" block>

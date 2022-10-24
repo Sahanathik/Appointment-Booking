@@ -6,6 +6,12 @@ async function addAppSettings(req,res,next){
     })
 }
 
+async function getAppSettings(req,res,next){
+    await Service.getAppSettings(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
 export default {
-    addAppSettings
+    addAppSettings,
+    getAppSettings
 }

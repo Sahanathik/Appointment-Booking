@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import moment from "moment";
-
 import {
   Input,
   Button,
@@ -10,11 +8,11 @@ import {
   Card,
   Select,
   Typography,
-  TimePicker,
   Divider,
   Space,
+  Upload,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 const { Option } = Select;
 const Specialist = () => {
@@ -54,9 +52,9 @@ const Specialist = () => {
   const buttonLayout = {
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 22, offset: 1 },
-      md: { span: 22, offset: 1 },
-      lg: { span: 22, offset: 1 },
+      sm: { span: 12, offset: 12 },
+      md: { span: 12, offset: 8 },
+      lg: { span: 12, offset: 8 },
     },
   };
 
@@ -84,7 +82,7 @@ const Specialist = () => {
       value: "Sunday",
     },
     {
-      value: "all",
+      value: "All",
     },
   ];
 
@@ -180,8 +178,17 @@ const Specialist = () => {
               ))}
             </Select>
           </Form.Item>
+          <Form.Item
+            name="profile_pic"
+            label="Profile"
+            rules={[{ required: true }]}
+          >
+            <Upload listType="picture">
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
           <Form.Item {...buttonLayout}>
-            <Button type="primary" htmlType="submit" block className="mt-3">
+            <Button type="primary" htmlType="submit" className="mt-3">
               Add Information
             </Button>
           </Form.Item>

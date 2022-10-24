@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Input, Button, Form, Card, Image, Typography } from "antd";
+import {
+  SearchOutlined,
+  EditOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
+import { Input, Button, Form, Card, Image, Typography, Upload } from "antd";
 const { Title } = Typography;
 const Department = () => {
+  const [form] = Form.useForm();
+
+  const [department, setDepartment] = useState({
+    department_name: "",
+    password: "",
+    department_image: "",
+  });
+
   const responsive_layout = {
     labelCol: {
       xs: { span: 24 },
@@ -21,9 +34,9 @@ const Department = () => {
   const buttonLayout = {
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 22, offset: 1 },
-      md: { span: 22, offset: 1 },
-      lg: { span: 22, offset: 1 },
+      sm: { span: 12, offset: 10 },
+      md: { span: 12, offset: 8 },
+      lg: { span: 12, offset: 8 },
     },
   };
   return (
@@ -61,8 +74,28 @@ const Department = () => {
           >
             <Input.Password name="password" />
           </Form.Item>
+          <Form.Item
+            name="department_image"
+            label="Department Image"
+            rules={[{ required: true }]}
+          >
+            <Upload
+              listType="picture"
+              //   action={"http://localhost:8000/items/admin/additemweb"}
+              beforeUpload={(file) => {
+                setDepartment({
+                  ...department,
+                  department_image: file,
+                });
+                console.log({ file });
+                return false;
+              }}
+            >
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
           <Form.Item {...buttonLayout}>
-            <Button type="primary" htmlType="submit" block className="mt-3">
+            <Button type="primary" htmlType="submit" className="mt-3">
               Add Information
             </Button>
           </Form.Item>

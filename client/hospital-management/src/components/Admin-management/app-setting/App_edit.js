@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { useNavigate, useLocation } from "react-router-dom";
-import {SERVER_URL} from '../../../Globals'
+import {SERVER_URL} from '../../../Globals';
+import Swal from 'sweetalert2';
+import '../app-setting/Appsettings.css';
+
 import {
   Input,
   Button,
@@ -10,7 +13,8 @@ import {
   Card,
   Image,
   Typography,
-  Avatar
+  Avatar,
+  message
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
@@ -55,7 +59,65 @@ const App_edit = () => {
 
 
   const formSubmit = (values) => {
+
     console.log(values)
+
+    if(values.logo){
+
+      values.logo = logo.image;
+
+      const data = new FormData();
+  
+      data.append('title', values.title);
+      data.append('logo', values.logo);
+      data.append('policy', values.policy);
+      data.append('mobilenumber', values.mobilenumber);
+      data.append('contact_us', values.contact_us);
+      data.append('emergency_number', values.emergency_number);
+      data.append('admin_email', values.admin_email);
+  
+      axios.put(SERVER_URL+"api/appSettings/updateAppSettingsImage", data)
+      .then((res)=>{
+        console.log(res)
+        axios.get(SERVER_URL+"api/appSettings/getAppSettings")
+        .then((res)=>{
+          console.log("image res", res.data.data[0].logo)
+          setState({
+            picture : res.data.data[0].logo
+          })
+          setTimeout(()=>{
+            message.success("Data has been updated Successfully")
+          }, 1000)
+      
+        }).catch((err)=>{
+          console.log(err)
+        })
+      }).catch(err=>{
+        console.group(err)
+      })
+
+    } else {
+
+      let data = {
+        "title" : values.title,
+        "policy" : values.policy,
+        "mobilenumber" : values.mobilenumber,
+        "contact_us" : values.contact_us,
+        "emergency_number" : values.emergency_number
+      }
+
+      axios.put(SERVER_URL+"api/appSettings/updateAppSettings", {admin_email : values.admin_email, data : data})
+      .then((res)=>{
+        console.log(res)
+        setTimeout(()=>{
+          message.success("Data has been updated Successfully")
+        }, 1000)
+      }).catch((err)=>{
+        console.log(err)
+      })
+
+    }
+   
   };
 
 //FORM LAYOUT

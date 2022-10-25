@@ -45,6 +45,7 @@ const Appsetting = () => {
     formData.append("contact_us", data.contact_us);
     formData.append("mobilenumber", data.mobilenumber);
     formData.append("emergency_number", data.emergency_number);
+    formData.append("admin_email", data.admin_email);
 
     const headerCongif = {
       "Content-Type": "multipart/form-data",

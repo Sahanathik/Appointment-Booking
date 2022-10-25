@@ -11,7 +11,22 @@ async function getAppSettings(req,res,next){
         return res.json({message : result.message})
     })
 }
+
+async function updateAppSettings(req,res,next){
+    await Service.updateAppSettings(req.body, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
+async function updateAppSettingsImage(req,res,next){
+    await Service.updateAppSettingsImage(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
 export default {
     addAppSettings,
-    getAppSettings
+    getAppSettings,
+    updateAppSettings,
+    updateAppSettingsImage
 }

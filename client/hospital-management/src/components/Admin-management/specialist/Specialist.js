@@ -13,19 +13,49 @@ import {
   Upload,
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { SERVER_URL } from "../../../Globals";
 const { Title } = Typography;
 const { Option } = Select;
 const Specialist = () => {
+
+  const [state, setState] = useState({
+    picture : ""
+  })
+
+  //CREATE FORM VARIABLE
+  const [form] = Form.useForm()
+
+  //CREATE ARRAY OF DEPARTMENTS
+  const [data, setData] = useState({
+    departments : []
+  })
+
+
+  //TO FETCH DEPARTMENTS TO DISPLAY
+  useEffect(()=>{
+    axios.get(SERVER_URL+"api/departements/getAllDepartments")
+    .then((res)=>{
+        setData({
+          departments : res.data.data
+        })
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
   //time picker format
+ 
   const format = "HH:mm";
+
   let index = 0;
   const [time, setTime] = useState("");
   const [items, setItems] = useState([]);
   const inputRef = useRef(null);
   const ontimeChange = (event) => {
     setTime(event.target.value);
+    console.log(event.target.value)
   };
   const addItem = (e) => {
+
     e.preventDefault();
     setItems([...items, time || `New item ${index++}`]);
     setTime("");
@@ -33,6 +63,18 @@ const Specialist = () => {
       inputRef.current?.focus();
     }, 0);
   };
+
+  const handleChangeDay = (values) =>{
+    console.log(values)
+  }
+
+  const handleChangeTime = (values) =>{
+    console.log(values)
+  }
+
+  const formSubmit = (values) =>{
+    console.log(values)
+  }
 
   //responsive layout
   const responsive_layout = {
@@ -92,15 +134,19 @@ const Specialist = () => {
         <Title level={3} style={{ textAlign: "center" }} className="mb-4">
           Specialist Detail
         </Title>
-        <Form {...responsive_layout}>
+        <Form {...responsive_layout} form={form} onFinish={formSubmit}>
           <Form.Item
             name="department_name"
             label="Department Name"
             rules={[{ required: true, message: "Enter Department Name" }]}
           >
             <Select placeholder="Select a option below" allowClear>
-              <Option value="male">department 1</Option>
-              <Option value="female">department 2</Option>
+              {/* <Option value="male">department 1</Option> */}
+              {
+                data.departments.map((options)=> (
+                  <Option value={options.department_id} key={options.department_id}>{options.department_name}</Option>
+                ))
+              }
             </Select>
           </Form.Item>
           <Form.Item
@@ -131,6 +177,7 @@ const Specialist = () => {
               }}
               placeholder="Choose Doctors Available Day"
               options={dayoption}
+              onChange={handleChangeDay}
             />
           </Form.Item>
           <Form.Item label="Choose Slot Time" type="text" name="time">
@@ -141,6 +188,7 @@ const Specialist = () => {
               placeholder="Select Slot Time"
               mode="multiple"
               showArrow
+              onChange={handleChangeTime}
               dropdownRender={(menu) => (
                 <>
                   {menu}
@@ -169,6 +217,7 @@ const Specialist = () => {
                     >
                       Add item
                     </Button>
+
                   </Space>
                 </>
               )}
@@ -183,7 +232,15 @@ const Specialist = () => {
             label="Profile"
             rules={[{ required: true }]}
           >
-            <Upload listType="picture">
+            <Upload 
+            listType="picture"
+            beforeUpload={(file) => {
+              console.log(file);
+              setState({
+                picture: file,
+              });
+              return false;
+            }}>
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>

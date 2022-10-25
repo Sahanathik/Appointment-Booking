@@ -10,7 +10,7 @@ const appSettingsSchema = new mongoose.Schema({
     contact_us : {type:String, require:true},
     mobilenumber : {type:String, requite:true},
     emergency_number : {type:String, require:true},
-    admin_email : {type : String}
+    admin_email : {type : String, require : true}
     
 },
 {

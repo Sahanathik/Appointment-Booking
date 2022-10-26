@@ -6,8 +6,9 @@ const specialistSchema = new mongoose.Schema({
     specialist_id:{type:String, require:true, unique:true},
     department_id:{type:String, require:true},
     specialist_name:{type:String, require:true},
-    available_date: {type : Array},
-    available_slot:{ type : Array}
+    available_day: {type : String, rquire:true},
+    available_slot: [String],
+    image : { type : String, require:true}
     },
 {
     timestamps:true

@@ -31,6 +31,7 @@ const Specialist = () => {
   })
 
 
+
   //TO FETCH DEPARTMENTS TO DISPLAY
   useEffect(()=>{
     axios.get(SERVER_URL+"api/departements/getAllDepartments")
@@ -65,7 +66,8 @@ const Specialist = () => {
   };
 
   const handleChangeDay = (values) =>{
-    console.log(values)
+    console.log('day values',values)
+   
   }
 
   const handleChangeTime = (values) =>{
@@ -74,6 +76,38 @@ const Specialist = () => {
 
   const formSubmit = (values) =>{
     console.log(values)
+    
+    values.profile_pic = state.picture
+  
+
+    const config = {
+      "Content-Type": "multipart/form-data",
+    }
+
+    const data = values
+
+ 
+
+    console.log(data)
+    console.log("available_day",values.available_day)
+    // console.log("available_slot",values.available_slot)
+    const formData = new FormData()
+
+    formData.append('image', data.profile_pic);
+    formData.append('department_id', data.department_id);
+    formData.append('specialist_name', data.specialist_name); 
+    formData.append('available_slot', data.available_slot);
+    formData.append('available_day', data.available_day);
+
+    console.log(formData)
+   
+    axios.post(SERVER_URL+"api/specialist/addSpecialist",formData,config)
+    .then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+    
   }
 
   //responsive layout
@@ -128,6 +162,22 @@ const Specialist = () => {
     },
   ];
 
+
+  const slotoption = [
+    {
+      value: "10:00 AM",
+    },
+    {
+      value: "12:00 PM",
+    },
+    {
+      value: "2:00 PM",
+    },
+    {
+      value: "4:00 PM",
+    },
+  ]
+
   return (
     <>
       <Card style={{ width: "50%", margin: "0 auto" }} className=" rounded-3">
@@ -136,7 +186,7 @@ const Specialist = () => {
         </Title>
         <Form {...responsive_layout} form={form} onFinish={formSubmit}>
           <Form.Item
-            name="department_name"
+            name="department_id"
             label="Department Name"
             rules={[{ required: true, message: "Enter Department Name" }]}
           >
@@ -163,7 +213,7 @@ const Specialist = () => {
               id="specialist_name"
             />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="Choose Available Day"
             type="text"
             name="available_day"
@@ -179,8 +229,24 @@ const Specialist = () => {
               options={dayoption}
               onChange={handleChangeDay}
             />
+          </Form.Item> */}
+
+          <Form.Item
+            name="available_day"
+            label="Choose Available Day"
+            rules={[{ required: true, message: "Enter Available Day" }]}
+          >
+            <Select placeholder="Select a option below" allowClear>
+              {/* <Option value="male">department 1</Option> */}
+              {
+                dayoption.map((options)=> (
+                  <Option value={options.value} key={options.value}>{options.value}</Option>
+                ))
+              }
+            </Select>
           </Form.Item>
-          <Form.Item label="Choose Slot Time" type="text" name="time">
+
+          {/* <Form.Item label="Choose Slot Time" type="text" name="available_slot">
             <Select
               style={{
                 width: "100%",
@@ -226,7 +292,24 @@ const Specialist = () => {
                 <Option key={item}>{item}</Option>
               ))}
             </Select>
+          </Form.Item> */}
+
+            <Form.Item
+            name="available_slot"
+            label="Choose Available Slot"
+            rules={[{ required: true, message: "Enter Available Slot" }]}
+          >
+            <Select placeholder="Select a option below" allowClear>
+              {/* <Option value="male">department 1</Option> */}
+              {
+                slotoption.map((options)=> (
+                  <Option value={options.value} key={options.value}>{options.value}</Option>
+                ))
+              }
+            </Select>
           </Form.Item>
+
+
           <Form.Item
             name="profile_pic"
             label="Profile"

@@ -5,8 +5,9 @@ import {
   SearchOutlined,
   EditOutlined,
   UploadOutlined,
+  
 } from "@ant-design/icons";
-import { Input, Button, Form, Card, Image, Typography, Upload } from "antd";
+import { Input, Button, Form, Card, Image, Typography, Upload, Avatar } from "antd";
 import { SERVER_URL } from "../../../Globals";
 import formData from "form-data";
 
@@ -123,6 +124,7 @@ const Department = () => {
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
+          
           <Form.Item {...buttonLayout}>
             <Button type="primary" htmlType="submit" className="mt-3">
               Add Information

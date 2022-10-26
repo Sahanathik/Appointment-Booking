@@ -1,28 +1,50 @@
 import specialistSchema from './specialist.model.js';
 import moment from 'moment';
 
+// async function addSpecialist(req,res,next){
+//     try {
+
+//             let file = req.file.filename;
+//             console.log("proceed", file)
+//             console.log(req.body)
+//             let data = await specialistSchema.findOne({specialist_name : req.body.specialist_name}).exec();
+//         if(data){
+//             return res.json({status : false, message : "Specialist name already exists", data })
+//         } else {
+//             let details = new specialistSchema(req.body);
+//             details.image = req.file.filename
+//             let result = await details.save();
+//             return res.json({status : true, message : "Specialist name added successfully", data :result })
+//         }
+
+        
+//     } catch (error) {
+//         return res.json({status : false, message : error })
+//     }
+// }
+
 async function addSpecialist(req,res,next){
     try {
 
-        //import moment to format the date
-        let givenDate = moment(new Date(req.available_date)).format('YYYY-MM-DD');
-        let currentDate = moment(new Date()).format('YYYY-MM-DD')
-
-        // let date = moment().format('MM/DD/YYYY');
-
-        if (givenDate > currentDate){
-            console.log("proceed")
-            let data = await specialistSchema.findOne({specialist_name : req.specialist_name}).exec();
+            let file = req.file.filename;
+            console.log("proceed", file)
+            console.log(req.body)
+            let data = await specialistSchema.findOne({specialist_name : req.body.specialist_name}).exec();
         if(data){
-            return res.json({status : false, message : "Specialist name already exists", data })
+            // return res.json({status : false, message : "Specialist name already exists", data })
+            let details = await specialistSchema.findOneAndUpdate({specialist_name : req.body.specialist_name}, {$push:{available_slot:req.body.available_slot}}, {new:true}).exec();
+            if(details){
+                return res.json({status : false, message : "Specialist slot added", details })
+            }
+                
+                
         } else {
-            let details = new specialistSchema(req);
+            let details = new specialistSchema(req.body);
+            details.image = req.file.filename
             let result = await details.save();
             return res.json({status : true, message : "Specialist name added successfully", data :result })
         }
-        } else {
-            console.log("pls give future date")
-        }
+
         
     } catch (error) {
         return res.json({status : false, message : error })

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   SearchOutlined,
   EditOutlined,
@@ -17,10 +17,26 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { updateLocale } from "moment";
+import axios from "axios";
+import { SERVER_URL } from "../../../Globals";
 
 const Edit_dept = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editdetail, setEditdetail] = useState(null);
+
+  const [state,setState] = useState({
+    data : ""
+  })
+
+  useEffect(()=>{
+    axios.get(SERVER_URL+"api/departements/getAllDepartments")
+    .then((res)=>{
+      console.log(res.data.data)
+      setState({
+        data : res.data.data
+      })
+    })
+  },[])
 
   const editdata = (deptdata) => {
     console.log("data", deptdata);
@@ -33,28 +49,21 @@ const Edit_dept = () => {
     setIsEditing(false);
     setEditdetail(null);
   };
-  //dummy data
-  const data = [
-    {
-      department_name: "General",
-      department_id: "dept-123445l",
-      password: "general-45",
-    },
-    {
-      department_name: "Orthology",
-      department_id: "dept-123445",
-      password: "ortho-1243",
-    },
-  ];
+
+  //TABLE VALUES
+  const data = state.data
+
   //search-filter function
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
+
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
@@ -169,15 +178,14 @@ const Edit_dept = () => {
     },
     {
       title: "Department Image",
-      dataIndex: "dept_image",
-      key: "dept_image",
+      dataIndex: "department_image",
+      key: "department_image",
       width: "20%",
-      render: (dept_image) => (
+      render: (department_image) => (
         <Avatar
           src={
             <Image
-              scr=""
-              // src={SERVER_URL + "/images/dept_image/" + dept_image}
+              src={SERVER_URL + "uploads/department_img/" + department_image}
               style={{ width: 32 }}
               alt="department image"
             />

@@ -19,11 +19,25 @@ async function getSingleSpecialist(req,res){
 }
 
 
+async function updateDoctorWithImg(req,res){
+    await Service.updateDoctorWithImg(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
+async function updateDoctorWithoutImg(req,res){
+    await Service.updateDoctorWithoutImg(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
 
 
 export default {
     addSpecialist,
     getAllSpecialist,
     getSingleSpecialist,
+    updateDoctorWithImg,
+    updateDoctorWithoutImg,
 
 }

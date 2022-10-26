@@ -20,7 +20,23 @@ async function getAllDepartments(req,res,next){
     })
 }
 
+async function updateDepartmentWithImg(req, res, next){
+    await Service.updateDepartmentWithImg(req, res, function(result){
+        return res.json({message: result.message})
+    })
+}
+
+
+async function updateDepartmentWithoutImg(req, res, next){
+    await Service.updateDepartmentWithoutImg(req, res, function(result){
+        return res.json({message: result.message})
+    })
+}
+
+
 export default {
     addDepartments,
-    getAllDepartments
+    getAllDepartments,
+    updateDepartmentWithImg,
+    updateDepartmentWithoutImg
 }

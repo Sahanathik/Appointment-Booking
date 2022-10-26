@@ -18,5 +18,7 @@ const router = express.Router()
 
 router.post('/addDepartments', upload.single('department_image'), Controller.addDepartments);
 router.get('/getAllDepartments', Controller.getAllDepartments)
+router.put('/updateDepartmentWithImg', upload.single('department_image'), Controller.updateDepartmentWithImg),
+router.put('/updateDepartmentWithoutImg', Controller.updateDepartmentWithoutImg)
 
 export default router

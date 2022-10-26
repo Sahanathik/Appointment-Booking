@@ -51,8 +51,59 @@ async function getSingleSpecialist(req,res,next){
 }
 
 
+async function updateDoctorWithImg(req,res){
+    try {
+
+        let id = req.body.specialist_id
+        let file = req.file.filename
+
+        let data = {
+            department_id:req.body.department_id,
+            specialist_name:req.body.specialist_name,
+            available_date:req.body.available_date,
+            available_slot:req.body.available_slot,
+            department_image:file
+        }
+
+       let result = await specialistSchema.findOneAndUpdate({specialist_id:id}, data, {new:true})
+       if(result){
+        console.log(result)
+        return res.json({status:'success', message:'updated', result:result})
+        
+       }else{
+        return res.json({status:'failed', message:"message"})
+       }   
+    } catch (error) {
+        return res.json({status : false,  message:error.message })
+    }
+}
+
+
+
+async function updateDoctorWithoutImg(req,res){
+    try {
+
+        let id = req.query.specialist_id
+
+       let data =  await specialistSchema.findOneAndUpdate({specialist_id:id}, req.body, {new:true})
+        if(data){
+            console.log(data)
+            return res.json({status:'success', message:'updated', result:data})
+            
+        }else{
+            return res.json({status:'failed', message:"message"})
+        }
+    
+    } catch (error) {
+        return res.json({status : false,  message:error.message })
+    }
+}
+
+
 export default {
     addSpecialist,
     getAllSpecialist,
     getSingleSpecialist,
+    updateDoctorWithImg,
+    updateDoctorWithoutImg
 }

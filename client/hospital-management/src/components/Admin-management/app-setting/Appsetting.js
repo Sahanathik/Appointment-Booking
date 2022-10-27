@@ -12,7 +12,8 @@ import {
   Card,
   Image,
   Typography,
-  Avatar
+  Avatar,
+  message
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
@@ -60,6 +61,9 @@ const Appsetting = () => {
         setPic({
           picture : res.data.data[0].logo
         })
+        setTimeout(()=>{
+          message.success("Data has been added Successfully")
+        }, 1000)
       })
     }).catch(error =>{
       console.log(error)

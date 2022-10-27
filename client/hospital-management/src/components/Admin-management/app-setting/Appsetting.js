@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../../Globals";
 import {
   Input,
-  InputNumber,
   Button,
   Upload,
   Form,
   Card,
   Image,
   Typography,
-  Avatar
+  Avatar,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
@@ -25,19 +24,19 @@ const Appsetting = () => {
   });
 
   const [pic, setPic] = useState({
-    picture: ""
-  })
+    picture: "",
+  });
 
   const formSubmit = (values) => {
     console.log("values.logo", values.logo);
 
     values.logo = state.logo;
 
-    console.log('state.logo',state.logo)
+    console.log("state.logo", state.logo);
 
-    let data = values
-    
-    console.log("data", data)
+    let data = values;
+
+    console.log("data", data);
     const formData = new FormData();
     formData.append("logo", data.logo);
     formData.append("title", data.title);
@@ -51,32 +50,35 @@ const Appsetting = () => {
       "Content-Type": "multipart/form-data",
     };
 
-    axios.post(SERVER_URL+"api/appSettings/addAppSettings", formData, headerCongif)
-    .then((res)=>{
-      console.log(res);
-      axios.get(SERVER_URL+"api/appSettings/getAppSettings")
-      .then((res)=>{
-        console.log("data_set", res)
-        setPic({
-          picture : res.data.data[0].logo
-        })
+    axios
+      .post(
+        SERVER_URL + "api/appSettings/addAppSettings",
+        formData,
+        headerCongif
+      )
+      .then((res) => {
+        console.log(res);
+        axios.get(SERVER_URL + "api/appSettings/getAppSettings").then((res) => {
+          console.log("data_set", res);
+          setPic({
+            picture: res.data.data[0].logo,
+          });
+        });
       })
-    }).catch(error =>{
-      console.log(error)
-    })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    console.log('formReqData',)
-    
-  }
-
+    console.log("formReqData");
+  };
 
   useEffect(() => {
-    localStorage.setItem('adminmail', 'adminId678@gmail.com')
-    let data = localStorage.getItem('adminmail')
-    console.log(data)
+    localStorage.setItem("adminmail", "adminId678@gmail.com");
+    let data = localStorage.getItem("adminmail");
+    console.log(data);
     form.setFieldsValue({
-      admin_email : data
-    })
+      admin_email: data,
+    });
   }, []);
 
   const responsive_layout = {
@@ -107,13 +109,7 @@ const Appsetting = () => {
         App Information
       </Title>
       <Form {...responsive_layout} form={form} onFinish={formSubmit}>
-
-      <Form.Item
-          label="Admin Email"
-          type="text"
-          name="admin_email"
-          
-        >
+        <Form.Item label="Admin Email" type="text" name="admin_email">
           <Input
             placeholder="Admin Email"
             type="text"
@@ -121,7 +117,7 @@ const Appsetting = () => {
             id="admin_email"
             disabled
           />
-          </Form.Item>
+        </Form.Item>
 
         <Form.Item
           label="Organisation Name"
@@ -140,10 +136,13 @@ const Appsetting = () => {
         <Form.Item
           label="Contact Number"
           name="mobilenumber"
-          rules={[{ required: true, message: "Enter contact Number", 
-          pattern: new RegExp(/^\+?([0-9]{2})\)?([0-9]{4})?([0-9]{4})$/)},
-          
-        ]}
+          rules={[
+            {
+              required: true,
+              message: "Enter contact Number",
+              pattern: new RegExp(/^\+?([0-9]{2})\)?([0-9]{4})?([0-9]{4})$/),
+            },
+          ]}
         >
           <Input
             addonBefore="+91"
@@ -151,18 +150,20 @@ const Appsetting = () => {
             type="text"
             name="mobilenumber"
             id="mobile-number"
-            maxLength = {10}
-            minLength = {10}
+            maxLength={10}
+            minLength={10}
           />
         </Form.Item>
 
         <Form.Item
           label="Emergency Number"
           name="emergency_number"
-          rules={[{ message: "Enter contact Number", 
-          pattern: new RegExp(/^\+?([0-9]{2})\)?([0-9]{4})?([0-9]{4})$/)},
-          
-        ]}
+          rules={[
+            {
+              message: "Enter contact Number",
+              pattern: new RegExp(/^\+?([0-9]{2})\)?([0-9]{4})?([0-9]{4})$/),
+            },
+          ]}
           // rules={[{ required: true, message: "Enter contact Number!" }]}
         >
           <Input
@@ -229,16 +230,16 @@ const Appsetting = () => {
         </Form.Item>
         <Form.Item label="App Logo">
           {/* <Image width={100} src="" alt="logo" /> */}
-              <Avatar
-                  src={
-                  <Image
-                  src= {SERVER_URL+"uploads/logo/"+ pic.picture}
-                  style={{
+          <Avatar
+            src={
+              <Image
+                src={SERVER_URL + "uploads/logo/" + pic.picture}
+                style={{
                   width: 32,
-                  }}
-                  />
-                  }
+                }}
               />
+            }
+          />
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button type="primary" htmlType="submit">

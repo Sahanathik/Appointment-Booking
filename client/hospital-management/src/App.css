@@ -1,4 +1,5 @@
 @import "antd/dist/antd.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;

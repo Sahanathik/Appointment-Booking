@@ -11,6 +11,9 @@ import {
   Divider,
   Space,
   Upload,
+  Avatar,
+  Image,
+  message
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { SERVER_URL } from "../../../Globals";
@@ -21,6 +24,7 @@ const Specialist = () => {
   const [state, setState] = useState({
     picture : ""
   })
+
 
   //CREATE FORM VARIABLE
   const [form] = Form.useForm()
@@ -42,6 +46,8 @@ const Specialist = () => {
     }).catch((err)=>{
       console.log(err)
     })
+
+    
   },[])
   //time picker format
  
@@ -103,7 +109,20 @@ const Specialist = () => {
    
     axios.post(SERVER_URL+"api/specialist/addSpecialist",formData,config)
     .then((res)=>{
-      console.log(res)
+      console.log("res-status", res.data.status)
+      console.log("res", res)
+
+      if(res.data.status === true){
+        setTimeout(()=>{
+          message.success(res.data.message)
+        }, 1000)
+      } else {
+        setTimeout(()=>{
+          message.warning(res.data.message)
+        }, 1000)
+      }
+      
+    
     }).catch((err)=>{
       console.log(err)
     })
@@ -327,6 +346,7 @@ const Specialist = () => {
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
+
           <Form.Item {...buttonLayout}>
             <Button type="primary" htmlType="submit" className="mt-3">
               Add Information

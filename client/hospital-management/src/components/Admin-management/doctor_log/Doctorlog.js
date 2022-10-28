@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   SearchOutlined,
   UploadOutlined,
@@ -18,12 +18,18 @@ import {
   Divider,
 } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SERVER_URL } from "../../../Globals";
 // const { Title } = Typography;
 const { Option } = Select;
 
 // import Highlighter from "react-highlight-words";
 
 const Doctorlog = () => {
+
+  const [state,setState]=useState({
+    data : []
+  })
   // slot-time function
   const [time, setTime] = useState("");
   const [items, setItems] = useState([]);
@@ -41,23 +47,36 @@ const Doctorlog = () => {
     }, 0);
   };
 
+  useEffect(()=>{
+
+    axios.get(SERVER_URL+"api/specialist/getAllSpecialist")
+    .then((res)=>{
+      console.log(res.data.data)
+      setState({
+        data : res.data.data
+      })
+    })
+
+  },[])
   //dummy data
-  const data = [
-    {
-      specialist_id: "doc-12344567",
-      specialist_name: "doctorname 1",
-      department_name: "General",
-      available_day: "Monday",
-      time: "10.00",
-    },
-    {
-      specialist_id: "doc-123447",
-      specialist_name: "doctorname 2",
-      department_name: "Orthology",
-      available_day: "Sunday",
-      time: "2.00",
-    },
-  ];
+  // const data = [
+  //   {
+  //     specialist_id: "doc-12344567",
+  //     specialist_name: "doctorname 1",
+  //     department_name: "General",
+  //     available_day: "Monday",
+  //     time: "10.00",
+  //   },
+  //   {
+  //     specialist_id: "doc-123447",
+  //     specialist_name: "doctorname 2",
+  //     department_name: "Orthology",
+  //     available_day: "Sunday",
+  //     time: "2.00",
+  //   },
+  // ];
+
+  const data = state.data
 
   //edit functions
   const [isEditing, setIsEditing] = useState(false);
@@ -191,22 +210,21 @@ const Doctorlog = () => {
     },
     {
       title: "Department",
-      dataIndex: "department_name",
-      key: "department_name",
+      dataIndex: "department_id",
+      key: "department_id",
       width: "16%",
       ...getColumnSearchProps("department_name"),
     },
     {
       title: "Doctor Profile",
-      dataIndex: "profile_pic",
-      key: "profile_pic",
+      dataIndex: "image",
+      key: "image",
 
-      render: (profile_pic) => (
+      render: (image) => (
         <Avatar
           src={
             <Image
-              scr=""
-              // src={SERVER_URL + "/images/profile_pic/" + profile_pic}
+              src={SERVER_URL + "uploads/specialist/" + image}
               style={{ width: 32 }}
               alt="profile"
             />
@@ -215,9 +233,9 @@ const Doctorlog = () => {
       ),
     },
     {
-      title: "OP date",
-      dataIndex: "available_day",
-      key: "available_day",
+      title: "OP Slot",
+      dataIndex: "available_slot",
+      key: "available_slot",
     },
     {
       title: "OP Timing",

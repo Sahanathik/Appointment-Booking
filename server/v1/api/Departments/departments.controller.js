@@ -20,6 +20,12 @@ async function getAllDepartments(req,res,next){
     })
 }
 
+async function login(req, res, next){
+    await Service.login(req, res, function(result){
+        return res.json({message: result.message})
+    })
+}
+
 async function updateDepartmentWithImg(req, res, next){
     await Service.updateDepartmentWithImg(req, res, function(result){
         return res.json({message: result.message})
@@ -37,6 +43,7 @@ async function updateDepartmentWithoutImg(req, res, next){
 export default {
     addDepartments,
     getAllDepartments,
+    login,
     updateDepartmentWithImg,
     updateDepartmentWithoutImg
 }

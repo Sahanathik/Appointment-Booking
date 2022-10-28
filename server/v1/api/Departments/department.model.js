@@ -13,7 +13,7 @@ const departmentSchema = new mongoose.Schema({
 });
 
 departmentSchema.pre('save', function(next){
-    this.department_id="DEP-"+crypto.pseudoRandomBytes(6).toString('hex').toUpperCase()
+    this.department_id="DEP-"+crypto.pseudoRandomBytes(4).toString('hex').toUpperCase()
     next()
 })
 

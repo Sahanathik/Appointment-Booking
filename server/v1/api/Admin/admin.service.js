@@ -33,7 +33,10 @@ async function Login(req,res){
     try {
         const email = req.email_id
         const password = req.password
-        adminSchema.findOne({email_id:email}).then(result=>{
+        let admin = adminSchema.findOne({email_id:email})
+        if(!admin){
+            res.json({status:"failed", message:'! invaild user register first'});
+        }else{
             bcrypt.compare(password, result.password, (err,data)=>{
                 if(err){
                     return res.json({"error":err.message})
@@ -46,11 +49,7 @@ async function Login(req,res){
                 }
                 
             })
-        }).catch(err=>{
-            res.status(400).json({status:'failed', message:'invalid user!',err})
-        })
-  
-  
+        }
     } catch (error) {
         return res.status(400).json({status:'failed', message:error.message})
     }
@@ -87,12 +86,12 @@ async function GetOne(req, res){
 async function Update(req, res){
     try {
         const emailId = req.query.email_id;
-        await adminSchema.findOneAndUpdate({email_id:emailId}, req.body, {new:true}).then(result=>{
-            return res.status(200).json({'status':'Success', 'message':'data updated', 'result':result})
-        }).catch(err=>{
-            console.log(err.message)
-            res.json({'err':err.message})
-        })   
+       let updated = await adminSchema.findOneAndUpdate({email_id:emailId}, req.body, {new:true})
+       if(!updated){
+        return res.json({'status':'failed', 'message':'invalid email Id'})
+       }else{
+        return res.json({'status':'Success', 'message':'data updated', 'result':result})
+       } 
     } catch (error) {
         return res.status(400).json({status:'failed', message:error.message})
     }
@@ -102,12 +101,12 @@ async function Update(req, res){
 async function Delete(req, res){
     try {
         const emailId = req.email_id;
-        await adminSchema.findOneAndDelete({email_id:emailId}).then(result=>{
-            return res.status(200).json({'status':'success', 'message':'data deleted'})
-        }).catch(err=>{
-            console.log(err.message)
-            res.json({'err':err.message})
-        })    
+       let deleted = await adminSchema.findOneAndDelete({email_id:emailId})
+       if(!deleted){
+        return res.json({'status':'failed', 'message':'invaild email Id'})
+       }else{
+        return res.json({'status':'success', 'message':'data deleted'})
+       }  
     } catch (error) {
         return res.status(400).json({status:'failed', message:error.message})
     }

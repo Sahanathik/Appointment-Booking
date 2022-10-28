@@ -17,6 +17,7 @@ const upload = multer({ storage });
 const router = express.Router()
 
 router.post('/addDepartments', upload.single('department_image'), Controller.addDepartments);
+router.post('/loginDep', Controller.login)
 router.get('/getAllDepartments', Controller.getAllDepartments)
 router.put('/updateDepartmentWithImg', upload.single('department_image'), Controller.updateDepartmentWithImg),
 router.put('/updateDepartmentWithoutImg', Controller.updateDepartmentWithoutImg)

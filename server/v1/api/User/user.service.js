@@ -1,7 +1,15 @@
 import userSchema from './user.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config()
+// const twillo = require('twilio')(process.env.account_Sid, process.env.auth_Token)
+import twilio from 'twilio'
+twilio(process.env.account_Sid, process.env.auth_Token)
 
+const account_Sid = process.env.account_Sid
+const auth_Token = process.env.auth_Token
+const userTwilio = new twilio(account_Sid, auth_Token);
 
 async function register(req,res,next){
 try {
@@ -39,7 +47,10 @@ async function login(req,res,next){
 }
 }
 
-async function userlogin(req,res,next){
+
+// user login
+
+async function OTP(req, res, next){
   try {
     function generateOTP() {
       var digits = '0123456789';
@@ -49,8 +60,34 @@ async function userlogin(req,res,next){
       }
       return OTP;
   }
+    const number = req.query.mobile_number
+    let user = await userSchema.findOneAndUpdate({mobile_number:number},{otp:generateOTP()}, {new:true})
+    
+    if(user){
+      let data = twilio.message.create({
+        from : '',
+        to : number,
+        body : 'otp:' + generateOTP
+      })
+      if(data){
+        console.log('otp sent successfully')
+      }else{
+        console.log('failed')
+      }
+      res.status(200).json({"status":"success", "message":"otp sended"})
+    }
+  } catch (error) {
+    return res.status(400).json({status:'failed', message:error.message})
+  }
+}
+
+
+
+async function userlogin(req,res,next){
+  try {
     const number = req.mobile_number
-    let user = await userSchema.findOne({mobile_number:number})
+    const otp = req.otp
+    let user = await userSchema.findOne({mobile_number:number}&&{otp:otp})
 
     if(!user){
         return res.json({status:"failed", message:'user not found'})
@@ -69,4 +106,5 @@ export default {
     register,
     login,
     userlogin,
+    OTP
 }

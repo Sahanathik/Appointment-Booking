@@ -33,10 +33,17 @@ async function updateDepartmentWithoutImg(req, res, next){
     })
 }
 
+async function getSingleDepartment(req, res, next){
+    await Service.getSingleDepartment(req.query, res, function(result){
+        return res.json({message: result.message})
+    })
+}
+
 
 export default {
     addDepartments,
     getAllDepartments,
     updateDepartmentWithImg,
-    updateDepartmentWithoutImg
+    updateDepartmentWithoutImg,
+    getSingleDepartment
 }

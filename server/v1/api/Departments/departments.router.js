@@ -20,5 +20,7 @@ router.post('/addDepartments', upload.single('department_image'), Controller.add
 router.get('/getAllDepartments', Controller.getAllDepartments)
 router.put('/updateDepartmentWithImg', upload.single('department_image'), Controller.updateDepartmentWithImg),
 router.put('/updateDepartmentWithoutImg', Controller.updateDepartmentWithoutImg)
+router.get('/getSingleDepartment', Controller.getSingleDepartment)
+
 
 export default router

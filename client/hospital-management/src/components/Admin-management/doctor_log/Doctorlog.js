@@ -238,9 +238,9 @@ const Doctorlog = () => {
       key: "available_slot",
     },
     {
-      title: "OP Timing",
-      dataIndex: "time",
-      key: "time",
+      title: "OP Day",
+      dataIndex: "available_day",
+      key: "available_day",
     },
     {
       title: "Action",

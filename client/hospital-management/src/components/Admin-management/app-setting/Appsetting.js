@@ -12,10 +12,7 @@ import {
   Image,
   Typography,
   Avatar,
-<<<<<<< HEAD
-  message
-=======
->>>>>>> cfcd2ea7d6dc3665e559fe7f2a61a95cb4b7710a
+  message,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
@@ -54,20 +51,6 @@ const Appsetting = () => {
       "Content-Type": "multipart/form-data",
     };
 
-<<<<<<< HEAD
-    axios.post(SERVER_URL+"api/appSettings/addAppSettings", formData, headerCongif)
-    .then((res)=>{
-      console.log(res);
-      axios.get(SERVER_URL+"api/appSettings/getAppSettings")
-      .then((res)=>{
-        console.log("data_set", res)
-        setPic({
-          picture : res.data.data[0].logo
-        })
-        setTimeout(()=>{
-          message.success("Data has been added Successfully")
-        }, 1000)
-=======
     axios
       .post(
         SERVER_URL + "api/appSettings/addAppSettings",
@@ -81,14 +64,34 @@ const Appsetting = () => {
           setPic({
             picture: res.data.data[0].logo,
           });
+          setTimeout(() => {
+            message.success("Data has been added Successfully");
+          }, 1000);
         });
->>>>>>> cfcd2ea7d6dc3665e559fe7f2a61a95cb4b7710a
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
-    console.log("formReqData");
+        //  axios
+        //   .post(
+        //     SERVER_URL + "api/appSettings/addAppSettings",
+        //     formData,
+        //     headerCongif
+        //   )
+        //   .then((res) => {
+        //     console.log(res);
+        //     axios
+        //       .get(SERVER_URL + "api/appSettings/getAppSettings")
+        //       .then((res) => {
+        //         console.log("data_set", res);
+        //         setPic({
+        //           picture: res.data.data[0].logo,
+        //         });
+        //       });
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
+
+        console.log("formReqData");
+      });
   };
 
   useEffect(() => {
@@ -269,5 +272,4 @@ const Appsetting = () => {
     </Card>
   );
 };
-
 export default Appsetting;

@@ -58,12 +58,10 @@ const Managemtnt_Login = () => {
                     type="text"
                     name="id"
                     hasFeedback
-                    rules={[
-                      { required: true, message: "Enter Admin/Department Id" },
-                    ]}
+                    rules={[{ required: true, message: "Enter Your Id" }]}
                   >
                     <Input
-                      placeholder="Enter Admin/Department Id"
+                      placeholder="Enter your Id"
                       type="text"
                       name="id"
                       id="id"
@@ -83,7 +81,7 @@ const Managemtnt_Login = () => {
                   >
                     <Input.Password
                       name="password"
-                      placeholder="Enter Admin/Department password"
+                      placeholder="Enter your password"
                     />
                   </Form.Item>
                   <Form.Item {...buttonLayout}>

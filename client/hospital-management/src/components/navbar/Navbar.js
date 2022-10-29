@@ -50,10 +50,10 @@ const Navbar = () => {
           <div className="">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a href="/management-login" className="nav-link">
-                  <i className="fa-solid fa-globe"></i>
-                  Management
-                </a>
+                <button className="nav-link rounded-pill text-white btn">
+                  <i class="bx bxs-phone-call bx-tada"></i>
+                  Contact : 234567891
+                </button>
               </li>
             </ul>
           </div>
@@ -95,7 +95,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/doctor-page" className="nav-link">
+                <a href="/doctor-list" className="nav-link">
                   Doctors
                 </a>
               </li>

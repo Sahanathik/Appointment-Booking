@@ -7,6 +7,7 @@ import Homepage from "./components/homepage/Homepage";
 import Navbar from "./components/navbar/Navbar";
 import Contact from "./components/contact/Contact";
 import Managemtnt_Login from "./components/management/Managemtnt_Login";
+import Doctorlist from "./components/doctorpage/Doctorlist";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/home" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
+          <Route path="/doctor-list" element={<Doctorlist />} />
           {/* <Route path="/admin" element={<Dashboard />} /> */}
         </Routes>
       </Router>

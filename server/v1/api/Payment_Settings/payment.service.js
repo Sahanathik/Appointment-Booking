@@ -3,6 +3,7 @@ import userModel from '../User/user.model.js';
 import braintree from 'braintree';
 
 
+
 async function addPaymentDetails(req,res,next){
     try {
         let pay = await paymentSettingsSchema.findOne({merchantId:req.body.merchantId})

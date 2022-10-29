@@ -82,12 +82,17 @@ async function updateDepartmentWithImg(req,res){
 async function updateDepartmentWithoutImg(req,res){
     try {
 
-        let id = req.query.department_id
+        let id = req.body.department_id
+        let data = {
+            deptartment_name:req.body.department_name,
+            password : req.body.password
+        }
 
-       let data =  await departmentSchema.findOneAndUpdate({department_id:id}, req.body, {new:true})
-        if(data){
-            console.log(data)
-            return res.json({status:'success', message:'updated', result:data})
+        console.log(req.body.data)
+       let detail =  await departmentSchema.findOneAndUpdate({department_id:id}, req.body.data, {new:true})
+        if(detail){
+            
+            return res.json({status:'success', message:'updated', result:detail})
             
         }else{
             return res.json({status:'failed', message:"message"})
@@ -99,10 +104,24 @@ async function updateDepartmentWithoutImg(req,res){
 }
 
 
+async function getSingleDepartment(req,res){
+    try {
+        console.log(req)
+        let data = await departmentSchema.findOne({department_id:req.department_id}).exec();
+        if(data){
+            return res.json({status : true,  message:"Single department detail fetched", data })
+        }
+    } catch (error) {
+        return res.json({status : false,  message:error.message })
+    }
+}
+
+
 export default {
     addDepartments,
     login,
     getAllDepartments,
+    getSingleDepartment,
     updateDepartmentWithImg,
     updateDepartmentWithoutImg,
 

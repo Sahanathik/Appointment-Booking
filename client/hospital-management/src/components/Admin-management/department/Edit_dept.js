@@ -15,8 +15,6 @@ import {
   Upload,
   Form,
 } from "antd";
-import { useNavigate } from "react-router-dom";
-import { updateLocale } from "moment";
 import axios from "axios";
 import { SERVER_URL } from "../../../Globals";
 
@@ -28,21 +26,32 @@ const Edit_dept = () => {
     data : ""
   })
 
+  const [image, setImage] = useState({
+    dep_image : ""
+  })
+
   useEffect(()=>{
     axios.get(SERVER_URL+"api/departements/getAllDepartments")
     .then((res)=>{
-      console.log(res.data.data)
       setState({
         data : res.data.data
       })
+
     })
+
+
+    console.log()
+
   },[])
 
-  const editdata = (deptdata) => {
-    console.log("data", deptdata);
+  const editdata = (department_id) => {
+    console.log("data", department_id);
     setIsEditing(true);
-    setEditdetail({ ...deptdata });
+    setEditdetail({ ...department_id });
+   
   };
+
+  console.log("editdetails", editdetail?.department_name)
 
   console.log(setEditdetail);
   const resetEditing = () => {
@@ -147,11 +156,51 @@ const Edit_dept = () => {
     },
   });
 
-  //update data function
-  const update = async () => {};
+  //UPDATE FUNCTION
+  const updateDepartment = () => {
+
+    console.log("update")
+   const id = {
+    department_id : editdetail.department_id
+   }
+   console.log(id)
+
+   axios.get(SERVER_URL+"api/departements/getSingleDepartment",{params:id})
+   .then((res)=>{
+    console.log(res.data.data.department_image)
+    if(res.data.data.department_image === editdetail.department_image){
+      const dep_id = editdetail.department_id
+      let data ={
+        department_name : editdetail.department_name,
+        password : editdetail.password
+      }
+      console.log("dep_id", dep_id)
+      console.log("data", data)
+      axios.put(SERVER_URL+"api/departements/updateDepartmentWithoutImg",{department_id : dep_id, data : data})
+      .then((res)=>{
+        console.log(res)
+      }).catch(err =>{
+        console.log(err)
+      })
+    } else {
+
+      //CREATE FORM DATA TO UPDATE WITH IMAGE
+
+
+
+
+      
+    }
+   }).catch(err =>{
+    console.log(err)
+   })
+   
+  };
 
   //on image upload
-  const handleOnChange = () => {};
+  const handleOnChange = (data) => {
+    console.log("handleon change", data)
+  };
 
   //table columns
   const columns = [
@@ -199,11 +248,11 @@ const Edit_dept = () => {
       dataIndex: "",
       width: "20%",
       key: "x",
-      render: (deptdata) => (
+      render: (department_id) => (
         <>
           <Button
             onClick={() => {
-              editdata(deptdata);
+              editdata(department_id);
             }}
           >
             Edit
@@ -236,50 +285,53 @@ const Edit_dept = () => {
       <div>
         <Modal
           title="Edit items"
-          open={isEditing}
+          visible={isEditing}
           okText="save"
           onCancel={() => {
             resetEditing();
           }}
           onOk={() => {
-            {
-              update();
-            }
+
+            updateDepartment()
+          
             resetEditing();
           }}
         >
-          <Form {...responsive_layout}>
+         
             <div>
-              <Form.Item
-                label="Department Name"
-                type="text"
-                name="department_name"
-              >
+              <label>Department Name</label>
                 <Input
                   type="text"
                   name="department_name"
                   value={editdetail?.department_name}
                   onChange={(e) => {
-                    setEditdetail((pre) => {
+                    setEditdetail((pre) => { 
                       return { ...pre, department_name: e.target.value };
                     });
+
+                    console.log(editdetail)
                   }}
                 />
-              </Form.Item>
-              <Form.Item label="Department pawword" type="text" name="password">
+           </div>
+
+           <div>
+           <label>password</label>
                 <Input
                   type="text"
                   name="password"
-                  value={editdetail?.password}
+                  value={editdetail?.password} 
                   onChange={(e) => {
                     setEditdetail((pre) => {
                       return { ...pre, password: e.target.value };
                     });
                   }}
                 />
-              </Form.Item>
-            </div>
-            <Form.Item name="dept_image" label="Deptartment Image">
+           
+           </div>
+
+           <div>
+
+            <label>Department Image</label>
               <Upload
                 listType="picture"
                 //   action={"http://localhost:8000/items/admin/additemweb"}
@@ -297,8 +349,25 @@ const Edit_dept = () => {
               >
                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
               </Upload>
-            </Form.Item>
-          </Form>
+       
+              </div>
+
+              <div>
+              <label>Current Image</label>
+            {/* <Image width={100} src="" alt="logo" /> */}
+            <Avatar
+                  src={
+                  <Image
+                  src= {SERVER_URL+"uploads/department_img/"+ editdetail?.department_image}
+                  style={{
+                  width: 32,
+                 
+                  }}
+                  />
+                  }
+              />
+            </div>
+         
         </Modal>
       </div>
     </>

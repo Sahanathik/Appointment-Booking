@@ -36,9 +36,9 @@ const Managemtnt_Login = () => {
             <Title
               level={3}
               style={{ textAlign: "center" }}
-              className="my-3 text-white"
+              className="my-1 text-white"
             >
-              Management Login
+              Login
             </Title>
           </div>
 
@@ -94,6 +94,14 @@ const Managemtnt_Login = () => {
                     </Button>
                   </Form.Item>
                 </Form>
+                <div>
+                  <p className="text-center mt-1">
+                    New user{" "}
+                    <a href="/sign-up" className="log-sign-link">
+                      click here to Register
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

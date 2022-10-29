@@ -7,6 +7,7 @@ import Homepage from "./components/homepage/Homepage";
 import Navbar from "./components/navbar/Navbar";
 import Contact from "./components/contact/Contact";
 import Managemtnt_Login from "./components/management/Managemtnt_Login";
+import Sign_up from "./components/management/Sign_up";
 import Doctorlist from "./components/doctorpage/Doctorlist";
 
 function App() {
@@ -15,9 +16,10 @@ function App() {
       <Router>
         {/* <Dashboard /> */}
         <Routes>
-          <Route path="/home" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
-          <Route path="/management-login" element={<Managemtnt_Login />} />
+          <Route path="/login" element={<Managemtnt_Login />} />
+          <Route path="/sign-up" element={<Sign_up />} />
           <Route path="/doctor-list" element={<Doctorlist />} />
           {/* <Route path="/admin" element={<Dashboard />} /> */}
         </Routes>

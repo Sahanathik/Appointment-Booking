@@ -50,9 +50,10 @@ const Navbar = () => {
           <div className="">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <button className="nav-link rounded-pill text-white btn">
-                  <i class="bx bxs-phone-call bx-tada"></i>
-                  Contact : 234567891
+                <button className="rounded-pill text-white btn contact-font">
+                  <i class="fa-solid fa-mobile-screen"></i>
+                  {/* <i class="fa-solid fa-phone"></i> */}
+                  +91-3456789100
                 </button>
               </li>
             </ul>
@@ -90,7 +91,7 @@ const Navbar = () => {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a href="/home " className="nav-link" aria-current="page">
+                <a href="/" className="nav-link" aria-current="page">
                   Home
                 </a>
               </li>
@@ -105,13 +106,12 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a
-                  href="/contact"
-                  className="nav-link"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  title="contact information"
-                >
+                <a href="/login" className="nav-link">
+                  Login
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/contact" className="nav-link">
                   Contact Us
                 </a>
               </li>

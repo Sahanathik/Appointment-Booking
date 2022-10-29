@@ -8,6 +8,13 @@
   background-color: rgb(224, 160, 21) !important;
 }
 */
+.side-button {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(224, 160, 21),
+    rgb(224, 221, 15)
+  );
+}
 .offcanvas,
 .offcanvas-lg,
 .offcanvas-md,
@@ -18,13 +25,21 @@
 }
 
 .offcanvas-body {
-  background-color: rgb(82, 82, 82);
-  color: rgb(224, 160, 21) !important;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(68, 67, 67),
+    rgb(209, 207, 207)
+  );
   font-weight: bold;
 }
 
 .offcanvas-header {
-  background-color: rgb(224, 160, 21);
+  background-image: linear-gradient(
+    to bottom right,
+
+    rgb(224, 160, 21),
+    rgb(224, 221, 15)
+  );
   color: white !important;
 }
 
@@ -43,4 +58,8 @@
 
 .side-nav .nav-link:visited {
   color: rgb(224, 160, 21);
+}
+
+.side-link:hover {
+  background-color: rgb(105, 105, 105) !important;
 }

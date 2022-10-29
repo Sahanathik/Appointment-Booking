@@ -5,16 +5,23 @@ import {
   SearchOutlined,
   EditOutlined,
   UploadOutlined,
-  
 } from "@ant-design/icons";
-import { Input, Button, Form, Card, Image, Typography, Upload, Avatar } from "antd";
+import {
+  Input,
+  Button,
+  Form,
+  Card,
+  Image,
+  Typography,
+  Upload,
+  Avatar,
+} from "antd";
 import { SERVER_URL } from "../../../Globals";
 import formData from "form-data";
 
 const { Title } = Typography;
 
 const Department = () => {
-
   const [form] = Form.useForm();
 
   const [department, setDepartment] = useState({
@@ -22,7 +29,7 @@ const Department = () => {
   });
 
   const formSubmit = (values) => {
-    console.log(values)
+    console.log(values);
 
     values.department_image = department.department_image;
 
@@ -30,24 +37,25 @@ const Department = () => {
 
     const config = {
       "Content-Type": "multipart/form-data",
-    }
+    };
 
     const formData = new FormData();
 
-    
-    console.log(data.department_name)
-    formData.append('department_name', data.department_name)
-    formData.append('department_image', data.department_image)
-    formData.append('password', data.password)
-    console.log('formData', formData)
+    console.log(data.department_name);
+    formData.append("department_name", data.department_name);
+    formData.append("department_image", data.department_image);
+    formData.append("password", data.password);
+    console.log("formData", formData);
 
-    axios.post(SERVER_URL+"api/departements/addDepartments", formData, config)
-    .then((res)=>{
-      console.log('res', res)
-    }).catch((err)=>{
-      console.log('err', err)
-    })
-  }
+    axios
+      .post(SERVER_URL + "api/departements/addDepartments", formData, config)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
 
   const responsive_layout = {
     labelCol: {
@@ -124,7 +132,6 @@ const Department = () => {
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
-          
           <Form.Item {...buttonLayout}>
             <Button type="primary" htmlType="submit" className="mt-3">
               Add Information

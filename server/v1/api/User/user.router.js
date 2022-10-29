@@ -11,6 +11,10 @@ router.post('/register', Controller.register)
 
 router.post('/login', Controller.login)
 
+router.post('/userlogin', Controller.userlogin)
+
+router.post('/otp', Controller.OTP)
+
 // router.get('/register',  function(req, res){
 //     // register
 // })

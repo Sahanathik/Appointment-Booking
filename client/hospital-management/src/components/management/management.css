@@ -8,6 +8,29 @@
   color: rgb(255, 255, 255);
 }
 
-/* .text-title {
-  color: rgb(82, 82, 82);
-} */
+.card-header {
+  height: 60px;
+}
+
+.ant-card-head {
+  background-color: rgb(245, 161, 6) !important;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+}
+
+.log-sign-link:link {
+  color: rgb(245, 161, 6);
+}
+
+.log-sign-link:visited {
+  color: rgb(245, 161, 6);
+}
+.log-sign-link:active {
+  font-size: 16px;
+  color: rgb(245, 161, 6);
+}
+.log-sign-link:hover {
+  font-size: 16px;
+  color: rgb(247, 103, 103);
+}

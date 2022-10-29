@@ -36,9 +36,9 @@ const Managemtnt_Login = () => {
             <Title
               level={3}
               style={{ textAlign: "center" }}
-              className="my-3 text-white"
+              className="my-1 text-white"
             >
-              Management Login
+              Login
             </Title>
           </div>
 
@@ -58,12 +58,10 @@ const Managemtnt_Login = () => {
                     type="text"
                     name="id"
                     hasFeedback
-                    rules={[
-                      { required: true, message: "Enter Admin/Department Id" },
-                    ]}
+                    rules={[{ required: true, message: "Enter Your Id" }]}
                   >
                     <Input
-                      placeholder="Enter Admin/Department Id"
+                      placeholder="Enter your Id"
                       type="text"
                       name="id"
                       id="id"
@@ -83,7 +81,7 @@ const Managemtnt_Login = () => {
                   >
                     <Input.Password
                       name="password"
-                      placeholder="Enter Admin/Department password"
+                      placeholder="Enter your password"
                     />
                   </Form.Item>
                   <Form.Item {...buttonLayout}>
@@ -96,6 +94,14 @@ const Managemtnt_Login = () => {
                     </Button>
                   </Form.Item>
                 </Form>
+                <div>
+                  <p className="text-center mt-1">
+                    New user{" "}
+                    <a href="/sign-up" className="log-sign-link">
+                      click here to Register
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

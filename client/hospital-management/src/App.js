@@ -7,6 +7,8 @@ import Homepage from "./components/homepage/Homepage";
 import Navbar from "./components/navbar/Navbar";
 import Contact from "./components/contact/Contact";
 import Managemtnt_Login from "./components/management/Managemtnt_Login";
+import Sign_up from "./components/management/Sign_up";
+import Doctorlist from "./components/doctorpage/Doctorlist";
 
 function App() {
   return (

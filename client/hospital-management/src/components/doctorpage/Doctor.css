@@ -1,0 +1,46 @@
+/* .back-menu {
+  background-color: rgb(224, 160, 21) !important;
+}
+.back-slider {
+  background-color: rgb(82, 82, 82) !important;
+}
+.collapsible {
+  background-color: rgb(224, 160, 21) !important;
+}
+*/
+.offcanvas,
+.offcanvas-lg,
+.offcanvas-md,
+.offcanvas-sm,
+.offcanvas-xl,
+.offcanvas-xxl {
+  --bs-offcanvas-width: 250px !important;
+}
+
+.offcanvas-body {
+  background-color: rgb(82, 82, 82);
+  color: rgb(224, 160, 21) !important;
+  font-weight: bold;
+}
+
+.offcanvas-header {
+  background-color: rgb(224, 160, 21);
+  color: white !important;
+}
+
+.fa-angles-right {
+  margin-left: 5px;
+  font-size: 14px !important;
+}
+
+.side-button {
+  font-size: 15px !important;
+}
+
+.side-nav .nav-link:link {
+  color: rgb(224, 160, 21);
+}
+
+.side-nav .nav-link:visited {
+  color: rgb(224, 160, 21);
+}

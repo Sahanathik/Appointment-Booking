@@ -52,27 +52,48 @@ const Appsetting = () => {
       "Content-Type": "multipart/form-data",
     };
 
-    axios.post(SERVER_URL+"api/appSettings/addAppSettings", formData, headerCongif)
-    .then((res)=>{
-      console.log(res);
-      axios.get(SERVER_URL+"api/appSettings/getAppSettings")
-      .then((res)=>{
-        console.log("data_set", res)
-        setPic({
-          picture : res.data.data[0].logo
-        })
-        setTimeout(()=>{
-          message.success("Data has been added Successfully")
-        }, 1000)
-      })
-    }).catch(error =>{
-      console.log(error)
-    })
+    axios
+      .post(
+        SERVER_URL + "api/appSettings/addAppSettings",
+        formData,
+        headerCongif
+      )
+      .then((res) => {
+        console.log(res);
+        axios.get(SERVER_URL + "api/appSettings/getAppSettings").then((res) => {
+          console.log("data_set", res);
+          setPic({
+            picture: res.data.data[0].logo,
+          });
+          setTimeout(() => {
+            message.success("Data has been added Successfully");
+          }, 1000);
+        });
 
-    console.log('formReqData',)
-    
-  }
+        //  axios
+        //   .post(
+        //     SERVER_URL + "api/appSettings/addAppSettings",
+        //     formData,
+        //     headerCongif
+        //   )
+        //   .then((res) => {
+        //     console.log(res);
+        //     axios
+        //       .get(SERVER_URL + "api/appSettings/getAppSettings")
+        //       .then((res) => {
+        //         console.log("data_set", res);
+        //         setPic({
+        //           picture: res.data.data[0].logo,
+        //         });
+        //       });
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
 
+        console.log("formReqData");
+      });
+  };
 
   useEffect(() => {
     localStorage.setItem('adminmail', 'adminId678@gmail.com')
@@ -253,5 +274,4 @@ const Appsetting = () => {
     </Card>
   );
 };
-
 export default Appsetting;

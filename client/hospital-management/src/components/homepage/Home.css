@@ -20,3 +20,10 @@ body {
 .fa-circle-phone {
   font-size: 20px;
 }
+
+.carousel-indicators button {
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 50%;
+  margin: 0 10px !important;
+}

@@ -1,4 +1,5 @@
 import departmentSchema from './department.model.js'
+import jwt from 'jsonwebtoken';
 
 async function addDepartments(req,res){
     try {
@@ -19,6 +20,23 @@ async function addDepartments(req,res){
         }
     } catch (error) {
         return res.json({status:false, error})
+    }
+}
+
+async function login(req, res){
+    try {
+        const departmentId = req.department_id
+        let department = await departmentSchema.findOne({department_id:departmentId})
+    
+        if(!department){
+            return res.json({status:"failed", message:'user not found'})
+        }else{
+          const token = jwt.sign({department},"key");
+          console.log('token',token);
+          res.status(200).json({status:"success", message:'login success!',"token":token});
+        }
+    } catch (error) {
+        return res.status(400).json({status:'failed', message:error.message})
     }
 }
 
@@ -101,6 +119,7 @@ async function getSingleDepartment(req,res){
 
 export default {
     addDepartments,
+    login,
     getAllDepartments,
     getSingleDepartment,
     updateDepartmentWithImg,

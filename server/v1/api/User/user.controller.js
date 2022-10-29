@@ -18,9 +18,16 @@ async function login(req,res,next){
     })
 }
 
+async function OTP(req,res,next){
+    console.log("Controller")
+    await Service.OTP(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
 async function userlogin(req,res,next){
     console.log("Controller")
-    await Service.login(req.body, res, function(result){
+    await Service.userlogin(req.body, res, function(result){
         return res.json({message : result.message})
     })
 }
@@ -38,5 +45,6 @@ export default {
     register,
     login,
     userlogin,
-    appointment
+    appointment,
+    OTP
 }

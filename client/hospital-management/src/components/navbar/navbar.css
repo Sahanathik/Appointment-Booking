@@ -34,6 +34,10 @@ body {
   color: rgb(250, 249, 239) !important;
 }
 
-.fa-globe {
-  margin-right: 5px;
+.fa-mobile-screen {
+  margin-right: 4px;
+}
+
+.contact-font {
+  font-size: 15px !important;
 }

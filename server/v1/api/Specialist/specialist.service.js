@@ -206,5 +206,5 @@ export default {
     getAllSpecialist,
     getSingleSpecialist,
     updateDoctorWithImg,
-    updateDoctorWithoutImg
+    updateDoctorWithoutImg,
 }

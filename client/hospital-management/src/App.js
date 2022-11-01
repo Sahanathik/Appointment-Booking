@@ -9,6 +9,7 @@ import Contact from "./components/contact/Contact";
 import Managemtnt_Login from "./components/management/Managemtnt_Login";
 import Sign_up from "./components/management/Sign_up";
 import Doctorlist from "./components/doctorpage/Doctorlist";
+import Map from "./components/map/google_map";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
         </Routes> */}
+        <Map/>
       </Router>
     </>
   );

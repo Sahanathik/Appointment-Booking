@@ -95,10 +95,45 @@ const Doctorlog = () => {
   };
 
   //update data function
-  const update = async () => {};
+  const update = () => {
 
-  //on image upload
-  const handleOnChange = () => {};
+    console.log("editdetail",editdetail)
+
+    let specialist_id = editdetail.specialist_id
+
+    let data = {
+      specialist_name : editdetail.specialist_name
+    }
+
+    let name = {
+      specialist_id : editdetail.specialist_id
+    }
+    axios.get(SERVER_URL+"api/specialist/getSingleSpecialist", {params : name})
+    .then((res)=>{
+      console.log(res.data.data.image)
+      let img1 = res.data.data.image
+      let img2 = editdetail.image
+      if(img1 == img2){
+        console.log("without image")
+        let data ={
+          specialist_name: editdetail.specialist_name,
+          specialist_id : editdetail.specialist_id
+        }
+        axios.put(SERVER_URL+"api/specialist/updateDoctorWithoutImage", data)
+        .then (res =>{
+          console.log(res)
+        })
+      } else {
+        console.log("with image")
+      }
+    })
+
+  //   axios.put(SERVER_URL,"api/specialist/updateDoctorWithoutImg", {specialist_id : specialist_id},{data : data})
+  //   .then((res)=>{
+  //     console.log("res", res)
+  //   })
+  };
+
 
   //search-filter function
   const [searchText, setSearchText] = useState("");
@@ -262,22 +297,22 @@ const Doctorlog = () => {
   ];
 
   //form layout
-  const responsive_layout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 10 },
-      md: { span: 8 },
-      lg: { span: 8 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 14 },
-      md: { span: 16 },
-      lg: { span: 16 },
-    },
-  };
+  // const responsive_layout = {
+  //   labelCol: {
+  //     xs: { span: 24 },
+  //     sm: { span: 10 },
+  //     md: { span: 8 },
+  //     lg: { span: 8 },
+  //   },
+  //   wrapperCol: {
+  //     xs: { span: 24 },
+  //     sm: { span: 14 },
+  //     md: { span: 16 },
+  //     lg: { span: 16 },
+  //   },
+  // };
   // day picker
-  const dayoption = [
+   const dayoption = [
     {
       value: "Monday",
     },
@@ -303,6 +338,23 @@ const Doctorlog = () => {
       value: "All",
     },
   ];
+
+
+  const slotoption = [
+    {
+      value: "10:00 AM",
+    },
+    {
+      value: "12:00 PM",
+    },
+    {
+      value: "2:00 PM",
+    },
+    {
+      value: "4:00 PM",
+    },
+  ]
+
   return (
     <>
       <Table
@@ -327,9 +379,9 @@ const Doctorlog = () => {
             resetEditing();
           }}
         >
-          <Form {...responsive_layout}>
+         
             <div>
-              <Form.Item label="Doctor Name" type="text" name="specialist_name">
+            <label>Specialist Name</label>
                 <Input
                   type="text"
                   name="specialist_name"
@@ -340,85 +392,81 @@ const Doctorlog = () => {
                     });
                   }}
                 />
-              </Form.Item>
-              <Form.Item label="Op Day" type="text" name="available_day">
-                <Select
-                  mode="multiple"
-                  showArrow
-                  allowClear
-                  style={{
-                    width: "100%",
-                  }}
-                  placeholder="Choose Doctors Available Day"
-                  options={dayoption}
-                  value={editdetail?.available_day}
-                />
-              </Form.Item>
-            </div>
-            <Form.Item name="profile_pic" label="Profile">
+             </div>
+
+             {/* <div>
+             <Select placeholder="Select a option below" allowClear
+             onChange = {(value) => {
+              setEditdetail((pre) => {
+                return { ...pre, available_day: value };
+              });
+            }}
+            // value={editdetail?.available_day}
+             >
+             
+              {
+                dayoption.map((options)=> (
+                  <Option value={options.value} key={options.value}>{options.value}</Option>
+                ))
+              }
+              
+            </Select>
+            
+            </div> */}
+          
+          <div>
+          <label>Upload</label>
               <Upload
                 listType="picture"
                 beforeUpload={(file) => {
                   // value = {editingItems?.item_image}
                   setEditdetail({
                     ...editdetail,
-                    profile_pic: file,
+                    image: file,
                   });
                   console.log(setEditdetail);
                   console.log({ file });
                   return false;
                 }}
-                onChange={handleOnChange}
+                // onChange={handleOnChange}
               >
                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
               </Upload>
-            </Form.Item>
-            <Form.Item label="Choose Slot Time" type="text" name="time">
-              <Select
-                style={{
-                  width: "100%",
-                }}
-                placeholder="Select Slot Time"
-                mode="multiple"
-                showArrow
-                dropdownRender={(menu) => (
-                  <>
-                    {menu}
-                    <Divider
-                      style={{
-                        margin: "8px 0",
-                      }}
-                    />
-                    <Space
-                      style={{
-                        padding: "0 8px 4px",
-                      }}
-                    >
-                      <Input
-                        type="time"
-                        placeholder="Please enter item"
-                        ref={inputRef}
-                        value={time}
-                        onChange={ontimeChange}
-                      />
+              </div>
 
-                      <Button
-                        type="text"
-                        icon={<PlusOutlined />}
-                        onClick={addItem}
-                      >
-                        Add item
-                      </Button>
-                    </Space>
-                  </>
-                )}
-              >
-                {items.map((item) => (
-                  <Option key={item}>{item}</Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Form>
+              <div>
+              <label>Current Image</label>
+            {/* <Image width={100} src="" alt="logo" /> */}
+            <Avatar
+                  src={
+                  <Image
+                  src= {SERVER_URL+"uploads/specialist/"+ editdetail?.image}
+                  style={{
+                  width: 32,
+                 
+                  }}
+                  />
+                  }
+              />
+            </div>
+           
+           {/* <div>
+             <Select placeholder="Select a option below" allowClear
+              onChange = {(value) => {
+                setEditdetail((pre) => {
+                  return { ...pre, available_slot: value };
+                });
+              }}
+             >
+             
+              {
+                slotoption.map((options)=> (
+                  <Option value={options.value} key={options.value}>{options.value}</Option>
+                ))
+              }
+            </Select>
+              </div> */}
+         
         </Modal>
       </div>
     </>

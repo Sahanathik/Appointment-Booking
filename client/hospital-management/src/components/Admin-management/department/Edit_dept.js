@@ -167,8 +167,17 @@ const Edit_dept = () => {
 
    axios.get(SERVER_URL+"api/departements/getSingleDepartment",{params:id})
    .then((res)=>{
-    console.log(res.data.data.department_image)
-    if(res.data.data.department_image === editdetail.department_image){
+    console.log("res.data.data.department_image",res.data.data.department_image)
+    console.log(editdetail.department_image)
+    console.log("editdetail",editdetail)
+
+    // if(res.data.data.department_image == editdetail.department_image){
+    //   console.log("without image")
+    // } else {
+    //   console.log("with image")
+    // }
+
+    if(res.data.data.department_image == editdetail.department_image){
       const dep_id = editdetail.department_id
       let data ={
         department_name : editdetail.department_name,
@@ -179,18 +188,50 @@ const Edit_dept = () => {
       axios.put(SERVER_URL+"api/departements/updateDepartmentWithoutImg",{department_id : dep_id, data : data})
       .then((res)=>{
         console.log(res)
+        axios.get(SERVER_URL+"api/departements/getAllDepartments")
+        .then((res)=>{
+          setState({
+            data : res.data.data
+          })
+    
+        })
       }).catch(err =>{
         console.log(err)
       })
     } else {
 
+      console.log("with img")
+    
       //CREATE FORM DATA TO UPDATE WITH IMAGE
+      if(editdetail.department_image){
 
+        const formData = new FormData();
 
+        formData.append('department_name', editdetail.department_name);
+        formData.append('department_id', editdetail.department_id);
+        formData.append('department_image', editdetail.department_image);
+        formData.append('password', editdetail.password);
+  
+        axios.put(SERVER_URL+"api/departements/updateDepartmentWithImg", formData)
+        .then((res)=>{
+          console.log( "res.data.data",res.data.result)
+          axios.get(SERVER_URL+"api/departements/getAllDepartments")
+          .then((res)=>{
+            setState({
+              data : res.data.data
+            })
+      
+          })
+        }).catch(err =>{
+          console.log(err)
+        })
+  
+      }
 
-
+    
       
     }
+
    }).catch(err =>{
     console.log(err)
    })
@@ -290,9 +331,7 @@ const Edit_dept = () => {
           onCancel={() => {
             resetEditing();
           }}
-          onOk={() => {
-
-            updateDepartment()
+          onOk={() => { {updateDepartment()}
           
             resetEditing();
           }}
@@ -339,13 +378,18 @@ const Edit_dept = () => {
                   // value = {editingItems?.item_image}
                   setEditdetail({
                     ...editdetail,
-                    dept_image: file,
+                    department_image: file,
                   });
-                  console.log(setEditdetail);
+
+                  // setImage({
+                  //   dep_image : file
+                  // })
+                  // console.log("editdetail",editdetail);
                   console.log({ file });
                   return false;
                 }}
-                onChange={handleOnChange}
+                // onChange={handleOnChange}
+                
               >
                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
               </Upload>

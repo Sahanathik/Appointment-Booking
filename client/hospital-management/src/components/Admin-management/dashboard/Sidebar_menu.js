@@ -32,7 +32,7 @@ const Sidebar_menu = [
     key: "4",
     icon: <UsergroupAddOutlined />,
     title: "Specialist",
-    link: "/specialist",
+    link: "/specialist-setting",
   },
   {
     key: "5",

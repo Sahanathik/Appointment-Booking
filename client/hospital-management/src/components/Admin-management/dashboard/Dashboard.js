@@ -25,6 +25,7 @@ import Patientlog from "../patientlog/Patientlog";
 import Sidebar_menu from "./Sidebar_menu";
 
 import Departmentsetting from "../department/Departmentsetting";
+import Specialistsetting from "../specialist/Specialistsettings";
 
 const { Header, Sider, Content, Footer } = Layout;
 const Dashboard = () => {
@@ -97,7 +98,7 @@ const Dashboard = () => {
                   path="/department-setting"
                   element={<Departmentsetting />}
                 />
-                <Route exact path="/specialist" element={<Specialist />} />
+                <Route exact path="/specialist-setting" element={<Specialistsetting />} />
                 <Route exact path="/patient-log" element={<Patientlog />} />
                 <Route exact path="/doctor-log" element={<Doctorlog />} />
                 <Route path="/payment-setting" element={<PaymentSetting />} />

@@ -51,48 +51,45 @@ const Specialist = () => {
   },[])
   //time picker format
  
-  const format = "HH:mm";
+  // const format = "HH:mm";
 
-  let index = 0;
-  const [time, setTime] = useState("");
-  const [items, setItems] = useState([]);
-  const inputRef = useRef(null);
-  const ontimeChange = (event) => {
-    setTime(event.target.value);
-    console.log(event.target.value)
-  };
-  const addItem = (e) => {
+  // let index = 0;
+  // const [time, setTime] = useState("");
+  // const [items, setItems] = useState([]);
+  // const inputRef = useRef(null);
+  // const ontimeChange = (event) => {
+  //   setTime(event.target.value);
+  //   console.log(event.target.value)
+  // };
+  // const addItem = (e) => {
 
-    e.preventDefault();
-    setItems([...items, time || `New item ${index++}`]);
-    setTime("");
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  };
+  //   e.preventDefault();
+  //   setItems([...items, time || `New item ${index++}`]);
+  //   setTime("");
+  //   setTimeout(() => {
+  //     inputRef.current?.focus();
+  //   }, 0);
+  // };
 
-  const handleChangeDay = (values) =>{
-    console.log('day values',values)
+  // const handleChangeDay = (values) =>{
+  //   console.log('day values',values)
    
-  }
+  // }
 
-  const handleChangeTime = (values) =>{
-    console.log(values)
-  }
+  // const handleChangeTime = (values) =>{
+  //   console.log(values)
+  // }
 
   const formSubmit = (values) =>{
     console.log(values)
     
     values.profile_pic = state.picture
-  
 
     const config = {
       "Content-Type": "multipart/form-data",
     }
 
     const data = values
-
- 
 
     console.log(data)
     console.log("available_day",values.available_day)
@@ -102,8 +99,8 @@ const Specialist = () => {
     formData.append('image', data.profile_pic);
     formData.append('department_id', data.department_id);
     formData.append('specialist_name', data.specialist_name); 
-    formData.append('available_slot', data.available_slot);
-    formData.append('available_day', data.available_day);
+    // formData.append('available_slot', data.available_slot);
+    // formData.append('available_day', data.available_day);
 
     console.log(formData)
    
@@ -121,7 +118,6 @@ const Specialist = () => {
           message.warning(res.data.message)
         }, 1000)
       }
-      
     
     }).catch((err)=>{
       console.log(err)
@@ -250,20 +246,20 @@ const Specialist = () => {
             />
           </Form.Item> */}
 
-          <Form.Item
+          {/* <Form.Item
             name="available_day"
             label="Choose Available Day"
             rules={[{ required: true, message: "Enter Available Day" }]}
           >
             <Select placeholder="Select a option below" allowClear>
-              {/* <Option value="male">department 1</Option> */}
+              <Option value="male">department 1</Option>
               {
                 dayoption.map((options)=> (
                   <Option value={options.value} key={options.value}>{options.value}</Option>
                 ))
               }
             </Select>
-          </Form.Item>
+          </Form.Item> */}
 
           {/* <Form.Item label="Choose Slot Time" type="text" name="available_slot">
             <Select
@@ -313,20 +309,20 @@ const Specialist = () => {
             </Select>
           </Form.Item> */}
 
-            <Form.Item
+            {/* <Form.Item
             name="available_slot"
             label="Choose Available Slot"
             rules={[{ required: true, message: "Enter Available Slot" }]}
           >
             <Select placeholder="Select a option below" allowClear>
-              {/* <Option value="male">department 1</Option> */}
+              <Option value="male">department 1</Option>
               {
                 slotoption.map((options)=> (
                   <Option value={options.value} key={options.value}>{options.value}</Option>
                 ))
               }
             </Select>
-          </Form.Item>
+          </Form.Item> */}
 
 
           <Form.Item

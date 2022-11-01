@@ -9,20 +9,32 @@ import Contact from "./components/contact/Contact";
 import Managemtnt_Login from "./components/management/Managemtnt_Login";
 import Sign_up from "./components/management/Sign_up";
 import Doctorlist from "./components/doctorpage/Doctorlist";
+
 import Map from "./components/map/google_map";
+
+import Appointment from "./components/appointment/Appointment";
+
 
 function App() {
   return (
     <>
       <Router>
-        <Dashboard />
-        {/* <Routes>
-          <Route path="/home" element={<Homepage />} />
+        {/* <Dashboard /> */}
+        <Routes>
+          <Route path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
+
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
-        </Routes> */}
+      
         <Map/>
+
+          <Route path="/login" element={<Managemtnt_Login />} />
+          {/* <Route path="/admin" element={<Dashboard />} /> */}
+          <Route path="/sign-up" element={<Sign_up />} />
+          <Route path="/doctor-list" element={<Doctorlist />} />
+          <Route path="/appointment-booking" element={<Appointment />} />
+        </Routes>
       </Router>
     </>
   );

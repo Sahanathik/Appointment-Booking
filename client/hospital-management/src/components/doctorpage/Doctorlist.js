@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
-import { Route, Routes, NavLink, withRouter } from "react-router-dom";
+
 import "./Doctor.css";
 
 const items = [];
@@ -62,7 +62,7 @@ const Doctorlist = () => {
                 </li>
                 <li className="nav-item w-100">
                   <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
-                    Department1
+                    Department4
                   </button>
                 </li>
               </ul>
@@ -71,106 +71,116 @@ const Doctorlist = () => {
         </div>
       </div>
       <div className="container my-2">
-        <div className="row row-cols-lg-2 row-cols-md-1 row-cols-1 g-3">
+        <div className="row row-cols-lg-2 row-cols-xxl-3 row-cols-md-1 row-cols-1 gy-3 gx-xl-5 gx-3">
           <div className="col">
-            <div class="card mb-3">
+            <div class="card mb-3 card-list">
               <div class="row g-0">
                 <div class="col-md-6">
                   <img
                     src="https://img.freepik.com/premium-photo/beautiful-doctor-pointing-fingers_1258-16474.jpg?w=2000"
-                    class="img-fluid rounded-start"
+                    class="img-fluid rounded-start h-100 doctor-img"
                     alt="..."
                   />
                 </div>
                 <div class="col-md-6">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
+                  <div class="card-body doctor-card">
+                    <p class="card-title doctor-name">Dr. Shruti Shimha</p>
+                    <div className="d-flex doctor-exp text-uppercase">
+                      <p class="card-text me-3">Cardiologist</p>
+                      <p class="card-text">9 years Exp</p>
+                    </div>
+                    <p class="card-text doctor-avl mb-2">
+                      Department : Cardiology
                     </p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
+                    <p class="card-text doctor-avl mb-2">
+                      <span className="span">Available on</span>
+                      &nbsp;<i class="fa-solid fa-calendar-days"></i> : Monday ,
+                      Friday
                     </p>
+                    <p class="card-text doctor-time">
+                      <span className="span">Available Slot</span>
+                      &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10.00
+                      ,12.00
+                    </p>
+                    <button className="btn book-btn px-1 py-1">
+                      Book Apoointment
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="col">
-            <div class="card mb-3">
+            <div class="card mb-3 card-list">
               <div class="row g-0">
                 <div class="col-md-6">
                   <img
-                    src="https://img.freepik.com/premium-photo/beautiful-doctor-pointing-fingers_1258-16474.jpg?w=2000"
-                    class="img-fluid rounded-start"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUUQOk3DsB01Y8AE4u2qiKcP4TKlPUBm_PBA&usqp=CAU"
+                    class="img-fluid rounded-start h-100 doctor-img"
                     alt="..."
                   />
                 </div>
                 <div class="col-md-6">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
+                  <div class="card-body doctor-card">
+                    <p class="card-title doctor-name">Dr. Mike</p>
+                    <div className="d-flex doctor-exp text-uppercase">
+                      <p class="card-text me-3">Cardiologist</p>
+                      <p class="card-text">9 years Exp</p>
+                    </div>
+                    <p class="card-text doctor-avl mb-2">
+                      Department : Cardiology
                     </p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
+                    <p class="card-text doctor-avl mb-2">
+                      <span className="span">Available on</span>
+                      &nbsp;<i class="fa-solid fa-calendar-days"></i> : Monday ,
+                      Friday
                     </p>
+                    <p class="card-text doctor-time">
+                      <span className="span">Available Slot</span>
+                      &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10.00
+                      ,12.00
+                    </p>
+                    <button className="btn book-btn px-1 py-1">
+                      Book Apoointment
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="col">
-            <div class="card mb-3">
+            <div class="card mb-3 card-list">
               <div class="row g-0">
                 <div class="col-md-6">
                   <img
-                    src="https://img.freepik.com/premium-photo/beautiful-doctor-pointing-fingers_1258-16474.jpg?w=2000"
-                    class="img-fluid rounded-start"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUUQOk3DsB01Y8AE4u2qiKcP4TKlPUBm_PBA&usqp=CAU"
+                    class="img-fluid rounded-start h-100 doctor-img"
                     alt="..."
                   />
                 </div>
                 <div class="col-md-6">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
+                  <div class="card-body doctor-card">
+                    <p class="card-title doctor-name">Dr. Mike</p>
+                    <div className="d-flex doctor-exp text-uppercase">
+                      <p class="card-text me-3">Cardiologist</p>
+                      <p class="card-text">9 years Exp</p>
+                    </div>
+                    <p class="card-text doctor-avl mb-2">
+                      Department : Cardiology
                     </p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
+                    <p class="card-text doctor-avl mb-2">
+                      <span className="span">Available on</span>
+                      &nbsp;<i class="fa-solid fa-calendar-days"></i> : Monday ,
+                      Friday
                     </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div class="card mb-3">
-              <div class="row g-0">
-                <div class="col-md-6">
-                  <img
-                    src="https://img.freepik.com/premium-photo/beautiful-doctor-pointing-fingers_1258-16474.jpg?w=2000"
-                    class="img-fluid rounded-start"
-                    alt="..."
-                  />
-                </div>
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
+                    <p class="card-text doctor-time">
+                      <span className="span">Available Slot</span>
+                      &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10.00
+                      ,12.00
                     </p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
+                    <button className="btn book-btn px-1 py-1">
+                      Book Apoointment
+                    </button>
                   </div>
                 </div>
               </div>

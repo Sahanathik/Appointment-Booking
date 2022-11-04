@@ -12,8 +12,7 @@ import Doctorlist from "./components/doctorpage/Doctorlist";
 
 import Map from "./components/map/google_map";
 
-import Appointment from "./components/appointment/Appointment";
-
+import Patient from "./components/for_patient/Patient_data";
 
 function App() {
   return (
@@ -23,17 +22,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
-
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
-      
-        <Map/>
-
+          <Route path="/map" element={<Map />} />
+          {/* <Map/> */}
           <Route path="/login" element={<Managemtnt_Login />} />
           {/* <Route path="/admin" element={<Dashboard />} /> */}
           <Route path="/sign-up" element={<Sign_up />} />
           <Route path="/doctor-list" element={<Doctorlist />} />
-          <Route path="/appointment-booking" element={<Appointment />} />
+          <Route path="/patient-data" element={<Patient />} />
         </Routes>
       </Router>
     </>

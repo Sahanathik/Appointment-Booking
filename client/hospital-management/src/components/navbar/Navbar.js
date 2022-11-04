@@ -102,7 +102,7 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <a href="/appointment-booking" className="nav-link">
-                  Book-Appointment
+                  For Patient
                 </a>
               </li>
               <li className="nav-item">

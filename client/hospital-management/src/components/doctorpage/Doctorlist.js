@@ -21,52 +21,53 @@ const Doctorlist = () => {
           Departments
           <i class="fa-solid fa-angles-right"></i>
         </button>
-
-        <div
-          class="offcanvas offcanvas-start"
-          tabIndex="-1"
-          id="offcanvasExample"
-          aria-labelledby="offcanvasExampleLabel"
-        >
-          <div class="offcanvas-header">
-            <h5
-              class="offcanvas-title text-white mx-auto"
-              id="offcanvasExampleLabel"
-            >
-              Department
-            </h5>
-            <button
-              type="button"
-              class="btn-close text-reset"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body p-0">
-            <nav className="navbar py-0">
-              <ul className="navbar-nav side-nav flex-fill">
-                <li className="nav-item w-100">
-                  <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
-                    Department1
-                  </button>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
-                    Department2
-                  </button>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
-                    Department3
-                  </button>
-                </li>
-                <li className="nav-item w-100">
-                  <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
-                    Department4
-                  </button>
-                </li>
-              </ul>
-            </nav>
+        <div className="doctor-offcanvas">
+          <div
+            class="offcanvas offcanvas-start"
+            tabIndex="-1"
+            id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel"
+          >
+            <div class="offcanvas-header">
+              <h5
+                class="offcanvas-title text-white mx-auto"
+                id="offcanvasExampleLabel"
+              >
+                Department
+              </h5>
+              <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body p-0">
+              <nav className="navbar py-0">
+                <ul className="navbar-nav side-nav flex-fill">
+                  <li className="nav-item w-100">
+                    <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
+                      Department1
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
+                      Department2
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
+                      Department3
+                    </button>
+                  </li>
+                  <li className="nav-item w-100">
+                    <button className="nav-link w-100 btn rounded-0 border-bottom text-white side-link">
+                      Department4
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config()
 // const twillo = require('twilio')(process.env.account_Sid, process.env.auth_Token)
 import twilio from 'twilio'
+import { AwsInstance } from 'twilio/lib/rest/accounts/v1/credential/aws.js';
 twilio(process.env.account_Sid, process.env.auth_Token)
 
 const account_Sid = process.env.account_Sid
@@ -17,10 +18,16 @@ try {
         
   let numberDetails = await userSchema.findOne({mobile_number:number}).exec();
   if(numberDetails){
-      return res.json({status:'failed', message:'mobile number already exists'})
+      return res.json({status:'failed', message:'mobile number already exists or already registered'})
   }
 
   let userdata = new userSchema(req)
+  let password = req.password;
+  if(password){
+    let salt = await bcrypt.genSalt(10)
+    userdata.password = bcrypt.hashSync(password, salt)
+  }
+
   let data = await userdata.save()
   return res.status(200).json({status:'success', message:'register successed', result:data});
   
@@ -30,7 +37,7 @@ try {
  
 }
 
-async function login(req,res,next){
+async function loginWithOutPassword(req,res,next){
   try {
     const patientId = req.patient_id
     let user = await userSchema.findOne({patient_id:patientId})
@@ -42,6 +49,42 @@ async function login(req,res,next){
       console.log('token',token);
       res.status(200).json({status:"success", message:'login success!',"token":token});
     }
+} catch (error) {
+    return res.status(400).json({status:'failed', message:error.message})
+}
+}
+
+
+async function login(req,res,next){
+  try {
+    const patientId = req.patient_id;
+    const password = req.password;
+
+    let user = await userSchema.findOne({patient_id:patientId})
+
+    if(patientId){
+        let patient = await userSchema.findOne({patient_id:patientId})
+        if(!patient){
+          return res.json({status:"failed", message:'user not found'})
+        }  
+    }else{
+      return res.json({status:"failed", message:'enter the correct id'})
+    }
+
+    if(user){
+      let isMatch = await bcrypt.compare(password, user.password)
+       if(isMatch){
+        const userData = user.toObject();
+        const token = jwt.sign({userData},"key", {expiresIn: '24h'});
+        console.log('token',token);
+        res.status(200).json({status:"success", message:'login success!',"token":token});
+       }else{
+        res.json({status:"failed", message:'wrong id or password'});
+      }
+    }else{
+      res.json({status:"failed", message:'error found'});
+    }
+    
 } catch (error) {
     return res.status(400).json({status:'failed', message:error.message})
 }

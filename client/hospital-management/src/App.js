@@ -24,15 +24,10 @@ function App() {
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
-<<<<<<< HEAD
           <Route path="/map" element={<Map/>} />
       
-  
-
-=======
           <Route path="/map" element={<Map />} />
           {/* <Map/> */}
->>>>>>> 5f9ae476986b40ad24c23d77ca7448427bc1f363
           <Route path="/login" element={<Managemtnt_Login />} />
           {/* <Route path="/admin" element={<Dashboard />} /> */}
           <Route path="/sign-up" element={<Sign_up />} />

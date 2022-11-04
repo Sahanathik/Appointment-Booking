@@ -93,43 +93,73 @@ import moment from 'moment';
 //     }
 // }
 
+// async function addSpecialist(req,res,next){
+
+//     let department = await specialistSchema.find({department_id : req.body.department_id})
+//     if(department.length>0){
+//         let name = await specialistSchema.find({specialist_name : req.body.specialist_name});
+//         if(name.length>0){
+//             let day = await specialistSchema.findOne({available_day : req.body.available_day, specialist_name : req.body.specialist_name} );
+//             console.log("day", day)
+//             if(day){
+//                 let details = await specialistSchema.findOneAndUpdate({available_day : req.body.available_day, specialist_name : req.body.specialist_name}, {$push:{available_slot:req.body.available_slot}}, {new:true}).exec();
+//                 if(details){
+//                     return res.json({status : false, message : "Specialist slot added", details })
+//                 } 
+//             } else {
+//                 console.log("add day and slot")
+//                 let details = new specialistSchema(req.body);
+//                 details.image = req.file.filename
+//                 let result = await details.save();
+//                 return res.json({status : true, message : "Specialist name added successfully", data :result })
+//             }
+//         } else {
+//             console.log("specialist not found")
+//             let details = new specialistSchema(req.body);
+//             details.image = req.file.filename
+//             let result = await details.save();
+//             return res.json({status : true, message : "Specialist name added successfully", data :result })
+//         }
+//     } else {
+//         console.log("department not found")
+//             let details = new specialistSchema(req.body);
+//             details.image = req.file.filename
+//             let result = await details.save();
+//             return res.json({status : true, message : "Specialist name added successfully", data :result })
+//     }
+
+
+// } 
+
+
 async function addSpecialist(req,res,next){
+    try {
 
-    let department = await specialistSchema.find({department_id : req.body.department_id})
-    if(department.length>0){
-        let name = await specialistSchema.find({specialist_name : req.body.specialist_name});
-        if(name.length>0){
-            let day = await specialistSchema.findOne({available_day : req.body.available_day, specialist_name : req.body.specialist_name} );
-            console.log("day", day)
-            if(day){
-                let details = await specialistSchema.findOneAndUpdate({available_day : req.body.available_day, specialist_name : req.body.specialist_name}, {$push:{available_slot:req.body.available_slot}}, {new:true}).exec();
-                if(details){
-                    return res.json({status : false, message : "Specialist slot added", details })
-                } 
-            } else {
-                console.log("add day and slot")
-                let details = new specialistSchema(req.body);
-                details.image = req.file.filename
-                let result = await details.save();
-                return res.json({status : true, message : "Specialist name added successfully", data :result })
-            }
-        } else {
-            console.log("specialist not found")
-            let details = new specialistSchema(req.body);
-            details.image = req.file.filename
-            let result = await details.save();
-            return res.json({status : true, message : "Specialist name added successfully", data :result })
+        console.log(req.body)
+        console.log(req.file)
+
+        let file = req.file.filename
+        let data = {
+            specialist_name : req.body.specialist_name,
+            image : file
         }
-    } else {
-        console.log("department not found")
-            let details = new specialistSchema(req.body);
-            details.image = req.file.filename
-            let result = await details.save();
-            return res.json({status : true, message : "Specialist name added successfully", data :result })
+
+        let details = await specialistSchema.findOne({specialist_name : req.body.specialist_name}).exec();
+        if(details){
+            return res.json({status : true, message : "Specialist already exists", data :details })
+        } else {
+            let user_Details = new specialistSchema(req.body);
+            user_Details.image = file;
+            let result = user_Details.save();
+            if(result){
+                return res.json({status : true, message : "Specialist name added successfully", data :result })
+        }
+        }
+        
+    } catch (error) {
+        console.log(error)
     }
-
-
-} 
+}
 
 async function getAllSpecialist(req,res,next){
     try {
@@ -142,9 +172,10 @@ async function getAllSpecialist(req,res,next){
 
 
 async function getSingleSpecialist(req,res,next){
+    console.log(req)
     try {
         let data = await specialistSchema.findOne({specialist_id:req.specialist_id}).exec();
-        console.log(data.available_slot.slot1)
+        // console.log(data.available_slot.slot1)
         return res.json({status : true, message : "Specialist details are fetched", data })
     } catch (error) {
         return res.json({status : false, error })
@@ -161,8 +192,6 @@ async function updateDoctorWithImg(req,res){
         let data = {
             department_id:req.body.department_id,
             specialist_name:req.body.specialist_name,
-            available_date:req.body.available_date,
-            available_slot:req.body.available_slot,
             department_image:file
         }
 
@@ -181,22 +210,130 @@ async function updateDoctorWithImg(req,res){
 
 
 
-async function updateDoctorWithoutImg(req,res){
-    try {
+// async function updateDoctorWithoutImg(req,res){
+//     try {
 
-        let id = req.query.specialist_id
+//         let id = req.body.specialist_id
 
-       let data =  await specialistSchema.findOneAndUpdate({specialist_id:id}, req.body, {new:true})
-        if(data){
-            console.log(data)
-            return res.json({status:'success', message:'updated', result:data})
+//         console.log(req.body)
+
+//        let data =  await specialistSchema.findOneAndUpdate({specialist_id:id}, req.body.data, {new:true})
+//         if(data){
+//             console.log(data)
+//             return res.json({status:'success', message:'updated', result:data})
             
-        }else{
-            return res.json({status:'failed', message:"message"})
-        }
+//         }else{
+//             return res.json({status:'failed', message:"message"})
+//         }
     
+//     } catch (error) {
+//         return res.json({status : false,  message:error.message })
+//     }
+// }
+
+async function updateDoctorWithoutImage(req,res){
+    console.log("success")
+    try {
+        
+        // console.log(req.body)
+       let data = await specialistSchema.findOneAndUpdate({specialist_id : req.body.specialist_id}, {specialist_name : req.body.specialist_name}, {new : true}).exec();
+       if(data){
+        return res.json({status:'success', message:'Updated', result:data})
+       }
+
     } catch (error) {
-        return res.json({status : false,  message:error.message })
+        console.log(error)
+    }
+}
+
+async function getspecialistByDepId(req,res,next){
+    try {
+        console.log("success")
+        console.log(req)
+        let data = await specialistSchema.find({department_id :req.department_id}).exec();
+        if(data){
+            console.log(data.length)
+            console.log(data)
+            return res.json({status:'success', message:'data fetched', result:data})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function addSlotDay(req,res,next){
+    try {
+        let day = req.body.available_day;
+        let slot = req.body.available_slot
+        let depId = req.body.department_id;
+        let docId = req.body.specialist_id;
+
+        let det = {
+            available_day : day,
+            available_slot : slot
+        }
+
+        let data = await specialistSchema.find({department_id : depId, specialist_id : docId}).exec();
+        if(data){
+            if(data[0].available_day){
+                if(day == data[0].available_day){
+                    let details = await specialistSchema.findOneAndUpdate({available_day : day, specialist_id : docId}, {$push:{available_slot : slot}}, {new:true}).exec();
+                    if(details){
+                        return res.json({status : true, message : "Specialist slot added", details })
+                    } 
+                    
+                } else {
+                    console.log("insert Day and date")
+                    let insert = new specialistSchema({
+                        specialist_id : docId,
+                        department_id : depId,
+                        available_day : day,
+                        available_slot : slot
+                    })
+                    
+                    
+                    insert.save();
+
+                    if(insert){
+                        console.log(insert)
+                    }
+                }
+            } else {
+                console.log("update day and slot")
+                let update = await specialistSchema.findOneAndUpdate({department_id : depId, specialist_id : docId}, det, {new:true});
+                    if(update){
+                        console.log(update)
+                    }
+            }
+        }
+
+        //     let data = await specialistSchema.find({department_id : depId, specialist_id : docId, available_day:day}).exec();
+        // if(data){
+
+        //     console.log("with day", data)
+        //     let details = await specialistSchema.findOneAndUpdate({available_day : day, specialist_id : docId}, {$push:{available_slot : slot}}, {new:true}).exec();
+        //     if(details){
+        //         return res.json({status : false, message : "Specialist slot added", details })
+        //     }  
+        // } else {
+        //     console.log("with out Day")
+        // let data = await specialistSchema.find({department_id : depId, specialist_id : docId}).exec();
+        // if(data){
+        //     console.log(data)
+        //     let det = await specialistSchema.insert({
+        //         department_id : depId, 
+        //         specialist_id : docId,
+        //         available_day : day,
+        //         available_slot : slot
+        //     }).exec();
+        //     if(det){
+        //         console.log(det)
+        //     }
+        // }
+        // }
+          
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -206,5 +343,8 @@ export default {
     getAllSpecialist,
     getSingleSpecialist,
     updateDoctorWithImg,
-    updateDoctorWithoutImg,
+    // updateDoctorWithoutImg,
+    updateDoctorWithoutImage,
+    getspecialistByDepId,
+    addSlotDay
 }

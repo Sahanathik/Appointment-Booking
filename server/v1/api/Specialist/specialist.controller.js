@@ -13,7 +13,7 @@ async function getAllSpecialist(req,res){
 }
 
 async function getSingleSpecialist(req,res){
-    await Service.getSingleSpecialist(req.body, res, function(result){
+    await Service.getSingleSpecialist(req.query, res, function(result){
         return res.json({message : result.message})
     })
 }
@@ -25,8 +25,26 @@ async function updateDoctorWithImg(req,res){
     })
 }
 
-async function updateDoctorWithoutImg(req,res){
-    await Service.updateDoctorWithoutImg(req, res, function(result){
+// async function updateDoctorWithoutImg(req,res){
+//     await Service.updateDoctorWithoutImg(req, res, function(result){
+//         return res.json({message : result.message})
+//     })
+// }
+
+async function updateDoctorWithoutImage(req,res){
+        await Service.updateDoctorWithoutImage(req, res, function(result){
+            return res.json({message : result.message})
+        })
+}
+
+async function getspecialistByDepId(req,res){
+    await Service.getspecialistByDepId(req.query, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
+async function addSlotDay(req,res){
+    await Service.addSlotDay(req, res, function(result){
         return res.json({message : result.message})
     })
 }
@@ -38,6 +56,9 @@ export default {
     getAllSpecialist,
     getSingleSpecialist,
     updateDoctorWithImg,
-    updateDoctorWithoutImg,
+    // updateDoctorWithoutImg,
+    updateDoctorWithoutImage,
+    getspecialistByDepId,
+    addSlotDay
 
 }

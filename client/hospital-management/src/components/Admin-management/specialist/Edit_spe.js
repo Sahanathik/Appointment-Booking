@@ -84,7 +84,15 @@ export const Edit_spe = () => {
       console.log(list.specialist)
      
       const formSubmit = (values) =>{
-       
+
+        console.log(values)
+        axios.post(SERVER_URL+"api/specialistDaySlot/addDaySlot", values)
+        .then((res)=>{
+          console.log("res", res)
+        }).catch( err =>{
+          console.log(err)
+        })
+
       }
     
       //responsive layout

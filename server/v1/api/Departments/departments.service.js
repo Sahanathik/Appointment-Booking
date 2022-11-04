@@ -53,9 +53,12 @@ async function getAllDepartments(req,res){
 
 async function updateDepartmentWithImg(req,res){
     try {
-
+        console.log("with image")
         let id = req.body.department_id
         let file = req.file.filename
+
+        console.log(req.file)
+        console.log(req.body)
 
         let data = {
              department_name:req.body.department_name,
@@ -105,10 +108,12 @@ async function updateDepartmentWithoutImg(req,res){
 
 
 async function getSingleDepartment(req,res){
+    console.log("success")
     try {
         console.log(req)
         let data = await departmentSchema.findOne({department_id:req.department_id}).exec();
         if(data){
+            console.log(data)
             return res.json({status : true,  message:"Single department detail fetched", data })
         }
     } catch (error) {

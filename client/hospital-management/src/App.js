@@ -18,9 +18,9 @@ function App() {
   return (
     <>
       <Router>
-        {/* <Dashboard /> */}
+        <Dashboard />
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          {/* <Route path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
@@ -29,10 +29,15 @@ function App() {
           <Route path="/map" element={<Map />} />
           {/* <Map/> */}
           <Route path="/login" element={<Managemtnt_Login />} />
+  
+
+          <Route path="/map" element={<Map />} />
+          {/* <Map/> */}
+          <Route path="/login" element={<Managemtnt_Login />} /> 
           {/* <Route path="/admin" element={<Dashboard />} /> */}
-          <Route path="/sign-up" element={<Sign_up />} />
+          {/* <Route path="/sign-up" element={<Sign_up />} />
           <Route path="/doctor-list" element={<Doctorlist />} />
-          <Route path="/patient-data" element={<Patient />} />
+          <Route path="/patient-data" element={<Patient />} /> */}
         </Routes>
       </Router>
     </>

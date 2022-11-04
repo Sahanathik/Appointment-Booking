@@ -101,8 +101,8 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/appointment-booking" className="nav-link">
-                  Book-Appointment
+                <a href="/patient-data" className="nav-link">
+                  For Patient
                 </a>
               </li>
               <li className="nav-item">

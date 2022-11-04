@@ -10,7 +10,7 @@ async function doctorLog(req,res,next){
                     localField: "department_id",
                     foreignField: "department_id",
                     as: "doctorlog"
-                }
+                } 
         }])
 
         // let data = await specialistSchema.find().exec();

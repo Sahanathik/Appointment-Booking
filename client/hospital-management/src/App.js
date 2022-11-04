@@ -26,8 +26,9 @@ function App() {
 
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/map" element={<Map/>} />
       
-        <Map/>
+  
 
           <Route path="/login" element={<Managemtnt_Login />} />
           {/* <Route path="/admin" element={<Dashboard />} /> */}

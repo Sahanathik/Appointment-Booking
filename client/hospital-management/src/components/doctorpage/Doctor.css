@@ -128,3 +128,55 @@
 .doctor-img {
   object-fit: cover;
 }
+
+.modal-app .ant-modal-header {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(214, 185, 21),
+    rgb(231, 163, 17)
+  );
+}
+
+.modal-app .ant-modal-body {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(255, 255, 255),
+    rgb(219, 219, 219),
+    rgb(129, 129, 129)
+  );
+}
+
+.modal-app .ant-modal-footer {
+  /* border-top: 0;
+  border-radius: 0; */
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(255, 255, 255),
+    rgb(219, 219, 219),
+    rgb(129, 129, 129)
+  );
+}
+
+.modal-app .ant-btn.ant-btn-default:hover {
+  color: rgb(224, 160, 21);
+  border-color: rgb(224, 160, 21);
+}
+
+.modal-app .ant-btn.ant-btn-primary {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(214, 185, 21),
+    rgb(231, 163, 17)
+  );
+  border-color: rgb(197, 138, 12);
+}
+
+.modal-app .ant-btn.ant-btn-primary:hover {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(223, 145, 29),
+    rgb(223, 193, 28)
+  );
+  border-color: rgb(231, 228, 45);
+  color: white;
+}

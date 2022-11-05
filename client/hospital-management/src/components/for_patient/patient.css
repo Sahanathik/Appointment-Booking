@@ -6,10 +6,15 @@
   );
 }
 
-.bxs-user-circle {
-  font-size: 60px;
-  color: white;
+.paitent-sidebar .offcanvas,
+.offcanvas-lg,
+.offcanvas-md,
+.offcanvas-sm,
+.offcanvas-xl,
+.offcanvas-xxl {
+  --bs-offcanvas-width: 350px !important;
 }
+
 .detail-card {
   background-image: linear-gradient(
     to bottom right,
@@ -32,6 +37,13 @@
     rgb(214, 185, 21),
     rgb(231, 163, 17)
   );
+}
+.card-edit {
+  border-bottom: solid rgba(95, 95, 95, 0.486) 0.5px;
+  padding: 15px;
+}
+.edit-body {
+  font-weight: 400;
 }
 .new-button {
   background-image: linear-gradient(

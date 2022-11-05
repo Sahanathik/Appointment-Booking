@@ -11,7 +11,6 @@ import {
   Input,
   Space,
   Table,
-  Upload,
   Form,
   Modal,
   Select,
@@ -21,6 +20,26 @@ import "./patient.css";
 const { Title } = Typography;
 
 const Patient = () => {
+  //form-layout
+  const responsive_layout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 10 },
+      md: { span: 8 },
+      lg: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 14 },
+      md: { span: 16 },
+      lg: { span: 16 },
+    },
+  };
+  //modal
+
+  //profile-update integration
+  const updateprofile = async () => {};
+
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -218,21 +237,21 @@ const Patient = () => {
                 ></button>
               </div>
               <div class="offcanvas-body p-0">
-                <div className="card w-75 mx-auto border-0 detail-card mt-4">
-                  <div className="card-header d-flex justify-content-end">
+                <div className="detail-card">
+                  <div className="d-flex justify-content-end card-edit">
                     <button className="pa-profile-btn">Edit</button>
                   </div>
-                  <div className="card-body">
+                  <div className="p-4 edit-body">
                     <p>PatientId : Pa-1234555</p>
                     <p>Name : &ensp;first&nbsp;last </p>
                     <p>Mobile : 9659022226</p>
                     <p>Gender : male</p>
                     <p>Email : example@gmail.com</p>
-                    <div className="d-flex"></div>
                   </div>
                 </div>
               </div>
             </div>
+            <div></div>
           </div>
         </div>
       </div>

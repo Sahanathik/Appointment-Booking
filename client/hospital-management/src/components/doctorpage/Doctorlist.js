@@ -1,12 +1,41 @@
 import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
-
+import { useNavigate } from "react-router-dom";
+import { Button, Input, Select, Modal, Typography, Form } from "antd";
 import "./Doctor.css";
+const { Title } = Typography;
+const { Option } = Select;
 
 const items = [];
 
 const Doctorlist = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [isselecting, setIsSelecting] = useState(false);
+  const [selectdetail, setSelectdetail] = useState(null);
+  const navigate = useNavigate();
+  //slot data
+  const selectdata = (doctor_id) => {
+    console.log("data", doctor_id);
+    setIsSelecting(true);
+  };
+  //
+  const resetSelect = () => {
+    setIsSelecting(false);
+  };
+  // form layout
+  const responsive_layout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 24 },
+      md: { span: 12 },
+      lg: { span: 12 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 24 },
+      md: { span: 12 },
+      lg: { span: 12 },
+    },
+  };
   return (
     <>
       <Navbar></Navbar>
@@ -103,89 +132,61 @@ const Doctorlist = () => {
                       &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10.00
                       ,12.00
                     </p>
-                    <button className="btn book-btn px-1 py-1">
-                      Book Apoointment
+                    <button
+                      className="btn book-btn px-1 py-1"
+                      onClick={() => {
+                        // selectdata(doctor_id);
+                        selectdata();
+                      }}
+                    >
+                      Book Appointment
                     </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col">
-            <div class="card mb-3 card-list">
-              <div class="row g-0">
-                <div class="col-md-6">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUUQOk3DsB01Y8AE4u2qiKcP4TKlPUBm_PBA&usqp=CAU"
-                    class="img-fluid rounded-start h-100 doctor-img"
-                    alt="..."
-                  />
-                </div>
-                <div class="col-md-6">
-                  <div class="card-body doctor-card">
-                    <p class="card-title doctor-name">Dr. Mike</p>
-                    <div className="d-flex doctor-exp text-uppercase">
-                      <p class="card-text me-3">Cardiologist</p>
-                      <p class="card-text">9 years Exp</p>
-                    </div>
-                    <p class="card-text doctor-avl mb-2">
-                      Department : Cardiology
-                    </p>
-                    <p class="card-text doctor-avl mb-2">
-                      <span className="span">Available on</span>
-                      &nbsp;<i class="fa-solid fa-calendar-days"></i> : Monday ,
-                      Friday
-                    </p>
-                    <p class="card-text doctor-time">
-                      <span className="span">Available Slot</span>
-                      &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10.00
-                      ,12.00
-                    </p>
-                    <button className="btn book-btn px-1 py-1">
-                      Book Apoointment
-                    </button>
-                  </div>
-                </div>
+          <div>
+            <Modal
+              title="Select Your Slot"
+              visible={isselecting}
+              okText="Proceed For Payment"
+              onCancel={() => {
+                resetSelect();
+              }}
+              onOk={() => {
+                navigate("./payment");
+                resetSelect();
+              }}
+              className="modal-app"
+            >
+              <div>
+                <Form {...responsive_layout}>
+                  <Form.Item
+                    name="available_day"
+                    label="Choose Day for Appointment"
+                    // rules={[{ required: true, message: "Select day" }]}
+                  >
+                    <Select placeholder="Select a option below" allowClear>
+                      <Option>Monday</Option>
+                      <Option>Friday</Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    name="slot_option"
+                    label="Choose Slot Time"
+                    // rules={[
+                    //   { required: true, message: "Select consultation time" },
+                    // ]}
+                  >
+                    <Select placeholder="Select a option below" allowClear>
+                      <Option>10.00</Option>
+                      <Option>2.00</Option>
+                    </Select>
+                  </Form.Item>
+                </Form>
               </div>
-            </div>
-          </div>
-          <div className="col">
-            <div class="card mb-3 card-list">
-              <div class="row g-0">
-                <div class="col-md-6">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUUQOk3DsB01Y8AE4u2qiKcP4TKlPUBm_PBA&usqp=CAU"
-                    class="img-fluid rounded-start h-100 doctor-img"
-                    alt="..."
-                  />
-                </div>
-                <div class="col-md-6">
-                  <div class="card-body doctor-card">
-                    <p class="card-title doctor-name">Dr. Mike</p>
-                    <div className="d-flex doctor-exp text-uppercase">
-                      <p class="card-text me-3">Cardiologist</p>
-                      <p class="card-text">9 years Exp</p>
-                    </div>
-                    <p class="card-text doctor-avl mb-2">
-                      Department : Cardiology
-                    </p>
-                    <p class="card-text doctor-avl mb-2">
-                      <span className="span">Available on</span>
-                      &nbsp;<i class="fa-solid fa-calendar-days"></i> : Monday ,
-                      Friday
-                    </p>
-                    <p class="card-text doctor-time">
-                      <span className="span">Available Slot</span>
-                      &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10.00
-                      ,12.00
-                    </p>
-                    <button className="btn book-btn px-1 py-1">
-                      Book Apoointment
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </Modal>
           </div>
         </div>
       </div>

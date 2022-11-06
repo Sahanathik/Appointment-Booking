@@ -240,11 +240,16 @@ const Patient = () => {
               <div class="offcanvas-body p-0">
                 <div className="detail-card">
                   <div className="d-flex justify-content-end card-edit">
-                    <button className="pa-profile-btn" onClick={() => edit()}>
-                      Edit
-                    </button>
+                    {!updatemode ? (
+                      <button className="pa-profile-btn" onClick={() => edit()}>
+                        Edit
+                      </button>
+                    ) : (
+                      <button className="pa-profile-btn" onClick={() => edit()}>
+                        Back
+                      </button>
+                    )}
                   </div>
-
                   <div className="p-4 edit-body">
                     <div>
                       {updatemode ? (

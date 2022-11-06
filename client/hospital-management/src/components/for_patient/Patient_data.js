@@ -6,16 +6,7 @@ import {
   UploadOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Input,
-  Space,
-  Table,
-  Form,
-  Modal,
-  Select,
-  Divider,
-} from "antd";
+import { Button, Input, Space, Table, Form } from "antd";
 import "./patient.css";
 const { Title } = Typography;
 
@@ -35,10 +26,20 @@ const Patient = () => {
       lg: { span: 16 },
     },
   };
-  //modal
 
   //profile-update integration
-  const updateprofile = async () => {};
+  const [updatemode, setUpdatemode] = useState(false);
+  const edit = () => {
+    if (updatemode === true) {
+      setUpdatemode(false);
+    } else {
+      setUpdatemode(true);
+    }
+  };
+  const updateprofile = async () => {
+    // --code--
+    setUpdatemode(false);
+  };
 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -239,19 +240,138 @@ const Patient = () => {
               <div class="offcanvas-body p-0">
                 <div className="detail-card">
                   <div className="d-flex justify-content-end card-edit">
-                    <button className="pa-profile-btn">Edit</button>
+                    <button className="pa-profile-btn" onClick={() => edit()}>
+                      Edit
+                    </button>
                   </div>
+
                   <div className="p-4 edit-body">
-                    <p>PatientId : Pa-1234555</p>
-                    <p>Name : &ensp;first&nbsp;last </p>
-                    <p>Mobile : 9659022226</p>
-                    <p>Gender : male</p>
-                    <p>Email : example@gmail.com</p>
+                    <div>
+                      {updatemode ? (
+                        <div className="row">
+                          <label
+                            for="patient_id"
+                            class="profile-lable col-3 align-self-end"
+                          >
+                            PatientId
+                          </label>
+                          <div className="col-9 ">
+                            <input
+                              type="text"
+                              id="patient_id"
+                              // value={patient_id}
+                              className="patient-input-disable form-control form-control mb-2 rounded-0"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p>PatientId : Pa-1234555</p>
+                      )}
+                    </div>
+                    {updatemode ? (
+                      <div className="row">
+                        <label
+                          for="name"
+                          class="profile-lable col-3 align-self-end"
+                        >
+                          Name
+                        </label>
+                        <div className="col-9">
+                          <input
+                            type="text"
+                            // value={first_name}
+                            className="patient-input-disable form-control form-control mb-2 rounded-0"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <p>Name : &ensp;first&nbsp;last </p>
+                    )}
+                    <div>
+                      {updatemode ? (
+                        <div className="row">
+                          <label
+                            for="mobile"
+                            class="profile-lable col-3 align-self-end"
+                          >
+                            Mobile
+                          </label>
+                          <div className="col-9 ">
+                            <input
+                              type="text"
+                              // value={mobile_number}
+                              className="patient-input form-control form-control mb-2 rounded-0"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p>Mobile : 9659022226</p>
+                      )}
+                    </div>
+                    <div>
+                      {updatemode ? (
+                        <div className="row">
+                          <label
+                            for="gender"
+                            class="profile-lable col-3 align-self-end"
+                          >
+                            Gender
+                          </label>
+                          <div className="col-9 ">
+                            <input
+                              type="text"
+                              // value={gender}
+                              value="male"
+                              className="patient-input-disable form-control form-control mb-2 rounded-0"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p>Gender : male</p>
+                      )}
+                    </div>
+                    <div>
+                      {updatemode ? (
+                        <div className="row">
+                          <label
+                            for="email"
+                            class="profile-lable col-3 align-self-end"
+                          >
+                            Email
+                          </label>
+                          <div className="col-9 ">
+                            <input
+                              type="text"
+                              // value={patient_id}
+                              className="patient-input form-control form-control mt-3 mb-2 rounded-0"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p>Email : example@gmail.com</p>
+                      )}
+                    </div>
+                    <div>
+                      {updatemode ? (
+                        <div className="d-flex justify-content-end">
+                          <button
+                            className="profile-edit-btn btn my-3 mx-auto"
+                            onClick={() => updateprofile()}
+                          >
+                            Update Profile
+                          </button>
+                        </div>
+                      ) : (
+                        <p>Email : example@gmail.com</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div></div>
           </div>
         </div>
       </div>

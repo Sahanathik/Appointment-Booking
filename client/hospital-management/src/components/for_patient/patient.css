@@ -1,8 +1,8 @@
 .paitent-sidebar .ant-layout-sider {
   background-image: linear-gradient(
     to bottom right,
-    rgb(46, 46, 46),
-    rgb(196, 196, 196)
+    #3a3939,
+    rgb(167, 166, 166)
   );
 }
 
@@ -77,6 +77,36 @@
   );
   color: #fff !important;
   font-weight: 500 !important;
+}
+
+.patient-input,
+.patient-input-disable {
+  margin: 10px;
+  font-size: 28px;
+  border: 0 !important;
+  border-bottom: 1.5px solid rgb(240, 240, 240) !important;
+  border-bottom-color: rgb(240, 240, 240);
+}
+
+.patient-input {
+  color: rgb(231, 224, 224) !important;
+  background-color: #66646400 !important;
+}
+
+.patient-input-disable {
+  color: rgb(94, 92, 92) !important;
+  background-color: #8888883f !important;
+}
+
+.profile-edit-btn {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(214, 185, 21),
+    rgb(231, 163, 17)
+  );
+  color: #fff !important;
+  border: solid 0.5;
+  border-color: rgb(204, 146, 39);
 }
 
 /* .pat-table .ant-table-thead > tr > th {

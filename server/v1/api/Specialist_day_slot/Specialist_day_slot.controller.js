@@ -12,8 +12,16 @@ async function getData(req,res){
     })
 }
 
+async function getDataSlotDay(req,res){
+    await Service.getDataSlotDay(req.query, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
+
 
 export default { 
     addDaySlot,
-    getData
+    getData,
+    getDataSlotDay
 }

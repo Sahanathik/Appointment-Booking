@@ -171,6 +171,8 @@ async function getAllSpecialist(req,res,next){
 }
 
 
+
+
 async function getSingleSpecialist(req,res,next){
     console.log(req)
     try {
@@ -251,9 +253,9 @@ async function updateDoctorWithoutImage(req,res){
 
 async function getspecialistByDepId(req,res,next){
     try {
-        console.log("success")
-        console.log(req)
-        let data = await specialistSchema.find({department_id :req.department_id}).exec();
+        console.log("dep success")
+        // console.log(req)
+        let data = await specialistSchema.find({department_id :req.query.department_id}).exec();
         if(data){
             console.log(data.length)
             console.log(data)
@@ -341,6 +343,7 @@ async function addSlotDay(req,res,next){
 }
 
 
+
 export default {
     addSpecialist,
     getAllSpecialist,
@@ -349,5 +352,7 @@ export default {
     // updateDoctorWithoutImg,
     updateDoctorWithoutImage,
     getspecialistByDepId,
-    addSlotDay
+    addSlotDay,
+   
+    
 }

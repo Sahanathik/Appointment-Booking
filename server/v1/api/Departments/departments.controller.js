@@ -45,6 +45,18 @@ async function getSingleDepartment(req, res, next){
     })
 }
 
+async function doctorLog(req, res, next){
+    await Service.doctorLog(req.query, res, function(result){
+        return res.json({message: result.message})
+    })
+}
+
+async function getDepName(req, res, next){
+    await Service.getDepName(req.query, res, function(result){
+        return res.json({message: result.message})
+    })
+}
+
 
 export default {
     addDepartments,
@@ -52,5 +64,8 @@ export default {
     login,
     updateDepartmentWithImg,
     updateDepartmentWithoutImg,
-    getSingleDepartment
+    getSingleDepartment,
+    doctorLog,
+    getDepName
+
 }

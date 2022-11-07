@@ -71,6 +71,18 @@ async function addDaySlot(req,res,next){
     }
 }
 
+async function getData(req,res,next){
+    try {
+        let data = await specialistDaySlotSchema.find().exec();
+        if(data){
+            return res.json({status : true, message : "data fetched", data : data })
+        }
+    } catch (error) {
+        return res.json({status : true, message : error })
+    }
+}
+
 export default {
-    addDaySlot
+    addDaySlot,
+    getData
 }

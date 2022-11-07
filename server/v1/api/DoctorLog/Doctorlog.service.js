@@ -1,20 +1,23 @@
 import doctorLogSchema from "./Doctorlog.model.js";
-import specialistSchema from '../Specialist/specialist.model.js';
+import specialists from '../Specialist/specialist.model.js';
 import specialistDaySlotSchema from '../Specialist_day_slot/Specialist_day_slot.model.js';
 import departmentSchema from '../Departments/department.model.js'
+
 async function doctorLog(req,res,next){
     try {
-        let data =  await departmentSchema.aggregate([{
+        let data = await specialistDaySlotSchema.aggregate([{
             $lookup: {
-                    from: "specialistSchema",
+                    from: "specialists",
                     localField: "department_id",
                     foreignField: "department_id",
-                    as: "doctorlog"
-                } 
-        }])
-
-        // let data = await specialistSchema.find().exec();
-        console.log(data)
+                    as: "specialistlog",
+                    }
+            
+   
+        }]).exec();
+        if(data){
+            return res.json({status : true,  message:"Single department detail fetched", data })
+        }
     } catch (error) {
         console.log(error)
     }

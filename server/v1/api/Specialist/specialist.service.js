@@ -186,14 +186,17 @@ async function getSingleSpecialist(req,res,next){
 async function updateDoctorWithImg(req,res){
     try {
 
+        console.log("success")
         let id = req.body.specialist_id
         let file = req.file.filename
-
+        console.log(file)
         let data = {
-            department_id:req.body.department_id,
+            // department_id:req.body.department_id,
             specialist_name:req.body.specialist_name,
             department_image:file
         }
+
+        console.log("data")
 
        let result = await specialistSchema.findOneAndUpdate({specialist_id:id}, data, {new:true})
        if(result){

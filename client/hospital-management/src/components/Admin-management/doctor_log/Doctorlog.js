@@ -33,6 +33,10 @@ const Doctorlog = () => {
   // slot-time function
   const [time, setTime] = useState("");
   const [items, setItems] = useState([]);
+  const [docImage, setDocImage] = useState({
+    image : ""
+  })
+
   const inputRef = useRef(null);
   const ontimeChange = (event) => {
     setTime(event.target.value);
@@ -57,26 +61,13 @@ const Doctorlog = () => {
       })
     })
 
-  },[])
-  //dummy data
-  // const data = [
-  //   {
-  //     specialist_id: "doc-12344567",
-  //     specialist_name: "doctorname 1",
-  //     department_name: "General",
-  //     available_day: "Monday",
-  //     time: "10.00",
-  //   },
-  //   {
-  //     specialist_id: "doc-123447",
-  //     specialist_name: "doctorname 2",
-  //     department_name: "Orthology",
-  //     available_day: "Sunday",
-  //     time: "2.00",
-  //   },
-  // ];
 
+  },[])
+
+  
   const data = state.data
+ 
+  
 
   //edit functions
   const [isEditing, setIsEditing] = useState(false);
@@ -112,7 +103,7 @@ const Doctorlog = () => {
     .then((res)=>{
       console.log(res.data.data.image)
       let img1 = res.data.data.image
-      let img2 = editdetail.image
+      let img2 = docImage.image
       if(img1 == img2){
         console.log("without image")
         let data ={
@@ -121,17 +112,59 @@ const Doctorlog = () => {
         }
         axios.put(SERVER_URL+"api/specialist/updateDoctorWithoutImage", data)
         .then (res =>{
-          console.log(res)
+          console.log(res.data.result)
+
+          axios.get(SERVER_URL+"api/specialist/getAllSpecialist")
+          .then((res)=>{
+            console.log(res.data.data)
+            setState({
+              data : res.data.data
+            })
+          })
+      
         })
       } else {
         console.log("with image")
-      }
-    })
 
-  //   axios.put(SERVER_URL,"api/specialist/updateDoctorWithoutImg", {specialist_id : specialist_id},{data : data})
-  //   .then((res)=>{
-  //     console.log("res", res)
-  //   })
+           //CREATE FORM DATA TO UPDATE WITH IMAGE
+      if(docImage.image){
+        console.log("image", editdetail)
+        const formData = new FormData();
+
+        const config = {
+          "Content-Type": "multipart/form-data",
+        };
+
+        formData.append('specialist_name', editdetail.specialist_name);
+        formData.append('specialist_id', editdetail.specialist_id);
+        formData.append('image', docImage.image);
+        // formData.append('department_id', editdetail.department_id);
+        // formData.append('password', editdetail.password);
+  
+        axios.put(SERVER_URL+"api/specialist/updateDoctorWithImg", formData, config)
+        .then((res)=>{
+          console.log( "res.data.data",res.data.result)
+          axios.get(SERVER_URL+"api/specialist/getAllSpecialist")
+          .then((res)=>{
+            setState({
+              data : res.data.data
+            })
+      
+          })
+        }).catch(err =>{
+          console.log(err)
+        })
+  
+      }
+
+    
+      
+    }
+
+   }).catch(err =>{
+    console.log(err)
+   })
+
   };
 
 
@@ -250,6 +283,7 @@ const Doctorlog = () => {
       width: "16%",
       ...getColumnSearchProps("department_name"),
     },
+    
     {
       title: "Doctor Profile",
       dataIndex: "image",
@@ -267,16 +301,7 @@ const Doctorlog = () => {
         />
       ),
     },
-    {
-      title: "OP Slot",
-      dataIndex: "available_slot",
-      key: "available_slot",
-    },
-    {
-      title: "OP Day",
-      dataIndex: "available_day",
-      key: "available_day",
-    },
+   
     {
       title: "Action",
       dataIndex: "",
@@ -296,21 +321,6 @@ const Doctorlog = () => {
     },
   ];
 
-  //form layout
-  // const responsive_layout = {
-  //   labelCol: {
-  //     xs: { span: 24 },
-  //     sm: { span: 10 },
-  //     md: { span: 8 },
-  //     lg: { span: 8 },
-  //   },
-  //   wrapperCol: {
-  //     xs: { span: 24 },
-  //     sm: { span: 14 },
-  //     md: { span: 16 },
-  //     lg: { span: 16 },
-  //   },
-  // };
   // day picker
    const dayoption = [
     {
@@ -393,41 +403,19 @@ const Doctorlog = () => {
                   }}
                 />
              </div>
-
-             {/* <div>
-             <Select placeholder="Select a option below" allowClear
-             onChange = {(value) => {
-              setEditdetail((pre) => {
-                return { ...pre, available_day: value };
-              });
-            }}
-            // value={editdetail?.available_day}
-             >
-             
-              {
-                dayoption.map((options)=> (
-                  <Option value={options.value} key={options.value}>{options.value}</Option>
-                ))
-              }
-              
-            </Select>
-            
-            </div> */}
           
           <div>
           <label>Upload</label>
-              <Upload
-                listType="picture"
-                beforeUpload={(file) => {
-                  // value = {editingItems?.item_image}
-                  setEditdetail({
-                    ...editdetail,
-                    image: file,
-                  });
-                  console.log(setEditdetail);
-                  console.log({ file });
-                  return false;
-                }}
+          <Upload
+              listType="picture"
+              beforeUpload={(file) => {
+                // setDocImage({
+                //   image: file,
+                // });
+                console.log(docImage.image);
+                return false;
+              }}
+            
                 // onChange={handleOnChange}
               >
                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
@@ -450,23 +438,7 @@ const Doctorlog = () => {
               />
             </div>
            
-           {/* <div>
-             <Select placeholder="Select a option below" allowClear
-              onChange = {(value) => {
-                setEditdetail((pre) => {
-                  return { ...pre, available_slot: value };
-                });
-              }}
-             >
-             
-              {
-                slotoption.map((options)=> (
-                  <Option value={options.value} key={options.value}>{options.value}</Option>
-                ))
-              }
-            </Select>
-              </div> */}
-         
+        
         </Modal>
       </div>
     </>

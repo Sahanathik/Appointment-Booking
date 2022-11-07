@@ -6,6 +6,14 @@ async function addDaySlot(req,res){
     })
 }
 
+async function getData(req,res){
+    await Service.getData(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
+
 export default { 
-    addDaySlot
+    addDaySlot,
+    getData
 }

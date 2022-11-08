@@ -2,6 +2,8 @@ import userSchema from './user.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import decode from "jwt-decode";
+
 dotenv.config()
 // const twillo = require('twilio')(process.env.account_Sid, process.env.auth_Token)
 import twilio from 'twilio'
@@ -68,7 +70,7 @@ async function login(req,res,next){
           return res.json({status:"failed", message:'user not found'})
         }  
     }else{
-      return res.json({status:"failed", message:'enter the correct id'})
+      return res.json({status:"failed", message:'enter the correct id or password'})
     }
 
     if(user){
@@ -76,8 +78,8 @@ async function login(req,res,next){
        if(isMatch){
         const userData = user.toObject();
         const token = jwt.sign({userData},"key", {expiresIn: '24h'});
-        console.log('token',token);
-        res.status(200).json({status:"success", message:'login success!',"token":token});
+        // console.log('token',token);
+        res.status(200).json({status:"success", message:'login success!', "result":user, "token":token});
        }else{
         res.json({status:"failed", message:'wrong id or password'});
       }
@@ -90,6 +92,16 @@ async function login(req,res,next){
 }
 }
 
+
+async function Decode(req, res, next){
+  try{
+     let token = req.query
+     let decoder = decode(token)
+     return res.json({'status': 'success', 'result':decoder})
+  }catch(error) {
+    return res.json({status:'failed', message:error.message})
+}
+}
 
 // user login
 

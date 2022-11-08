@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../navbar/Navbar";
+import decode from "jwt-decode";
 import { Typography } from "antd";
 import {
   SearchOutlined,
@@ -11,6 +12,13 @@ import "./patient.css";
 const { Title } = Typography;
 
 const Patient = () => {
+  let token = localStorage.getItem('token')
+  let decoder = decode(token)
+  // console.log(token)
+  // console.log('decode', decoder)
+  // console.log('deco', decoder.userData.patient_id)
+
+  const [] = useState()
   //form-layout
   const responsive_layout = {
     labelCol: {
@@ -264,14 +272,14 @@ const Patient = () => {
                             <input
                               type="text"
                               id="patient_id"
-                              // value={patient_id}
+                              value={decoder.userData.patient_id}
                               className="patient-input-disable form-control form-control mb-2 rounded-0"
                               disabled
                             />
                           </div>
                         </div>
                       ) : (
-                        <p>PatientId : Pa-1234555</p>
+                        <p>PatientId : {decoder.userData.patient_id}</p>
                       )}
                     </div>
                     {updatemode ? (
@@ -285,14 +293,14 @@ const Patient = () => {
                         <div className="col-9">
                           <input
                             type="text"
-                            // value={first_name}
+                            value={decoder.userData.first_name}
                             className="patient-input-disable form-control form-control mb-2 rounded-0"
                             disabled
                           />
                         </div>
                       </div>
                     ) : (
-                      <p>Name : &ensp;first&nbsp;last </p>
+                      <p>Name : {decoder.userData.first_name} {decoder.userData.last_name} </p>
                     )}
                     <div>
                       {updatemode ? (
@@ -306,13 +314,13 @@ const Patient = () => {
                           <div className="col-9 ">
                             <input
                               type="text"
-                              // value={mobile_number}
+                              value={decoder.userData.mobile_number}
                               className="patient-input form-control form-control mb-2 rounded-0"
                             />
                           </div>
                         </div>
                       ) : (
-                        <p>Mobile : 9659022226</p>
+                        <p>Mobile : {decoder.userData.mobile_number}</p>
                       )}
                     </div>
                     <div>
@@ -327,15 +335,14 @@ const Patient = () => {
                           <div className="col-9 ">
                             <input
                               type="text"
-                              // value={gender}
-                              value="male"
+                              value={decoder.userData.gender}
                               className="patient-input-disable form-control form-control mb-2 rounded-0"
                               disabled
                             />
                           </div>
                         </div>
                       ) : (
-                        <p>Gender : male</p>
+                        <p>Gender : {decoder.userData.gender}</p>
                       )}
                     </div>
                     <div>
@@ -350,13 +357,13 @@ const Patient = () => {
                           <div className="col-9 ">
                             <input
                               type="text"
-                              // value={patient_id}
+                              value={decoder.userData.email}
                               className="patient-input form-control form-control mt-3 mb-2 rounded-0"
                             />
                           </div>
                         </div>
                       ) : (
-                        <p>Email : example@gmail.com</p>
+                        <p>Email : {decoder.userData.email}</p>
                       )}
                     </div>
                     <div>
@@ -370,7 +377,7 @@ const Patient = () => {
                           </button>
                         </div>
                       ) : (
-                        <p>Email : example@gmail.com</p>
+                        <p>Email : {decoder.userData.email}</p>
                       )}
                     </div>
                   </div>

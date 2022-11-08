@@ -50,6 +50,8 @@ async function doctorLog(req,res,next){
     }
 }
 
+
+
 export default {
     doctorLog
 }

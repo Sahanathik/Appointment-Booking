@@ -260,6 +260,8 @@ async function getspecialistByDepId(req,res,next){
             console.log(data.length)
             console.log(data)
             return res.json({status:'success', message:'data fetched', result:data})
+        } else {
+            return res.json({status:'success', message:'no data fetched'})
         }
     } catch (error) {
         console.log(error)

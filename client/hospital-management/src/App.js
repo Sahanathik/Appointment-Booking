@@ -20,9 +20,9 @@ function App() {
     <>
       <Router>
         {/* <Dashboard /> */}
-        <Dept_dashboard></Dept_dashboard>
+        {/* <Dept_dashboard></Dept_dashboard> */}
         <Routes>
-          {/* <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/admin" element={<Dashboard />} />
@@ -34,7 +34,7 @@ function App() {
           <Route path="/patient-data" element={<Patient />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/payment" element={<Payment />} /> */}
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Router>
     </>

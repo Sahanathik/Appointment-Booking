@@ -139,7 +139,8 @@ const Sign_up = () => {
               </Form.Item>
               <Form.Item
                 label="Mobile Number"
-                name="mobilenumber"
+                name="mobile_number"
+                id="mobile_number"
                 rules={[
                   {
                     required: true,
@@ -154,8 +155,8 @@ const Sign_up = () => {
                   addonBefore="+91"
                   placeholder="Enter Mobile number"
                   type="text"
-                  name="mobilenumber"
-                  id="mobilenumber"
+                  name="mobile_number"
+                  id="mobile_number"
                   maxLength={10}
                   minLength={10}
                 />

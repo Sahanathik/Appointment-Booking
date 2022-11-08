@@ -84,7 +84,7 @@ const Sign_up = () => {
         <div className="col-md-8 col-sm-8 col-12 col-lg-5 mx-auto">
           <Card title="Sign-Up">
             <Form {...responsive_layout} form = {form}  onFinish={formSubmit}>
-              <Form.Item
+              <Form.Item    
                 label="First Name"
                 type="text"
                 name="first_name"
@@ -142,7 +142,8 @@ const Sign_up = () => {
               </Form.Item>
               <Form.Item
                 label="Mobile Number"
-                name="mobilenumber"
+                name="mobile_number"
+                id="mobile_number"
                 rules={[
                   {
                     required: true,
@@ -157,8 +158,8 @@ const Sign_up = () => {
                   addonBefore="+91"
                   placeholder="Enter Mobile number"
                   type="text"
-                  name="mobilenumber"
-                  id="mobilenumber"
+                  name="mobile_number"
+                  id="mobile_number"
                   maxLength={10}
                   minLength={10}
                 />

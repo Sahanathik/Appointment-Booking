@@ -12,11 +12,11 @@ const account_Sid = process.env.account_Sid
 const auth_Token = process.env.auth_Token
 const userTwilio = new twilio(account_Sid, auth_Token);
 
-async function register(req,res,next){
+async function register (req,res,next){
 try {
   let number = req.mobile_number;
         
-  let numberDetails = await userSchema.findOne({mobile_number:number}).exec();
+  let numberDetails = await userSchema.findOne({mobile_number:number});
   if(numberDetails){
       return res.json({status:'failed', message:'mobile number already exists or already registered'})
   }

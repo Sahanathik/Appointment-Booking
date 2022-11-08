@@ -23,6 +23,7 @@ import PaymentSetting from "../payment-setting/PaymentSetting";
 import Doctorlog from "../doctor_log/Doctorlog";
 import Patientlog from "../patientlog/Patientlog";
 import Sidebar_menu from "./Sidebar_menu";
+import Doctorsettings from "../doctor_log/Doctorsettings";
 
 import Departmentsetting from "../department/Departmentsetting";
 import Specialistsetting from "../specialist/Specialistsettings";
@@ -100,7 +101,7 @@ const Dashboard = () => {
                 />
                 <Route exact path="/specialist-setting" element={<Specialistsetting />} />
                 <Route exact path="/patient-log" element={<Patientlog />} />
-                <Route exact path="/doctor-log" element={<Doctorlog />} />
+                <Route exact path="/doctor-log" element={<Doctorsettings />} />
                 <Route path="/payment-setting" element={<PaymentSetting />} />
 
                 {/* <Route path="/Logout" element= {<Logout/>} /> */}

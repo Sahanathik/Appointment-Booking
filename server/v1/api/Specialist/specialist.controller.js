@@ -38,7 +38,7 @@ async function updateDoctorWithoutImage(req,res){
 }
 
 async function getspecialistByDepId(req,res){
-    await Service.getspecialistByDepId(req.query, res, function(result){
+    await Service.getspecialistByDepId(req, res, function(result){
         return res.json({message : result.message})
     })
 }
@@ -51,6 +51,7 @@ async function addSlotDay(req,res){
 
 
 
+
 export default {
     addSpecialist,
     getAllSpecialist,
@@ -59,6 +60,7 @@ export default {
     // updateDoctorWithoutImg,
     updateDoctorWithoutImage,
     getspecialistByDepId,
-    addSlotDay
+    addSlotDay,
+  
 
 }

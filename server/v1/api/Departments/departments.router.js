@@ -22,6 +22,8 @@ router.get('/getAllDepartments', Controller.getAllDepartments)
 router.put('/updateDepartmentWithImg', upload.single('department_image'), Controller.updateDepartmentWithImg),
 router.put('/updateDepartmentWithoutImg', Controller.updateDepartmentWithoutImg)
 router.get('/getSingleDepartment', Controller.getSingleDepartment)
+router.get('/doctorLog', Controller.doctorLog)
+router.get('/getDepName', Controller.getDepName)
 
 
 export default router

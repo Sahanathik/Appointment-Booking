@@ -1,5 +1,6 @@
 import departmentSchema from './department.model.js'
 import jwt from 'jsonwebtoken';
+import specialistSchema from '../Specialist/specialist.model.js'
 
 async function addDepartments(req,res){
     try {
@@ -121,6 +122,59 @@ async function getSingleDepartment(req,res){
     }
 }
 
+async function doctorLog(req,res,next){
+    try {
+        // let data =  await departmentSchema.aggregate([{
+        //     $lookup: {
+        //             from: "specialist",
+        //             localField: "department_id",
+        //             foreignField: "department_id",
+        //             as: "doctorlog"
+        //         } ,
+            
+        // }]).then((res)=>{
+        //     console.log(res)
+        // }).catch(err => {
+        //     console.log(err)
+        // })
+
+        let data2 =  await specialistSchema.aggregate([{
+            $lookup: {
+                    from: "specialistdayslotschemas",
+                    localField: "specialist_id",
+                    foreignField: "specialist_id",
+                    as: "doctorlog"
+                },
+            
+            
+        }, {
+            $project: {
+                _id : 0
+            }
+        }]).exec();
+
+        if(data2){
+            return res.json({status : true,  message:"Single department detail fetched", data2 })
+        }
+
+        // let data = await specialistSchema.find().exec();
+        // console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function getDepName(req,res,next){
+    try {
+        let data = await departmentSchema.findOne({department_id : req.department_id}).exec();
+        if(data){
+            return res.json({status : true,  message:"data fetched", data}) 
+        }
+    } catch (error) {
+        
+    }
+}
+
 
 export default {
     addDepartments,
@@ -129,5 +183,7 @@ export default {
     getSingleDepartment,
     updateDepartmentWithImg,
     updateDepartmentWithoutImg,
+    doctorLog,
+    getDepName,
 
 }

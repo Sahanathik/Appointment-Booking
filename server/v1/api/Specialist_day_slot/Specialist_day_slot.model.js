@@ -6,6 +6,7 @@ const specialistDaySlotSchema = new mongoose.Schema({
     specialist_name:{type:String },
     available_day: {type : String },
     available_slot: [String],
+    specialist_image : {type : String}
     },
 {
     timestamps:true

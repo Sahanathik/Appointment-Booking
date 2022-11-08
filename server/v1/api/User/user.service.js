@@ -93,15 +93,15 @@ async function login(req,res,next){
 }
 
 
-async function Decode(req, res, next){
-  try{
-     let token = req.query
-     let decoder = decode(token)
-     return res.json({'status': 'success', 'result':decoder})
-  }catch(error) {
-    return res.json({status:'failed', message:error.message})
-}
-}
+// async function Decode(req, res, next){
+//   try{
+//      let token = req.query
+//      let decoder = decode(token)
+//      return res.json({'status': 'success', 'result':decoder})
+//   }catch(error) {
+//     return res.json({status:'failed', message:error.message})
+// }
+// }
 
 // user login
 

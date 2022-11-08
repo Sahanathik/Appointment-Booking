@@ -1,9 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Input, Button, Form, Image, Typography } from "antd";
 const { Title } = Typography;
 
 const Doctor_login = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  //handle submit
+  const formSubmit = () => {
+    //login api
+    //on success
+    navigate("/doctor-board");
+  };
+
   const responsive_layout = {
     labelCol: {
       xs: { span: 24 },
@@ -36,7 +45,7 @@ const Doctor_login = () => {
             </Title>
           </div>
           <div class="card-body">
-            <Form {...responsive_layout} form={form}>
+            <Form {...responsive_layout} form={form} onFinish={formSubmit}>
               <Form.Item
                 label="Doctor Id:"
                 type="text"
@@ -74,7 +83,6 @@ const Doctor_login = () => {
                 </Button>
               </Form.Item>
             </Form>
-            <div></div>
           </div>
         </div>
       </div>

@@ -17,8 +17,10 @@ import Portal_menu from "./Dept_menu";
 import Dept_doctors from "../dept_doctors/Dept_doctors";
 import Doctor_login from "../doctor_login/Doctor_login";
 import Doctorboard from "../doctor_access/Doctorboard";
-import Appointment_history from "../doctorAppointment/Appointment_history";
+import Patient_history from "../doctorAppointment/Patient_history";
 import Today_appointment from "../doctorAppointment/Today_appointment";
+import Patientreports from "../patient_report/Patientreports";
+import ReportSetting from "../patient_report/Reportsetting";
 const { Header, Sider, Content, Footer } = Layout;
 const Dept_dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -91,13 +93,23 @@ const Dept_dashboard = () => {
                 <Route exact path="/doctor-board" element={<Doctorboard />} />
                 <Route
                   exact
-                  path="/appointment-history"
-                  element={<Appointment_history />}
+                  path="/patient-history"
+                  element={<Patient_history />}
                 />
                 <Route
                   exact
                   path="/today-appointment"
                   element={<Today_appointment />}
+                />
+                <Route
+                  exact
+                  path="/report-history"
+                  element={<Patientreports />}
+                />
+                <Route
+                  exact
+                  path="/report-setting"
+                  element={<ReportSetting />}
                 />
               </Routes>
             </div>

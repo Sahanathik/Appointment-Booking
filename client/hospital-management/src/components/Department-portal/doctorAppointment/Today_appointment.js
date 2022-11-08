@@ -19,6 +19,18 @@ const Today_appointment = () => {
   }/${current.getFullYear()}`;
   const day = moment().format("dddd");
   const inputRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  //dummy data
+  const data = [
+    {
+      patient_id: "123345",
+      first_name: "firstname",
+      last_name: "lastname",
+      appointment_id: "45678",
+    },
+  ];
   // search function
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -134,6 +146,24 @@ const Today_appointment = () => {
       dataIndex: "appointment_id",
       key: "appointment_id",
     },
+    {
+      title: "Report",
+      dataIndex: "",
+      width: "15%",
+      fixed: "right",
+      key: "x",
+      render: (data) => (
+        <>
+          <Button
+            onClick={() => {
+              navigate("/report-setting");
+            }}
+          >
+            Paient reports
+          </Button>
+        </>
+      ),
+    },
   ];
   return (
     <>
@@ -153,7 +183,7 @@ const Today_appointment = () => {
         </Title>
         <Table
           columns={columns}
-          // dataSource={data}
+          dataSource={data}
           // scroll={{
           //   x: 1300,
           // }}

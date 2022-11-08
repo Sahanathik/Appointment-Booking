@@ -12,7 +12,7 @@
   height: 60px;
 }
 
-.ant-card-head {
+.sign-card .ant-card-head {
   background-color: rgb(245, 161, 6) !important;
   text-align: center;
   font-size: 18px;

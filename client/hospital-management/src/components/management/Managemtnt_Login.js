@@ -1,10 +1,38 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
-import { Input, Button, Form, Image, Typography } from "antd";
+import { SERVER_URL } from "../../Globals";
+import { Input, Button, Form, Image, Typography, message} from "antd";
 import "./management.css";
+import axios from "axios";
 const { Title } = Typography;
+
+
 const Managemtnt_Login = () => {
   const [form] = Form.useForm();
+
+  const formSubmit =(values)=>{ 
+    console.log(values)
+
+    axios.post(SERVER_URL+"api/user/login", values).then((res)=>{
+       console.log('res', res)
+       console.log('res', res.data.token)
+       localStorage.setItem('token', res.data.token)
+       if(res.data.status === true){
+        setTimeout(()=>{
+          message.success(res.data.message)
+        }, 1000)
+      } else {
+        setTimeout(()=>{
+          message.warning(res.data.message)
+        }, 1000)
+      }
+     }).catch((err)=>{
+        console.log('error', err.message)
+     })
+  
+    }
+
+
   const responsive_layout = {
     labelCol: {
       xs: { span: 24 },
@@ -52,19 +80,19 @@ const Managemtnt_Login = () => {
             </div>
             <div class="col-md-7">
               <div class="card-body">
-                <Form {...responsive_layout} form={form}>
+                <Form {...responsive_layout} form = {form}  onFinish={formSubmit}>
                   <Form.Item
                     label="Id:"
                     type="text"
-                    name="id"
+                    name="patient_id"
                     hasFeedback
                     rules={[{ required: true, message: "Enter Your Id" }]}
                   >
                     <Input
                       placeholder="Enter your Id"
                       type="text"
-                      name="id"
-                      id="id"
+                      name="patient_id"
+                      id="patient_id"
                     />
                   </Form.Item>
 
@@ -81,6 +109,7 @@ const Managemtnt_Login = () => {
                   >
                     <Input.Password
                       name="password"
+                      id="password"
                       placeholder="Enter your password"
                     />
                   </Form.Item>

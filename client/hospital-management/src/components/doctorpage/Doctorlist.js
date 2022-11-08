@@ -348,7 +348,7 @@ const Doctorlist = () => {
                 resetSelect();
               }}
               onOk={() => {
-                navigate("./payment");
+                navigate("/payment");
                 resetSelect();
               }}
               className="modal-app"

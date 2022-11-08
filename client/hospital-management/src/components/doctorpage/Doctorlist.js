@@ -13,16 +13,22 @@ const { Option } = Select;
 const items = [];
 
 const Doctorlist = () => {
+
+  const [form] = Form.useForm();
+
+ 
+  
   const [isselecting, setIsSelecting] = useState(false);
   const [selectdetail, setSelectdetail] = useState({
     data : []
   });
 
+  const [details, setDetails]=useState({})
   const [department, setDepartment] = useState({
     id : ""
   })
 
-  const [specialistData, setSpecialistDta] = useState({
+  const [specialistData, setSpecialistData] = useState({
     data : ""
   })
 
@@ -34,6 +40,37 @@ const Doctorlist = () => {
   const [state, setState] = useState({
     data : []
   })
+
+  const [depName, setDepName] = useState({
+    name : ""
+  })
+
+  const [availableDay, setAvailableDay] = useState({
+    day : []
+  })
+
+  const [availableSlot, setAvailableSlot] = useState({
+    data : ""
+  })
+
+  const [listSlot, setListSlot] = useState({
+    data : []
+  })
+
+  const [open, setOpen] = useState(false);
+  
+
+  const handleChange=(value)=>{
+    // this.setState({selectValue:e.target.value});
+    console.log(value)
+    setAvailableSlot({
+      data : value
+    })
+
+    console.log("value", value)
+      
+
+  }
 
   useEffect(()=>{
       axios.get(SERVER_URL+"api/departements/getAllDepartments")
@@ -53,10 +90,9 @@ const Doctorlist = () => {
           data : res.data.result
         })
 
-        setSpecialistDta({
+        setSpecialistData({
           data : res.data.result[0].specialist_id
         })
-
        
       }).catch(err=>{
         console.log(err)
@@ -72,11 +108,32 @@ const Doctorlist = () => {
         console.log(err)
       })
 
+
+      axios.get(SERVER_URL+"api/specialistDaySlot/getAvailableSlot",  {params : {specialist_id : details.specialist_id, department_id:details.department_id, available_day : availableSlot.data}})
+      .then(res => {
+        console.log("available_sloteeeeeee", res.data.data[0].available_slot)
+        setListSlot({
+          data : res.data.data[0].available_slot
+        })
+      })
       
 
-  },[department.id, specialistData.data])
 
-  console.log("selectdetail", selectdetail)
+      axios.get(SERVER_URL+"api/specialistDaySlot/getAvailableDay", {params : {specialist_id : details.specialist_id, department_id:details.department_id}})
+      .then(res => {
+        console.log("available_dayyyy", res.data.data);
+  
+        setAvailableDay({
+          data : res.data.data
+        })
+  
+        
+  
+      })
+
+  },[department.id, specialistData.data, availableSlot.data, details])
+
+  // console.log("selectdetail", selectdetail)
 
   const getData = selectedData =>{
     console.log(selectedData)
@@ -84,20 +141,52 @@ const Doctorlist = () => {
       id : selectedData
     })
     
+    axios.get(SERVER_URL+"api/departements/getSingleDepartment",{params: {department_id : selectedData}})
+    .then((res)=>{
+      console.log("departNameeeeee", res.data.data.department_name)
+      setDepName({
+        name : res.data.data.department_name
+      })
+    })
   }
 
-  
-
-
   //slot data
-  const selectdata = (doctor_id) => {
-    console.log("doctor_id", doctor_id);
+  const selectdata = (doctor_id, dep_id) => {
+    console.log(doctor_id, dep_id)
     setIsSelecting(true);
+    setDetails({
+      ...details,
+      specialist_id : doctor_id,
+      department_id : dep_id
+    })
+    
+    console.log("detailsssss", details)
+    setOpen(true);
+   
   };
   //
   const resetSelect = () => {
     setIsSelecting(false);
   };
+
+  const selectSlot = (data) =>{
+    console.log("data", data)
+  }
+
+  const handleSubmit = (data) => {
+    console.log(data)
+    setDetails({
+      ...details,
+      available_day : data.available_day,
+      available_slot : data.available_slot
+    })
+
+    setIsSelecting(false);
+  }
+
+  
+
+  console.log("detailssssssssssssssssssssssssss", details)
   // form layout
   const responsive_layout = {
     labelCol: {
@@ -193,26 +282,22 @@ const Doctorlist = () => {
           </div>
         </div>
       </div>
-      <div className="container my-2">
+
+      {/* <div className="container my-2">
         <div className="row row-cols-lg-2 row-cols-xxl-3 row-cols-md-1 row-cols-1 gy-3 gx-xl-5 gx-3">
           <div className="col">
             <div class="card mb-3 card-list">
               <div class="row g-0">
                 <div class="col-md-6">
-
-                  <img
-                    src="https://img.freepik.com/premium-photo/beautiful-doctor-pointing-fingers_1258-16474.jpg?w=2000"
-                    class="img-fluid rounded-start h-100 doctor-img"
-                    alt="..."
-                  />
-                </div>
-                  {
-                    selectdetail.data.map((obj, index)=>{
-                      return(
-                        
+                      <img
+                        src="https://img.freepik.com/premium-photo/beautiful-doctor-pointing-fingers_1258-16474.jpg?w=2000"
+                        class="img-fluid rounded-start h-100 doctor-img"
+                        alt="..."
+                      />
+                      </div> 
                       <div class="col-md-6">
                       <div class="card-body doctor-card">
-                      <p class="card-title doctor-name">{obj.specialist_name}</p>
+                      <p class="card-title doctor-name">Sahana</p>
                       <div className="d-flex doctor-exp text-uppercase">
                       <p class="card-text me-3">Cardiologist</p>
                       <p class="card-text">9 years Exp</p>
@@ -220,24 +305,18 @@ const Doctorlist = () => {
                     <p class="card-text doctor-avl mb-2">
                       Department : Cardiology
                     </p>   
-                      {
-                        showSlotData.data.map((obj2, index)=>{
-                          return(
+                      
                             <div>
                             <p class="card-text doctor-avl mb-2">
                           <span className="span">Available on</span>
-                              &nbsp;<i class="fa-solid fa-calendar-days" key={index}></i> : &nbsp;{obj2.available_day}
+                              &nbsp;<i class="fa-solid fa-calendar-days" ></i> : &nbsp;
+                              Monday
                             </p>
                             <p class="card-text doctor-time">
                               <span className="span">Available Slot</span>
-                              &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;{obj2.available_slot}
+                              &nbsp;<i class="fa-regular fa-clock"></i> : &nbsp;10:00AM
                             </p>
                             </div>
-                          )
-                        })
-                      }
-                    
-                    
                     
                     <button
                       className="btn book-btn px-1 py-1"
@@ -251,13 +330,14 @@ const Doctorlist = () => {
                     </button>
                   </div>
                 </div>
-
-                      )
-                    })
-                  }
-                
+                 
               </div>
+
+              
             </div>
+
+
+            
           </div>
           <div>
             <Modal
@@ -302,7 +382,113 @@ const Doctorlist = () => {
             </Modal>
           </div>
         </div>
-      </div>
+      </div> */}
+
+
+<div class="container mt-5 mb-5">
+
+{/* <div class="d-flex justify-content-between mb-3"> <span>Doctors</span> <button class="btn btn-success add">Add Doctors</button> </div> */}
+    <div class="row g-2">
+
+
+{
+
+  selectdetail.data.map((obj)=>{
+   
+      console.log("obj", selectdetail.data)
+    return(
+      <div class="col-md-3">
+            <div class="card p-2 py-3 text-center">
+                <div class="img mb-2"> <img src={SERVER_URL+"uploads/specialist/"+obj.image} width="70" class="rounded-circle" /> </div>
+                <h5 class="mb-0">{obj.specialist_name}</h5>
+                <small>{depName.name}</small> 
+                <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                <div class="mt-4 apointment"> <button class="btn btn-success text-uppercase" onClick={() => {
+                        selectdata(obj.specialist_id, obj.department_id)
+                        // selectdata();
+                      }}>Book Appointment</button> </div>
+            </div>
+        </div> 
+    )
+        
+
+  })
+}
+ 
+
+<div>
+            <Modal
+              title="Select Your Slot"
+              visible={isselecting}
+              
+              // onOk={(values) => {
+              //   navigate("./payment");
+              //   console.log("values", values)
+              //   resetSelect();
+              // }}
+             
+              onCancel={() => {
+                resetSelect();
+              }}
+              footer={null}
+              className="modal-app"
+            >
+              <div>
+                <Form {...responsive_layout} form={form} onFinish={handleSubmit}>
+
+                      <Form.Item
+                      name = "available_day"
+                      label="Choose Day for Appointment"
+                      // rules={[{ required: true, message: "Select day" }]}
+                      >
+                        <Select 
+                        placeholder="Select a option below" 
+                        allowClear
+                        onChange={handleChange}
+                        
+                        >
+                            {console.log("availableday.dayeeee",availableDay.data)}
+                              {
+                                availableDay.data?.map((data, index)=>{
+                                  return(
+                                   <Option value={data.available_day} key={index}>{data.available_day}</Option>
+                                  )
+                                })
+                              }
+                          </Select>
+                      </Form.Item>
+
+                  <Form.Item
+                    name="available_slot"
+                    label="Choose Slot Time"
+                    // rules={[
+                    //   { required: true, message: "Select consultation time" },
+                    // ]}
+                  >
+                    <Select placeholder="Select a option below" allowClear>
+                      {
+                        listSlot.data?.map((det, index) =>{
+                          return(
+                            <Option value={det} key={index}>{det}</Option>
+                          )                          
+                        })
+                      }
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item>
+                  <Button htmlType="submit">Submit</Button>
+                  </Form.Item>
+                </Form>
+              </div>
+            </Modal>
+          </div>
+
+</div>
+
+</div>
+
+
     </>
   );
 };

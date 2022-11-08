@@ -96,8 +96,34 @@ async function getDataSlotDay(req,res,next){
     }
 }
 
+
+async function getAvailableDay(req,res,next){
+    try {
+        let data = await specialistDaySlotSchema.find({specialist_id : req.specialist_id, department_id : req.department_id}).exec();
+        if(data){
+            return res.json({status : true, message : "data fetched", data : data })
+        }
+    } catch (error) {
+        return res.json({status : true, message : error })
+    }
+}
+
+
+async function getAvailableSlot(req,res,next){
+    try {
+        let data = await specialistDaySlotSchema.find({specialist_id : req.specialist_id, department_id : req.department_id, available_day : req.available_day}).exec();
+        if(data){
+            return res.json({status : true, message : "data fetched", data : data })
+        }
+    } catch (error) {
+        return res.json({status : true, message : error })
+    }
+}
+
 export default {
     addDaySlot,
     getData,
-    getDataSlotDay
+    getDataSlotDay,
+    getAvailableDay,
+    getAvailableSlot
 }

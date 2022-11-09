@@ -18,6 +18,12 @@ async function login(req,res,next){
     })
 }
 
+async function Update(req,res,next){
+    await Service.Update(req, res, function(result){
+        return res.json({message : result.message})
+    })
+}
+
 async function OTP(req,res,next){
     console.log("Controller")
     await Service.OTP(req, res, function(result){
@@ -46,5 +52,6 @@ export default {
     login,
     userlogin,
     appointment,
-    OTP
+    OTP,
+    Update
 }

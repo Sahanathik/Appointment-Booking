@@ -90,7 +90,7 @@ async function Update(req, res){
        if(!updated){
         return res.json({'status':'failed', 'message':'invalid email Id'})
        }else{
-        return res.json({'status':'Success', 'message':'data updated', 'result':result})
+        return res.json({'status':'Success', 'message':'data updated', 'result':updated})
        } 
     } catch (error) {
         return res.status(400).json({status:'failed', message:error.message})

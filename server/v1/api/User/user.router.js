@@ -11,6 +11,8 @@ router.post('/register', Controller.register)
 
 router.post('/login', Controller.login)
 
+router.put('/edit', Controller.Update)
+
 router.post('/userlogin', Controller.userlogin)
 
 router.post('/otp', Controller.OTP)

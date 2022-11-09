@@ -1,7 +1,6 @@
 import {
-  DesktopOutlined,
   UsergroupAddOutlined,
-  IdcardOutlined,
+  SolutionOutlined,
   LoginOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
@@ -21,6 +20,12 @@ const Portal_menu = [
   },
   {
     key: "3",
+    icon: <SolutionOutlined />,
+    title: "Patient Report",
+    link: "/deptartment-patient-report",
+  },
+  {
+    key: "4",
     icon: <LoginOutlined />,
     title: "Doctor Login",
     link: "/doctor-login",

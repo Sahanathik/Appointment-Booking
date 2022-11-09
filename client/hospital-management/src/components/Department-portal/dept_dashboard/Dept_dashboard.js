@@ -21,6 +21,7 @@ import Patient_history from "../doctorAppointment/Patient_history";
 import Today_appointment from "../doctorAppointment/Today_appointment";
 import Patientreports from "../patient_report/Patientreports";
 import ReportSetting from "../patient_report/Reportsetting";
+import Dept_patient from "../dept_patient/Dept_patient";
 const { Header, Sider, Content, Footer } = Layout;
 const Dept_dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -91,6 +92,11 @@ const Dept_dashboard = () => {
                 />
                 <Route exact path="/doctor-login" element={<Doctor_login />} />
                 <Route exact path="/doctor-board" element={<Doctorboard />} />
+                <Route
+                  exact
+                  path="/deptartment-patient-report"
+                  element={<Dept_patient />}
+                />
                 <Route
                   exact
                   path="/patient-history"

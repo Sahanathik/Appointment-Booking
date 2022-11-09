@@ -6,13 +6,48 @@ import {
   PhoneOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Input, Card, Col, Row, Select, Typography } from "antd";
+import axios from "axios";
+import {
+  Button,
+  Form,
+  Input,
+  Card,
+  Col,
+  Row,
+  Select,
+  Typography,
+  message,
+} from "antd";
 import Navbar from "../navbar/Navbar";
 import "./Contact.css";
+import { SERVER_URL } from "../../Globals";
 const { Option } = Select;
 const { Title } = Typography;
-
 const Contact = () => {
+  //CREATE FORM VARIABLE
+  const [form] = Form.useForm();
+
+  const formSubmit = (values) => {
+    console.log("values", values);
+
+    axios
+      .post(SERVER_URL + "api/contact/contact-us-message", {
+        username: values.username,
+        email: values.email,
+        mobile: values.mobile,
+        query_type: values.query_type,
+        message: values.message,
+      })
+      .then((res) => {
+        console.log(res);
+        setTimeout(() => {
+          message.success("Your query submitted");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <Navbar></Navbar>
@@ -43,7 +78,7 @@ const Contact = () => {
             you.
           </p>
           <div>
-            <Form>
+            <Form form={form} onFinish={formSubmit}>
               <Form.Item>
                 <Row gutter={8}>
                   <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -63,13 +98,15 @@ const Contact = () => {
                         }
                         placeholder="Username*"
                         className="mb-2"
+                        name="username"
+                        id="username"
                       />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                     <Form.Item
                       hasFeedback
-                      name="Email"
+                      name="email"
                       rules={[
                         {
                           required: true,
@@ -82,6 +119,8 @@ const Contact = () => {
                           <MailOutlined className="site-form-item-icon" />
                         }
                         placeholder="Email*"
+                        name="email"
+                        id="email"
                       />
                     </Form.Item>
                   </Col>
@@ -106,6 +145,8 @@ const Contact = () => {
                         }
                         placeholder="Mobile Number*"
                         className="mb-2"
+                        name="mobile"
+                        id="mobile"
                       />
                     </Form.Item>
                   </Col>
@@ -121,9 +162,9 @@ const Contact = () => {
                       ]}
                     >
                       <Select placeholder="Type of Query">
-                        <Option value="red">Query</Option>
-                        <Option value="green">Feedback</Option>
-                        <Option value="blue">Complaint</Option>
+                        <Option value="query">Query</Option>
+                        <Option value="feedback">Feedback</Option>
+                        <Option value="complaint">Complaint</Option>
                       </Select>
                     </Form.Item>
                   </Col>

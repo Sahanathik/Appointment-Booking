@@ -103,6 +103,25 @@ async function login(req,res,next){
 // }
 // }
 
+
+
+async function Update(req, res){
+  try {
+      const patientId = req.query.patient_id;
+     let updated = await userSchema.findOneAndUpdate({patient_id:patientId}, req.body, {new:true})
+     if(!updated){
+      return res.json({'status':'failed', 'message':'invalid patient Id'})
+     }else{
+      return res.json({'status':'Success', 'message':'data updated', 'result':updated})
+     } 
+  } catch (error) {
+      return res.status(400).json({status:'failed', message:error.message})
+  }
+}
+
+
+
+
 // user login
 
 async function OTP(req, res, next){
@@ -161,5 +180,6 @@ export default {
     register,
     login,
     userlogin,
-    OTP
+    OTP,
+    Update
 }

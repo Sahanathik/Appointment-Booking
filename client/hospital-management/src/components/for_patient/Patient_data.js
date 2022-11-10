@@ -14,7 +14,6 @@ import "./patient.css";
 const { Title } = Typography;
 
 const Patient = () => {
-
   //form-layout
   const responsive_layout = {
     labelCol: {
@@ -33,19 +32,21 @@ const Patient = () => {
 
   //profile-update integration
 
-  let token = localStorage.getItem('token')
-  let decoder = decode(token)
-  // console.log(token)
-  // console.log('decode', decoder)
-  // console.log('deco', decoder.userData.patient_id)
+  let token = localStorage.getItem("token");
+  let decoder = decode(token);
+  console.log("decode token", decoder);
+  console.log(token);
+  console.log("decode", decoder);
+  console.log("deco", decoder.userData.patient_id);
 
-  const [patientId, setPatientId] = useState(decoder.userData.patient_id)
-  const [FirstName, setFirstName] = useState(decoder.userData.first_name)
-  const [mobileNumber, setMobileNumber] = useState(decoder.userData.mobile_number)
-  const [gender, setGender] = useState(decoder.userData.gender)
-  const [email, setEmail] = useState(decoder.userData.email)
+  const [patientId, setPatientId] = useState(decoder.userData.patient_id);
+  const [FirstName, setFirstName] = useState(decoder.userData.first_name);
+  const [mobileNumber, setMobileNumber] = useState(
+    decoder.userData.mobile_number
+  );
+  const [gender, setGender] = useState(decoder.userData.gender);
+  const [email, setEmail] = useState(decoder.userData.email);
   const [updatemode, setUpdatemode] = useState(false);
-
 
   const edit = () => {
     if (updatemode === true) {
@@ -55,16 +56,19 @@ const Patient = () => {
     }
   };
   const updateprofile = async () => {
-     let data ={
-      first_name:FirstName,
-      mobile_number:mobileNumber,
-      gender:gender,
-      email:email
-     }
+    // let data = {
+    //   mobile_number: mobileNumber,
+    //   email: email,
+    // };
     // console.log ('data', data)
-     axios.put(SERVER_URL+`api/user/edit?patient_id=${decoder.userData.patient_id}` , data).then(res=>{
-      console.log('result', res)
-     })
+    axios
+      .put(
+        SERVER_URL + `api/user/edit?patient_id=${decoder.userData.patient_id}`,
+        { mobile_number: mobileNumber, email: email }
+      )
+      .then((res) => {
+        console.log("result", res);
+      });
     setUpdatemode(false);
   };
 
@@ -299,6 +303,7 @@ const Patient = () => {
                         </div>
                       ) : (
                         <p>PatientId : {patientId}</p>
+                        // <p>PatientId</p>
                       )}
                     </div>
                     {updatemode ? (
@@ -313,14 +318,17 @@ const Patient = () => {
                           <input
                             type="text"
                             value={FirstName}
-                            onChange={(e)=>setFirstName(e.target.value)}
                             className="patient-input-disable form-control form-control mb-2 rounded-0"
                             disabled
                           />
                         </div>
                       </div>
                     ) : (
-                      <p>Name : {decoder.userData.first_name} {decoder.userData.last_name} </p>
+                      <p>
+                        {/* name */}
+                        Name : {decoder.userData.first_name}&nbsp;
+                        {decoder.userData.last_name}
+                      </p>
                     )}
                     <div>
                       {updatemode ? (
@@ -335,12 +343,13 @@ const Patient = () => {
                             <input
                               type="text"
                               value={mobileNumber}
-                              onChange={(e)=>setMobileNumber(e.target.value)}
+                              onChange={(e) => setMobileNumber(e.target.value)}
                               className="patient-input form-control form-control mb-2 rounded-0"
                             />
                           </div>
                         </div>
                       ) : (
+                        // <p>Mobile</p>
                         <p>Mobile : {mobileNumber}</p>
                       )}
                     </div>
@@ -357,7 +366,6 @@ const Patient = () => {
                             <input
                               type="text"
                               value={gender}
-                              onChange={(e)=>setGender(e.target.value)}
                               className="patient-input-disable form-control form-control mb-2 rounded-0"
                               disabled
                             />
@@ -365,6 +373,7 @@ const Patient = () => {
                         </div>
                       ) : (
                         <p>Gender : {decoder.userData.gender}</p>
+                        // <p>Gender</p>
                       )}
                     </div>
                     <div>
@@ -380,13 +389,14 @@ const Patient = () => {
                             <input
                               type="text"
                               value={email}
-                              onChange={(e)=>setEmail(e.target.value)}
+                              onChange={(e) => setEmail(e.target.value)}
                               className="patient-input form-control form-control mt-3 mb-2 rounded-0"
                             />
                           </div>
                         </div>
                       ) : (
                         <p>Email : {decoder.userData.email}</p>
+                        // <p>Email</p>
                       )}
                     </div>
                     <div>
@@ -399,9 +409,7 @@ const Patient = () => {
                             Update Profile
                           </button>
                         </div>
-                      ) : (
-                        <p>Email : {decoder.userData.email}</p>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>

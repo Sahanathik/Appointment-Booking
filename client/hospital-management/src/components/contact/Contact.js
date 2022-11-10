@@ -171,7 +171,7 @@ const Contact = () => {
                 </Row>
               </Form.Item>
               <Form.Item>
-                <Form.Item extra=" Write Your Message">
+                <Form.Item extra="Write Your Message">
                   <Row gutter={8}>
                     <Col span={24}>
                       <Form.Item

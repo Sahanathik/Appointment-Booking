@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import "./App.css";
+import jwt_decode from "jwt-decode";
 import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Admin-management/dashboard/Dashboard";
@@ -16,17 +17,26 @@ import Payment from "./components/payment/Payment";
 import Dept_dashboard from "./components/Department-portal/dept_dashboard/Dept_dashboard";
 
 function App() {
+  let token = localStorage.getItem("token");
+  console.log(token);
+  let decode = jwt_decode(token);
+  let role = decode.role;
+
   return (
     <>
       <Router>
+        {/* navigate */}
+        {role === "admin" ? <Dashboard /> : null}
+        {role === "user" ? <Patient /> : null}
+        {role === "department" ? <Dept_dashboard /> : null}
+
         {/* <Route path="/admin" element={<Dashboard />} /> */}
-        <Dashboard />
+        {/* <Dashboard /> */}
         {/* <Dept_dashboard></Dept_dashboard> */}
         <Routes>
-          {/* <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
-          <Route path="/admin" element={<Dashboard />} />
           <Route path="/map" element={<Map />} />
           <Route path="/login" element={<Managemtnt_Login />} />
           <Route path="/sign-up" element={<Sign_up />} />
@@ -34,7 +44,7 @@ function App() {
           <Route path="/patient-data" element={<Patient />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/payment" element={<Payment />} /> */}
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Router>
     </>

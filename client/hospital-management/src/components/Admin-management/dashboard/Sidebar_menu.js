@@ -10,12 +10,12 @@ import {
 } from "@ant-design/icons";
 
 const Sidebar_menu = [
-  {
-    key: "1",
-    title: "Home",
-    icon: <HomeOutlined />,
-    link: "/home",
-  },
+  // {
+  //   key: "1",
+  //   title: "Home",
+  //   icon: <HomeOutlined />,
+  //   link: "/home",
+  // },
   {
     key: "2",
     icon: <SettingOutlined />,
@@ -45,6 +45,12 @@ const Sidebar_menu = [
     icon: <SolutionOutlined />,
     title: "Doctor Log",
     link: "/doctor-log",
+  },
+  {
+    key: "6",
+    icon: <IdcardOutlined />,
+    title: "Query Section",
+    link: "/query-tab",
   },
   {
     key: "7",

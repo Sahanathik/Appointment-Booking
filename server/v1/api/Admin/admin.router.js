@@ -1,27 +1,28 @@
-import express from 'express';
-import Controller from './admin.controller.js'
+import express from "express";
+import Controller from "./admin.controller.js";
 
-const app = express()
+const app = express();
 
-let router = express.Router()
+let router = express.Router();
 
-console.log("router")
+console.log("router");
 
-router.post('/login', Controller.Login)
+router.post("/login", Controller.Login);
 
-router.post('/register', Controller.Register)
+router.post("/common-login", Controller.CommonLogin);
 
-router.get('/getAdmin', Controller.GetAll)
+router.post("/register", Controller.Register);
 
-router.get('/get', Controller.GetOne)
+router.get("/getAdmin", Controller.GetAll);
 
-router.put('/update', Controller.Update)
+router.get("/get", Controller.GetOne);
 
-router.delete('/delete', Controller.Delete)
+router.put("/update", Controller.Update);
 
+router.delete("/delete", Controller.Delete);
 
 // router.get('/register',  function(req, res){
 //     // register
 // })
 
-export default router
+export default router;

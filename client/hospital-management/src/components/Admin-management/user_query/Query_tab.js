@@ -2,7 +2,13 @@ import React from "react";
 import Query from "./Query";
 import Feedback from "./Feedback";
 import Complaint from "./Complaint";
+import { Tabs } from "antd";
 const Query_tab = () => {
+  const { TabPane } = Tabs;
+
+  function callback(key) {
+    console.log(key);
+  }
   return (
     <>
       <div>
@@ -11,9 +17,9 @@ const Query_tab = () => {
             <Query />
           </TabPane>
           <TabPane tab="Feedback" key="2">
-            <Feedback></Feedback>
+            <Feedback />
           </TabPane>
-          <TabPane tab="Complaint" key="2">
+          <TabPane tab="Complaint" key="3">
             <Complaint />
           </TabPane>
         </Tabs>

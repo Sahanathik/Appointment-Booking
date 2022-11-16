@@ -139,13 +139,13 @@ async function CommonLogin(req, res) {
           const payload = {
             department_id: dept.department_id,
             department_name: dept.department_name,
-            department_image: dept_department_image,
+            department_image: dept.department_image,
             role: dept.role,
           };
-          const token = jwt.sign(payload, "secret key admin");
+          const token = jwt.sign(payload, "secret key dept");
           return res.status(200).json({
             status: "success",
-            message: "Logged in successfully",
+            message: "Logged in",
             data: token,
           });
         } else {

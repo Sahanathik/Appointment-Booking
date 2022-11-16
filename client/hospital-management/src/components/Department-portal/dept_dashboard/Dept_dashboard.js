@@ -56,7 +56,7 @@ const Dept_dashboard = () => {
                 </Menu.Item>
               );
             })}
-            <Menu.Item icon={<LogoutOutlined />} key="8">
+            <Menu.Item icon={<LogoutOutlined />} key="4">
               Logout
             </Menu.Item>
           </Menu>

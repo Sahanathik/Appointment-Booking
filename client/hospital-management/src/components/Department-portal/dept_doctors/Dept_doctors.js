@@ -4,19 +4,36 @@ import {
   UploadOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Input,
-  Space,
-  Table,
-  Avatar,
-  Image,
-  Typography,
-} from "antd";
+import { Button, Input, Space, Table, Avatar, Image, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { SERVER_URL } from "../../../Globals";
 const { Title } = Typography;
 const Dept_doctors = () => {
+  const [state, setState] = useState({
+    data: [],
+  });
+
+  let token = localStorage.getItem("token");
+  const decode = jwt_decode(token);
+  const id = decode.department_id;
+  console.log(decode.department_id);
+  useEffect(() => {
+    axios
+      .get(
+        SERVER_URL + `api/specialistDaySlot/get-dept-doctor?department_id=${id}`
+      )
+      .then((res) => {
+        console.log(res.data.result);
+
+        setState({
+          data: res.data.result,
+        });
+      });
+  }, []);
+  console.log("state", state);
+  const data = state.data;
   const inputRef = useRef(null);
   // search function
   const [searchText, setSearchText] = useState("");
@@ -118,9 +135,28 @@ const Dept_doctors = () => {
     },
     {
       title: "Doctor Name",
-      dataIndex: "specialist_name",
-      key: "specialist_name",
-      ...getColumnSearchProps("specialist_name"),
+      dataIndex: "doctor",
+      key: "doctor",
+      render: (doctor) => doctor.specialist_name,
+      // ...getColumnSearchProps("specialist_name"),
+    },
+    {
+      title: "Doctor Profile",
+      dataIndex: "doctor",
+      key: "doctor",
+      width: "15%",
+
+      render: (doctor) => (
+        <Avatar
+          src={
+            <Image
+              src={SERVER_URL + "uploads/specialist/" + doctor.image}
+              style={{ width: 32 }}
+              alt="profile"
+            />
+          }
+        />
+      ),
     },
     {
       title: "OP Day",
@@ -132,10 +168,10 @@ const Dept_doctors = () => {
     <>
       <Table
         columns={columns}
-        // dataSource={data}
-        // scroll={{
-        //   x: 1300,
-        // }}
+        dataSource={data}
+        scroll={{
+          x: 900,
+        }}
       />
     </>
   );

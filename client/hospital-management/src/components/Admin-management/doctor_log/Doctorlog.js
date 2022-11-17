@@ -26,16 +26,15 @@ const { Option } = Select;
 // import Highlighter from "react-highlight-words";
 
 const Doctorlog = () => {
-
-  const [state,setState]=useState({
-    data : []
-  })
+  const [state, setState] = useState({
+    data: [],
+  });
   // slot-time function
   const [time, setTime] = useState("");
   const [items, setItems] = useState([]);
   const [docImage, setDocImage] = useState({
-    image : ""
-  })
+    image: "",
+  });
 
   const inputRef = useRef(null);
   const ontimeChange = (event) => {
@@ -51,23 +50,16 @@ const Doctorlog = () => {
     }, 0);
   };
 
-  useEffect(()=>{
-
-    axios.get(SERVER_URL+"api/specialist/getAllSpecialist")
-    .then((res)=>{
-      console.log(res.data.data)
+  useEffect(() => {
+    axios.get(SERVER_URL + "api/specialist/getAllSpecialist").then((res) => {
+      console.log(res.data.data);
       setState({
-        data : res.data.data
-      })
-    })
+        data: res.data.data,
+      });
+    });
+  }, []);
 
-
-  },[])
-
-  
-  const data = state.data
- 
-  
+  const data = state.data;
 
   //edit functions
   const [isEditing, setIsEditing] = useState(false);
@@ -87,86 +79,87 @@ const Doctorlog = () => {
 
   //update data function
   const update = () => {
+    console.log("editdetail", editdetail);
 
-    console.log("editdetail",editdetail)
-
-    let specialist_id = editdetail.specialist_id
+    let specialist_id = editdetail.specialist_id;
 
     let data = {
-      specialist_name : editdetail.specialist_name
-    }
+      specialist_name: editdetail.specialist_name,
+    };
 
     let name = {
-      specialist_id : editdetail.specialist_id
-    }
-    axios.get(SERVER_URL+"api/specialist/getSingleSpecialist", {params : name})
-    .then((res)=>{
-      console.log(res.data.data.image)
-      let img1 = res.data.data.image
-      let img2 = docImage.image
-      if(img1 == img2){
-        console.log("without image")
-        let data ={
-          specialist_name: editdetail.specialist_name,
-          specialist_id : editdetail.specialist_id
+      specialist_id: editdetail.specialist_id,
+    };
+    axios
+      .get(SERVER_URL + "api/specialist/getSingleSpecialist", { params: name })
+      .then((res) => {
+        console.log(res.data.data.image);
+        let img1 = res.data.data.image;
+        let img2 = docImage.image;
+        if (img1 == img2) {
+          console.log("without image");
+          let data = {
+            specialist_name: editdetail.specialist_name,
+            specialist_id: editdetail.specialist_id,
+          };
+          axios
+            .put(SERVER_URL + "api/specialist/updateDoctorWithoutImage", data)
+            .then((res) => {
+              console.log(res.data.result);
+
+              axios
+                .get(SERVER_URL + "api/specialist/getAllSpecialist")
+                .then((res) => {
+                  console.log(res.data.data);
+                  setState({
+                    data: res.data.data,
+                  });
+                });
+            });
+        } else {
+          console.log("with image");
+
+          //CREATE FORM DATA TO UPDATE WITH IMAGE
+          if (docImage.image) {
+            console.log("image", editdetail);
+            const formData = new FormData();
+
+            const config = {
+              "Content-Type": "multipart/form-data",
+            };
+
+            formData.append("specialist_name", editdetail.specialist_name);
+            formData.append("specialist_id", editdetail.specialist_id);
+            formData.append("image", docImage.image);
+            // formData.append('department_id', editdetail.department_id);
+            // formData.append('password', editdetail.password);
+
+            axios
+              .put(
+                SERVER_URL + "api/specialist/updateDoctorWithImg",
+                formData,
+                config
+              )
+              .then((res) => {
+                console.log("res.data.data", res.data.result);
+                axios
+                  .get(SERVER_URL + "api/specialist/getAllSpecialist")
+                  .then((res) => {
+                    setState({
+                      data: res.data.data,
+                    });
+                  });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         }
-        axios.put(SERVER_URL+"api/specialist/updateDoctorWithoutImage", data)
-        .then (res =>{
-          console.log(res.data.result)
-
-          axios.get(SERVER_URL+"api/specialist/getAllSpecialist")
-          .then((res)=>{
-            console.log(res.data.data)
-            setState({
-              data : res.data.data
-            })
-          })
-      
-        })
-      } else {
-        console.log("with image")
-
-           //CREATE FORM DATA TO UPDATE WITH IMAGE
-      if(docImage.image){
-        console.log("image", editdetail)
-        const formData = new FormData();
-
-        const config = {
-          "Content-Type": "multipart/form-data",
-        };
-
-        formData.append('specialist_name', editdetail.specialist_name);
-        formData.append('specialist_id', editdetail.specialist_id);
-        formData.append('image', docImage.image);
-        // formData.append('department_id', editdetail.department_id);
-        // formData.append('password', editdetail.password);
-  
-        axios.put(SERVER_URL+"api/specialist/updateDoctorWithImg", formData, config)
-        .then((res)=>{
-          console.log( "res.data.data",res.data.result)
-          axios.get(SERVER_URL+"api/specialist/getAllSpecialist")
-          .then((res)=>{
-            setState({
-              data : res.data.data
-            })
-      
-          })
-        }).catch(err =>{
-          console.log(err)
-        })
-  
-      }
-
-    
-      
-    }
-
-   }).catch(err =>{
-    console.log(err)
-   })
-
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
 
   //search-filter function
   const [searchText, setSearchText] = useState("");
@@ -283,7 +276,7 @@ const Doctorlog = () => {
       width: "16%",
       ...getColumnSearchProps("department_name"),
     },
-    
+
     {
       title: "Doctor Profile",
       dataIndex: "image",
@@ -301,7 +294,7 @@ const Doctorlog = () => {
         />
       ),
     },
-   
+
     {
       title: "Action",
       dataIndex: "",
@@ -322,7 +315,7 @@ const Doctorlog = () => {
   ];
 
   // day picker
-   const dayoption = [
+  const dayoption = [
     {
       value: "Monday",
     },
@@ -349,7 +342,6 @@ const Doctorlog = () => {
     },
   ];
 
-
   const slotoption = [
     {
       value: "10:00 AM",
@@ -363,7 +355,7 @@ const Doctorlog = () => {
     {
       value: "4:00 PM",
     },
-  ]
+  ];
 
   return (
     <>
@@ -389,24 +381,23 @@ const Doctorlog = () => {
             resetEditing();
           }}
         >
-         
-            <div>
-            <label>Specialist Name</label>
-                <Input
-                  type="text"
-                  name="specialist_name"
-                  value={editdetail?.specialist_name}
-                  onChange={(e) => {
-                    setEditdetail((pre) => {
-                      return { ...pre, specialist_name: e.target.value };
-                    });
-                  }}
-                />
-             </div>
-          
           <div>
-          <label>Upload</label>
-          <Upload
+            <label>Specialist Name</label>
+            <Input
+              type="text"
+              name="specialist_name"
+              value={editdetail?.specialist_name}
+              onChange={(e) => {
+                setEditdetail((pre) => {
+                  return { ...pre, specialist_name: e.target.value };
+                });
+              }}
+            />
+          </div>
+
+          <div>
+            <label>Upload</label>
+            <Upload
               listType="picture"
               beforeUpload={(file) => {
                 // setDocImage({
@@ -415,30 +406,27 @@ const Doctorlog = () => {
                 console.log(docImage.image);
                 return false;
               }}
-            
-                // onChange={handleOnChange}
-              >
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-              </div>
 
-              <div>
-              <label>Current Image</label>
+              // onChange={handleOnChange}
+            >
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </div>
+
+          <div>
+            <label>Current Image</label>
             {/* <Image width={100} src="" alt="logo" /> */}
             <Avatar
-                  src={
-                  <Image
-                  src= {SERVER_URL+"uploads/specialist/"+ editdetail?.image}
+              src={
+                <Image
+                  src={SERVER_URL + "uploads/specialist/" + editdetail?.image}
                   style={{
-                  width: 32,
-                 
+                    width: 32,
                   }}
-                  />
-                  }
-              />
-            </div>
-           
-        
+                />
+              }
+            />
+          </div>
         </Modal>
       </div>
     </>

@@ -6,11 +6,13 @@ import {
   Routes,
   NavLink,
   withRouter,
+  useNavigate,
 } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   LogoutOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import "./Dashboard.css";
@@ -24,7 +26,7 @@ import Doctorlog from "../doctor_log/Doctorlog";
 import Patientlog from "../patientlog/Patientlog";
 import Sidebar_menu from "./Sidebar_menu";
 import Doctorsettings from "../doctor_log/Doctorsettings";
-
+import Query_tab from "../user_query/Query_tab";
 import Departmentsetting from "../department/Departmentsetting";
 import Specialistsetting from "../specialist/Specialistsettings";
 
@@ -33,7 +35,7 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [title, setTitle] = useState("");
   const [logo, setLogo] = useState("");
-
+  const navigate = useNavigate();
   return (
     <Layout>
       <Layout>
@@ -93,17 +95,20 @@ const Dashboard = () => {
               <Routes>
                 {/* <Route exact path="/home" element={<Homepage />} /> */}
                 <Route exact path="/Setting" element={<Setting />} />
-
                 <Route
                   exact
                   path="/department-setting"
                   element={<Departmentsetting />}
                 />
-                <Route exact path="/specialist-setting" element={<Specialistsetting />} />
+                <Route
+                  exact
+                  path="/specialist-setting"
+                  element={<Specialistsetting />}
+                />
                 <Route exact path="/patient-log" element={<Patientlog />} />
                 <Route exact path="/doctor-log" element={<Doctorsettings />} />
+                <Route exact path="/query-tab" element={<Query_tab />} />
                 <Route path="/payment-setting" element={<PaymentSetting />} />
-
                 {/* <Route path="/Logout" element= {<Logout/>} /> */}
               </Routes>
             </div>

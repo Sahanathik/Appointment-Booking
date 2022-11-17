@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../navbar/Navbar";
+import axios from "axios";
+import { SERVER_URL } from "../../Globals";
 import decode from "jwt-decode";
 import { Typography } from "antd";
 import {
@@ -12,13 +14,6 @@ import "./patient.css";
 const { Title } = Typography;
 
 const Patient = () => {
-  let token = localStorage.getItem('token')
-  let decoder = decode(token)
-  // console.log(token)
-  // console.log('decode', decoder)
-  // console.log('deco', decoder.userData.patient_id)
-
-  const [] = useState()
   //form-layout
   const responsive_layout = {
     labelCol: {
@@ -36,7 +31,23 @@ const Patient = () => {
   };
 
   //profile-update integration
+
+  let token = localStorage.getItem("token");
+  let decoder = decode(token);
+  console.log("decode token", decoder);
+  console.log(token);
+  console.log("decode", decoder);
+  console.log("deco", decoder.userData.patient_id);
+
+  const [patientId, setPatientId] = useState(decoder.userData.patient_id);
+  const [FirstName, setFirstName] = useState(decoder.userData.first_name);
+  const [mobileNumber, setMobileNumber] = useState(
+    decoder.userData.mobile_number
+  );
+  const [gender, setGender] = useState(decoder.userData.gender);
+  const [email, setEmail] = useState(decoder.userData.email);
   const [updatemode, setUpdatemode] = useState(false);
+
   const edit = () => {
     if (updatemode === true) {
       setUpdatemode(false);
@@ -45,7 +56,19 @@ const Patient = () => {
     }
   };
   const updateprofile = async () => {
-    // --code--
+    // let data = {
+    //   mobile_number: mobileNumber,
+    //   email: email,
+    // };
+    // console.log ('data', data)
+    axios
+      .put(
+        SERVER_URL + `api/user/edit?patient_id=${decoder.userData.patient_id}`,
+        { mobile_number: mobileNumber, email: email }
+      )
+      .then((res) => {
+        console.log("result", res);
+      });
     setUpdatemode(false);
   };
 
@@ -272,14 +295,15 @@ const Patient = () => {
                             <input
                               type="text"
                               id="patient_id"
-                              value={decoder.userData.patient_id}
+                              value={patientId}
                               className="patient-input-disable form-control form-control mb-2 rounded-0"
                               disabled
                             />
                           </div>
                         </div>
                       ) : (
-                        <p>PatientId : {decoder.userData.patient_id}</p>
+                        <p>PatientId : {patientId}</p>
+                        // <p>PatientId</p>
                       )}
                     </div>
                     {updatemode ? (
@@ -293,14 +317,18 @@ const Patient = () => {
                         <div className="col-9">
                           <input
                             type="text"
-                            value={decoder.userData.first_name}
+                            value={FirstName}
                             className="patient-input-disable form-control form-control mb-2 rounded-0"
                             disabled
                           />
                         </div>
                       </div>
                     ) : (
-                      <p>Name : {decoder.userData.first_name} {decoder.userData.last_name} </p>
+                      <p>
+                        {/* name */}
+                        Name : {decoder.userData.first_name}&nbsp;
+                        {decoder.userData.last_name}
+                      </p>
                     )}
                     <div>
                       {updatemode ? (
@@ -314,13 +342,15 @@ const Patient = () => {
                           <div className="col-9 ">
                             <input
                               type="text"
-                              value={decoder.userData.mobile_number}
+                              value={mobileNumber}
+                              onChange={(e) => setMobileNumber(e.target.value)}
                               className="patient-input form-control form-control mb-2 rounded-0"
                             />
                           </div>
                         </div>
                       ) : (
-                        <p>Mobile : {decoder.userData.mobile_number}</p>
+                        // <p>Mobile</p>
+                        <p>Mobile : {mobileNumber}</p>
                       )}
                     </div>
                     <div>
@@ -335,7 +365,7 @@ const Patient = () => {
                           <div className="col-9 ">
                             <input
                               type="text"
-                              value={decoder.userData.gender}
+                              value={gender}
                               className="patient-input-disable form-control form-control mb-2 rounded-0"
                               disabled
                             />
@@ -343,6 +373,7 @@ const Patient = () => {
                         </div>
                       ) : (
                         <p>Gender : {decoder.userData.gender}</p>
+                        // <p>Gender</p>
                       )}
                     </div>
                     <div>
@@ -357,13 +388,15 @@ const Patient = () => {
                           <div className="col-9 ">
                             <input
                               type="text"
-                              value={decoder.userData.email}
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
                               className="patient-input form-control form-control mt-3 mb-2 rounded-0"
                             />
                           </div>
                         </div>
                       ) : (
                         <p>Email : {decoder.userData.email}</p>
+                        // <p>Email</p>
                       )}
                     </div>
                     <div>
@@ -376,9 +409,7 @@ const Patient = () => {
                             Update Profile
                           </button>
                         </div>
-                      ) : (
-                        <p>Email : {decoder.userData.email}</p>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>

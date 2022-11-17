@@ -21,38 +21,36 @@ import {
 
 import { SERVER_URL } from "../../Globals";
 
-
 import formData from "form-data";
-
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const Sign_up = () => {
+  const [form] = Form.useForm();
 
-  const [form] = Form.useForm()
+  const formSubmit = (values) => {
+    //  console.log(values)
+    //  console.log(values.dob.toDate())
 
-  const formSubmit =(values)=>{
-  //  console.log(values)
-  //  console.log(values.dob.toDate())
-
-   axios.post(SERVER_URL+"api/user/register", values).then((res)=>{
-     console.log('res', res)
-     if(res.data.status === true){
-      setTimeout(()=>{
-        message.success(res.data.message)
-      }, 1000)
-    } else {
-      setTimeout(()=>{
-        message.warning(res.data.message)
-      }, 1000)
-    }
-   }).catch((err)=>{
-      console.log('error', err.message)
-   })
-
-  }
-
+    axios
+      .post(SERVER_URL + "api/user/register", values)
+      .then((res) => {
+        console.log("res", res);
+        if (res.data.status === true) {
+          setTimeout(() => {
+            message.success(res.data.message);
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            message.warning(res.data.message);
+          }, 1000);
+        }
+      })
+      .catch((err) => {
+        console.log("error", err.message);
+      });
+  };
 
   const responsive_layout = {
     labelCol: {
@@ -81,10 +79,10 @@ const Sign_up = () => {
     <>
       <Navbar></Navbar>
       <div className="row mt-4">
-        <div className="col-md-8 col-sm-8 col-12 col-lg-5 mx-auto">
+        <div className="col-md-8 col-sm-8 col-12 col-lg-5 mx-auto sign-card">
           <Card title="Sign-Up">
-            <Form {...responsive_layout} form = {form}  onFinish={formSubmit}>
-              <Form.Item    
+            <Form {...responsive_layout} form={form} onFinish={formSubmit}>
+              <Form.Item
                 label="First Name"
                 type="text"
                 name="first_name"
@@ -96,7 +94,6 @@ const Sign_up = () => {
                   type="text"
                   name="first_name"
                   id="first_name"
-                  
                 />
               </Form.Item>
               <Form.Item
@@ -115,8 +112,8 @@ const Sign_up = () => {
               </Form.Item>
               <Form.Item
                 label="Date of Birth"
-                name = "dob"
-                id = "dob"
+                name="dob"
+                id="dob"
                 hasFeedback
                 rules={[
                   { required: true, message: "Enter Your Date of Birth" },
@@ -196,7 +193,9 @@ const Sign_up = () => {
               </Form.Item>
 
               <Form.Item {...buttonLayout}>
-                <Button  htmlType="submit" className="mt-2 login-button">Register</Button>
+                <Button htmlType="submit" className="mt-2 login-button">
+                  Register
+                </Button>
               </Form.Item>
             </Form>
             <p className="text-center">

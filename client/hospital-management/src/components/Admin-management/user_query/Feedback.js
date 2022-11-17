@@ -4,40 +4,41 @@ import {
   UploadOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { Button, Input, Space, Table, Avatar, Image, Typography } from "antd";
+import { Button, Input, Space, Table, Modal, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { SERVER_URL } from "../../../Globals";
-const { Title } = Typography;
-const Dept_doctors = () => {
+
+const Feedback = () => {
+  const [viewmsg, setViewmsg] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
   const [state, setState] = useState({
     data: [],
   });
-
-  let token = localStorage.getItem("token");
-  const decode = jwt_decode(token);
-  const id = decode.department_id;
-  console.log(decode.department_id);
-  useEffect(() => {
-    axios
-      .get(
-        SERVER_URL + `api/specialistDaySlot/get-dept-doctor?department_id=${id}`
-      )
-      .then((res) => {
-        console.log(res.data.result);
-
-        setState({
-          data: res.data.result,
-        });
-      });
-  }, []);
-  console.log("state", state);
+  const [msg, setMsg] = useState("");
   const data = state.data;
-  const inputRef = useRef(null);
-  // search function
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
+  useEffect(() => {
+    axios.get(SERVER_URL + "api/contact/user-feedback").then((res) => {
+      console.log(res.data.data);
+      console.log(res.data.data);
+      setState({
+        data: res.data.data,
+      });
+    });
+  }, []);
+  //modal function
+  const show = (detail) => {
+    console.log("show data", detail);
+    setViewmsg(true);
+    setMsg(detail.message);
+  };
+
+  const resetshow = () => {
+    setViewmsg(false);
+  };
+
+  //search filter
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -126,55 +127,73 @@ const Dept_doctors = () => {
       }
     },
   });
+
   const columns = [
     {
-      title: "Doctor Id",
-      dataIndex: "specialist_id",
-      key: "specialist_id",
-      ...getColumnSearchProps("specialist_id"),
-    },
-    {
-      title: "Doctor Name",
-      dataIndex: "doctor",
-      key: "doctor",
-      render: (doctor) => doctor.specialist_name,
-      // ...getColumnSearchProps("specialist_name"),
-    },
-    {
-      title: "Doctor Profile",
-      dataIndex: "doctor",
-      key: "doctor",
+      title: "Name",
+      dataIndex: "username",
+      key: "username",
       width: "15%",
+      fixed: "left",
+      ...getColumnSearchProps("username"),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: "15%",
+      fixed: "left",
+      ...getColumnSearchProps("email"),
+    },
+    {
+      title: "Mobile",
+      dataIndex: "mobile",
+      key: "mobile",
+      width: "16%",
+      ...getColumnSearchProps("mobile"),
+    },
+    {
+      title: "Read Message",
+      dataIndex: "",
+      width: "10%",
 
-      render: (doctor) => (
-        <Avatar
-          src={
-            <Image
-              src={SERVER_URL + "uploads/specialist/" + doctor.image}
-              style={{ width: 32 }}
-              alt="profile"
-            />
-          }
-        />
+      key: "x",
+      render: (data) => (
+        <Button
+          type="primary"
+          onClick={() => {
+            show(data);
+          }}
+        >
+          Message
+        </Button>
       ),
     },
-    {
-      title: "OP Day",
-      dataIndex: "available_day",
-      key: "available_day",
-    },
   ];
+
   return (
     <>
-      <Table
-        columns={columns}
-        dataSource={data}
-        scroll={{
-          x: 900,
-        }}
-      />
+      <Table columns={columns} dataSource={data} />
+      <div>
+        <Modal
+          title="Edit items"
+          open={viewmsg}
+          bodyStyle={{ overflowY: "auto", maxHeight: "calc(100vh - 200px)" }}
+          okText="Ok"
+          onCancel={() => {
+            resetshow();
+          }}
+          onOk={() => {
+            resetshow();
+          }}
+        >
+          <div>
+            <p>{msg}</p>
+          </div>
+        </Modal>
+      </div>
     </>
   );
 };
 
-export default Dept_doctors;
+export default Feedback;

@@ -17,8 +17,12 @@ import Portal_menu from "./Dept_menu";
 import Dept_doctors from "../dept_doctors/Dept_doctors";
 import Doctor_login from "../doctor_login/Doctor_login";
 import Doctorboard from "../doctor_access/Doctorboard";
-import Appointment_history from "../doctorAppointment/Appointment_history";
+import Patient_history from "../doctorAppointment/Patient_history";
 import Today_appointment from "../doctorAppointment/Today_appointment";
+import Patientreports from "../patient_report/Patientreports";
+import ReportSetting from "../patient_report/Reportsetting";
+import Dept_patient from "../dept_patient/Dept_patient";
+
 const { Header, Sider, Content, Footer } = Layout;
 const Dept_dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -52,7 +56,7 @@ const Dept_dashboard = () => {
                 </Menu.Item>
               );
             })}
-            <Menu.Item icon={<LogoutOutlined />} key="8">
+            <Menu.Item icon={<LogoutOutlined />} key="4">
               Logout
             </Menu.Item>
           </Menu>
@@ -91,13 +95,23 @@ const Dept_dashboard = () => {
                 <Route exact path="/doctor-board" element={<Doctorboard />} />
                 <Route
                   exact
-                  path="/appointment-history"
-                  element={<Appointment_history />}
+                  path="/deptartment-patient-report"
+                  element={<Dept_patient />}
+                />
+                <Route
+                  exact
+                  path="/patient-history"
+                  element={<Patient_history />}
                 />
                 <Route
                   exact
                   path="/today-appointment"
                   element={<Today_appointment />}
+                />
+                <Route
+                  exact
+                  path="/report-history"
+                  element={<Patientreports />}
                 />
               </Routes>
             </div>

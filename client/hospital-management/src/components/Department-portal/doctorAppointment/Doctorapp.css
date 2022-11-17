@@ -1,13 +1,9 @@
 .current-date {
-  background-image: linear-gradient(
-    to bottom right,
-    rgb(180, 179, 180),
-    rgb(89, 195, 228)
-  );
+  background-color: #002e58;
   border: solid 0.5px;
   border-color: rgb(86, 86, 87);
   /* border-radius: 10px; */
-  color: rgb(19, 23, 145);
+  color: rgb(192, 191, 191);
 }
 
 .app-table {

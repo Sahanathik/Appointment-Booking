@@ -1,20 +1,12 @@
 .board-card {
-  background-image: linear-gradient(
-    to bottom right,
-    rgb(72, 217, 243),
-    rgb(123, 15, 224)
-  ) !important;
+  background: #002e58 !important;
 }
 .board-title {
   color: rgb(236, 230, 230) !important;
 }
 .board-text {
-  background-image: linear-gradient(
-    to bottom right,
-    rgb(222, 216, 226),
-    rgb(68, 204, 245)
-  ) !important;
-  color: rgb(87, 86, 86);
+  background: #21578a !important;
+  color: rgb(185, 184, 184) !important;
   font-weight: 500;
   cursor: pointer;
 }
@@ -29,4 +21,18 @@
     rgb(180, 179, 180),
     rgb(44, 202, 250)
   ) !important;
+  color: black !important;
+}
+.logout-btn {
+  background: #21578a !important;
+  color: rgb(214, 211, 211) !important;
+}
+
+.logout-btn:hover {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(180, 179, 180),
+    rgb(44, 202, 250)
+  ) !important;
+  color: black !important;
 }

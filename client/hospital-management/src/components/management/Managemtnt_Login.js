@@ -16,6 +16,8 @@ const Managemtnt_Login = () => {
     axios
       .post(SERVER_URL + "api/admin/common-login", values)
       .then((res) => {
+
+
         console.log("res", res);
         console.log("res", res.data.data);
         console.log("decode", jwt_decode(res.data.data));
@@ -23,13 +25,21 @@ const Managemtnt_Login = () => {
         localStorage.setItem("token", res.data.data);
 
         if (res.data.status === true) {
+
+         
           setTimeout(() => {
             message.success(res.data.message);
+            
           }, 1000);
+
+          
         } else {
+          console.log("login")
           setTimeout(() => {
             message.warning(res.data.message);
           }, 1000);
+
+          window.location.href= '/';
         }
       })
       .catch((err) => {

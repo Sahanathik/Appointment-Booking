@@ -1,7 +1,8 @@
 // import logo from './logo.svg';
 import "./App.css";
+import React, { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
-import React, { Component } from "react";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Admin-management/dashboard/Dashboard";
 import Homepage from "./components/homepage/Homepage";
@@ -17,28 +18,74 @@ import Payment from "./components/payment/Payment";
 import Dept_dashboard from "./components/Department-portal/dept_dashboard/Dept_dashboard";
 
 function App() {
+
+ const [state, setState] = useState({
+  det : "data"
+ })
+
+
+
+ useEffect(()=>{
+
   let token = localStorage.getItem("token");
+
+  if(token){
+
   console.log(token);
   let decode = jwt_decode(token);
   let role = decode.role;
 
+  setState({
+    det : role
+  })
+
+ 
+ } else {
+
+  setState({
+    det : "data"
+  })
+
+ }
+
+ },[])
+
+ 
+  
+
+
+  console.log(state.det)
+
+  // useEffect(()=>{
+
+  // let token = localStorage.getItem("token");
+  // console.log(token);
+  // let decode = jwt_decode(token);
+  // // let role = "decode.role";
+  //   setState({
+  //   det : decode.role
+  // })
+
+  // },[])
+  
+
   return (
     <>
-      <Router>
+      {/* <Router> */}
         {/* navigate */}
-        {role === "admin" ? <Dashboard /> : null}
+        {/* {role === "admin" ? <Dashboard /> : null}
         {role === "user" ? <Patient /> : null}
-        {role === "department" ? <Dept_dashboard /> : null}
+        {role === "department" ? <Dept_dashboard /> : null} */}
 
         {/* <Route path="/admin" element={<Dashboard />} /> */}
         {/* <Dashboard /> */}
         {/* <Dept_dashboard></Dept_dashboard> */}
-        <Routes>
-          <Route path="/" element={<Homepage />} />
+        {/* <Routes>
+          <Route exact path="/" element={<Homepage />} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/login" element={<Managemtnt_Login />} />
+          <Route exact path="/login" element={<Managemtnt_Login />} />
           <Route path="/sign-up" element={<Sign_up />} />
           <Route path="/doctor-list" element={<Doctorlist />} />
           <Route path="/patient-data" element={<Patient />} />
@@ -46,7 +93,40 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/payment" element={<Payment />} />
         </Routes>
-      </Router>
+      </Router> */}
+      {
+        state.det === "data" ? (
+          <Router>
+          <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/login" element={<Managemtnt_Login />} />
+          </Routes>
+          </Router>
+        ) : null
+      }
+
+      {
+        state.det === "admin" ? (
+        <Dashboard /> ): null
+      }
+
+      {
+        state.det === "user" ?  (
+          <Router>
+            <Routes>
+            <Route path="/" element={<Patient />} />
+            </Routes>
+          </Router>
+        ) : null
+      }
+
+    {
+      state.det === "department" ? <Dept_dashboard /> : null
+    }
+      
+   
+
+
     </>
   );
 }

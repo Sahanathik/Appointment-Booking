@@ -37,15 +37,16 @@ const Patient = () => {
   console.log("decode token", decoder);
   console.log(token);
   console.log("decode", decoder);
-  console.log("deco", decoder.userData.patient_id);
+  // console.log("deco", decoder.userData.patient_id);
+  console.log("deco", decoder.patient_id);
 
-  const [patientId, setPatientId] = useState(decoder.userData.patient_id);
-  const [FirstName, setFirstName] = useState(decoder.userData.first_name);
+  const [patientId, setPatientId] = useState(decoder.patient_id);
+  const [FirstName, setFirstName] = useState(decoder.first_name);
   const [mobileNumber, setMobileNumber] = useState(
-    decoder.userData.mobile_number
+    decoder.mobile_number
   );
-  const [gender, setGender] = useState(decoder.userData.gender);
-  const [email, setEmail] = useState(decoder.userData.email);
+  const [gender, setGender] = useState(decoder.gender);
+  const [email, setEmail] = useState(decoder.email);
   const [updatemode, setUpdatemode] = useState(false);
 
   const edit = () => {
@@ -63,7 +64,7 @@ const Patient = () => {
     // console.log ('data', data)
     axios
       .put(
-        SERVER_URL + `api/user/edit?patient_id=${decoder.userData.patient_id}`,
+        SERVER_URL + `api/user/edit?patient_id=${decoder.patient_id}`,
         { mobile_number: mobileNumber, email: email }
       )
       .then((res) => {
@@ -326,8 +327,8 @@ const Patient = () => {
                     ) : (
                       <p>
                         {/* name */}
-                        Name : {decoder.userData.first_name}&nbsp;
-                        {decoder.userData.last_name}
+                        Name : {decoder.first_name}&nbsp;
+                        {decoder.last_name}
                       </p>
                     )}
                     <div>
@@ -372,7 +373,7 @@ const Patient = () => {
                           </div>
                         </div>
                       ) : (
-                        <p>Gender : {decoder.userData.gender}</p>
+                        <p>Gender : {decoder.gender}</p>
                         // <p>Gender</p>
                       )}
                     </div>
@@ -395,7 +396,7 @@ const Patient = () => {
                           </div>
                         </div>
                       ) : (
-                        <p>Email : {decoder.userData.email}</p>
+                        <p>Email : {decoder.email}</p>
                         // <p>Email</p>
                       )}
                     </div>

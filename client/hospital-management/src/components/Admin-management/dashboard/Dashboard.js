@@ -35,8 +35,9 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [title, setTitle] = useState("");
   const [logo, setLogo] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
+    <Router>
     <Layout>
       <Layout>
         <Sider
@@ -121,6 +122,7 @@ const Dashboard = () => {
         </Layout>
       </Layout>
     </Layout>
+    </Router>
   );
 };
 

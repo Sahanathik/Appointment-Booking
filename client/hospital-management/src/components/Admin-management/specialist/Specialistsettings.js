@@ -17,9 +17,9 @@ const Specialistsetting = () => {
         <TabPane tab="Add Specialist" key="1">
           <Specialist />
         </TabPane>
-        <TabPane tab="Add Slot" key="2">
+        {/* <TabPane tab="Add Slot" key="2">
           <Edit_spe />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </div>
   );

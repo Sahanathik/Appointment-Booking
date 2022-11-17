@@ -5,7 +5,6 @@ import {
   Route,
   Routes,
   NavLink,
-  withRouter,
   useNavigate,
 } from "react-router-dom";
 import {
@@ -94,7 +93,7 @@ const Dashboard = () => {
             <div style={{ padding: 24, background: "#fff" }}>
               <Routes>
                 {/* <Route exact path="/home" element={<Homepage />} /> */}
-                <Route exact path="/Setting" element={<Setting />} />
+                <Route exact path="/" element={<Setting />} />
                 <Route
                   exact
                   path="/department-setting"
@@ -109,6 +108,7 @@ const Dashboard = () => {
                 <Route exact path="/doctor-log" element={<Doctorsettings />} />
                 <Route exact path="/query-tab" element={<Query_tab />} />
                 <Route path="/payment-setting" element={<PaymentSetting />} />
+                <Route path="*" element={<p>Path not resolved</p>} />
                 {/* <Route path="/Logout" element= {<Logout/>} /> */}
               </Routes>
             </div>

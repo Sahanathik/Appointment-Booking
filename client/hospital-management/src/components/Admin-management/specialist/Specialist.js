@@ -13,44 +13,40 @@ import {
   Upload,
   Avatar,
   Image,
-  message
+  message,
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { SERVER_URL } from "../../../Globals";
 const { Title } = Typography;
 const { Option } = Select;
 const Specialist = () => {
-
   const [state, setState] = useState({
-    picture : ""
-  })
-
-
+    picture: "",
+  });
+  const [availabelday, setAvailableday] = useState([]);
   //CREATE FORM VARIABLE
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
 
   //CREATE ARRAY OF DEPARTMENTS
   const [data, setData] = useState({
-    departments : []
-  })
-
-
+    departments: [],
+  });
 
   //TO FETCH DEPARTMENTS TO DISPLAY
-  useEffect(()=>{
-    axios.get(SERVER_URL+"api/departements/getAllDepartments")
-    .then((res)=>{
+  useEffect(() => {
+    axios
+      .get(SERVER_URL + "api/departements/getAllDepartments")
+      .then((res) => {
         setData({
-          departments : res.data.data
-        })
-    }).catch((err)=>{
-      console.log(err)
-    })
-
-    
-  },[])
+          departments: res.data.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   //time picker format
- 
+
   // const format = "HH:mm";
 
   // let index = 0;
@@ -71,59 +67,68 @@ const Specialist = () => {
   //   }, 0);
   // };
 
-  // const handleChangeDay = (values) =>{
-  //   console.log('day values',values)
-   
-  // }
-
   // const handleChangeTime = (values) =>{
   //   console.log(values)
   // }
 
-  const formSubmit = (values) =>{
-    console.log(values)
-    
-    values.profile_pic = state.picture
+  const handleChangeDay = (values) => {
+    const selected = [];
+    console.log("day values", values);
+    for (let i = 0; i < values.length; i++) {
+      selected.push(values[i].value);
+    }
+    setAvailableday(selected);
+  };
+
+  const formSubmit = (values) => {
+    console.log(values);
+
+    values.profile_pic = state.picture;
 
     const config = {
       "Content-Type": "multipart/form-data",
-    }
+    };
 
-    const data = values
+    const data = values;
 
-    console.log(data)
-    console.log("available_day",values.available_day)
+    console.log(data);
+    console.log("available_day", values.available_day);
     // console.log("available_slot",values.available_slot)
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append('image', data.profile_pic);
-    formData.append('department_id', data.department_id);
-    formData.append('specialist_name', data.specialist_name); 
-    // formData.append('available_slot', data.available_slot);
-    // formData.append('available_day', data.available_day);
+    formData.append("image", data.profile_pic);
+    formData.append("department_id", data.department_id);
+    formData.append("specialist_name", data.specialist_name);
+    formData.append("number", data.number);
+    formData.append("education", data.education);
+    formData.append("experience", data.experience);
+    formData.append("time", data.time);
+    formData.append("specialisation", data.specialisation);
+    // formData.append("available_slot", data.available_slot);
+    formData.append("available_day", JSON.stringify(data.available_day));
+    console.log("day", JSON.stringify(data.available_day));
+    console.log(formData);
 
-    console.log(formData)
-   
-    axios.post(SERVER_URL+"api/specialist/addSpecialist",formData,config)
-    .then((res)=>{
-      console.log("res-status", res.data.status)
-      console.log("res", res)
+    axios
+      .post(SERVER_URL + "api/specialist/addSpecialist", formData, config)
+      .then((res) => {
+        console.log("res-status", res.data.status);
+        console.log("res", res);
 
-      if(res.data.status === true){
-        setTimeout(()=>{
-          message.success(res.data.message)
-        }, 1000)
-      } else {
-        setTimeout(()=>{
-          message.warning(res.data.message)
-        }, 1000)
-      }
-    
-    }).catch((err)=>{
-      console.log(err)
-    })
-    
-  }
+        if (res.data.status === true) {
+          setTimeout(() => {
+            message.success(res.data.message);
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            message.warning(res.data.message);
+          }, 1000);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   //responsive layout
   const responsive_layout = {
@@ -177,21 +182,20 @@ const Specialist = () => {
     },
   ];
 
-
-  const slotoption = [
-    {
-      value: "10:00 AM",
-    },
-    {
-      value: "12:00 PM",
-    },
-    {
-      value: "2:00 PM",
-    },
-    {
-      value: "4:00 PM",
-    },
-  ]
+  // const slotoption = [
+  //   {
+  //     value: "10:00 AM",
+  //   },
+  //   {
+  //     value: "12:00 PM",
+  //   },
+  //   {
+  //     value: "2:00 PM",
+  //   },
+  //   {
+  //     value: "4:00 PM",
+  //   },
+  // ]
 
   return (
     <>
@@ -207,11 +211,14 @@ const Specialist = () => {
           >
             <Select placeholder="Select a option below" allowClear>
               {/* <Option value="male">department 1</Option> */}
-              {
-                data.departments.map((options)=> (
-                  <Option value={options.department_id} key={options.department_id}>{options.department_name}</Option>
-                ))
-              }
+              {data.departments.map((options) => (
+                <Option
+                  value={options.department_id}
+                  key={options.department_id}
+                >
+                  {options.department_name}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item
@@ -228,10 +235,85 @@ const Specialist = () => {
               id="specialist_name"
             />
           </Form.Item>
-          {/* <Form.Item
-            label="Choose Available Day"
+
+          <Form.Item
+            label="Mobile Number"
+            type="text"
+            name="number"
+            hasFeedback
+            rules={[
+              { required: true, message: "Enter Specialist mobile number" },
+            ]}
+          >
+            <Input
+              placeholder="Mobile Number - 9237037443"
+              type="text"
+              name="number"
+              id="number"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Specialisation"
+            type="text"
+            name="specialisation"
+            hasFeedback
+            rules={[{ required: true, message: "Enter specialisation detail" }]}
+          >
+            <Input
+              placeholder="specialisation - eg: Dermatologist"
+              type="text"
+              name="specialisation"
+              id="specialisation"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Experience"
+            type="text"
+            name="experience"
+            hasFeedback
+            rules={[{ required: true, message: "Enter experience detail" }]}
+          >
+            <Input
+              placeholder="Experience - 4 yrs"
+              type="text"
+              name=" experience"
+              id=" experience"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Education"
+            type="text"
+            name="education"
+            hasFeedback
+            rules={[{ required: true, message: "Enter Education detail" }]}
+          >
+            <Input
+              placeholder="Education detail - MBBS ,MD"
+              type="text"
+              name="education"
+              id="education"
+            />
+          </Form.Item>
+          <Form.Item
+            label="OP Timing"
+            type="text"
+            name="time"
+            hasFeedback
+            rules={[{ required: true, message: "Enter time detail" }]}
+          >
+            <Input
+              placeholder="Eg: 12.00 - 2.00 pm"
+              type="text"
+              name=" time"
+              id=" time"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Choose Day"
             type="text"
             name="available_day"
+            rules={[{ required: true, message: "Enter Doctor available day" }]}
           >
             <Select
               mode="multiple"
@@ -244,7 +326,7 @@ const Specialist = () => {
               options={dayoption}
               onChange={handleChangeDay}
             />
-          </Form.Item> */}
+          </Form.Item>
 
           {/* <Form.Item
             name="available_day"
@@ -309,7 +391,7 @@ const Specialist = () => {
             </Select>
           </Form.Item> */}
 
-            {/* <Form.Item
+          {/* <Form.Item
             name="available_slot"
             label="Choose Available Slot"
             rules={[{ required: true, message: "Enter Available Slot" }]}
@@ -324,21 +406,21 @@ const Specialist = () => {
             </Select>
           </Form.Item> */}
 
-
           <Form.Item
             name="profile_pic"
             label="Profile"
             rules={[{ required: true }]}
           >
-            <Upload 
-            listType="picture"
-            beforeUpload={(file) => {
-              console.log(file);
-              setState({
-                picture: file,
-              });
-              return false;
-            }}>
+            <Upload
+              listType="picture"
+              beforeUpload={(file) => {
+                console.log(file);
+                setState({
+                  picture: file,
+                });
+                return false;
+              }}
+            >
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>

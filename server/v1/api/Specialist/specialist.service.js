@@ -147,12 +147,14 @@ async function addSpecialist(req, res, next) {
       });
     } else {
       let user_Details = new specialistSchema(req.body);
+      const available_day = JSON.parse(req.body.available_day);
+      user_Details.available_day = available_day;
       user_Details.image = file;
       let result = user_Details.save();
       if (result) {
         return res.json({
           status: true,
-          message: "Specialist name added successfully",
+          message: "Specialist  added successfully",
           data: result,
         });
       }

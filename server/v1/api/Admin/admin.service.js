@@ -155,6 +155,8 @@ async function CommonLogin(req, res) {
           });
         }
       }
+    } else {
+      res.json({ status: "failure", message: "wrong credentials, check id" });
     }
   } catch (error) {
     return res.status(400).json({ status: "failed", message: error.message });

@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import "./App.css";
 import jwt_decode from "jwt-decode";
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Admin-management/dashboard/Dashboard";
 import Homepage from "./components/homepage/Homepage";
@@ -17,28 +17,22 @@ import Payment from "./components/payment/Payment";
 import Dept_dashboard from "./components/Department-portal/dept_dashboard/Dept_dashboard";
 
 function App() {
-  let token = localStorage.getItem("token");
-  console.log(token);
-  let decode = jwt_decode(token);
-  let role = decode.role;
+  const [loginStatus, setLoginStatus] = useState("0");
+  const status = localStorage.getItem("loginstatus");
 
   return (
     <>
+      {/* <Dashboard /> */}
       <Router>
-        {/* navigate */}
-        {role === "admin" ? <Dashboard /> : null}
-        {role === "user" ? <Patient /> : null}
-        {role === "department" ? <Dept_dashboard /> : null}
+        <Dashboard />
 
-        {/* <Route path="/admin" element={<Dashboard />} /> */}
-        {/* <Dashboard /> */}
-        {/* <Dept_dashboard></Dept_dashboard> */}
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route index element={<Homepage />} />
+          {/* <Route path="/admin/*" element={<Dashboard />} /> */}
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/login" element={<Managemtnt_Login />} />
+          <Route path="/login" exact element={<Managemtnt_Login />} />
           <Route path="/sign-up" element={<Sign_up />} />
           <Route path="/doctor-list" element={<Doctorlist />} />
           <Route path="/patient-data" element={<Patient />} />

@@ -16,7 +16,7 @@ const departmentSchema = new mongoose.Schema(
 
 departmentSchema.pre("save", function (next) {
   this.department_id =
-    "DEP-" + crypto.pseudoRandomBytes(4).toString("hex").toUpperCase();
+    "DEP-" + crypto.pseudoRandomBytes(2).toString("hex").toUpperCase();
   next();
 });
 

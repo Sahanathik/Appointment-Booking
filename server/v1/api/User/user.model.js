@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", function (next) {
   this.patient_id =
-    "PA-" + crypto.pseudoRandomBytes(3).toString("hex").toUpperCase();
+    "PA-" + crypto.pseudoRandomBytes(2).toString("hex").toUpperCase();
   next();
 });
 

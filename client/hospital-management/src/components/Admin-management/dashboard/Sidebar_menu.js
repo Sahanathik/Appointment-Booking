@@ -10,38 +10,32 @@ import {
 } from "@ant-design/icons";
 
 const Sidebar_menu = [
-  // {
-  //   key: "1",
-  //   title: "Home",
-  //   icon: <HomeOutlined />,
-  //   link: "/home",
-  // },
   {
-    key: "2",
+    key: "1",
     icon: <SettingOutlined />,
     title: "App Setting",
-    link: "/Setting",
+    link: "/",
   },
   {
-    key: "3",
+    key: "2",
     icon: <DesktopOutlined />,
     title: "Department",
     link: "/department-setting",
   },
   {
-    key: "4",
+    key: "3",
     icon: <UsergroupAddOutlined />,
     title: "Specialist",
     link: "/specialist-setting",
   },
   {
-    key: "5",
+    key: "4",
     icon: <IdcardOutlined />,
     title: "Patients Log",
     link: "/patient-log",
   },
   {
-    key: "6",
+    key: "5",
     icon: <SolutionOutlined />,
     title: "Doctor Log",
     link: "/doctor-log",

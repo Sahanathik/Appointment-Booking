@@ -20,12 +20,12 @@ const Managemtnt_Login = () => {
         console.log("res", res.data.data);
         console.log("decode", jwt_decode(res.data.data));
 
-        localStorage.setItem("token", res.data.data);
-
-        if (res.data.status === true) {
+        if (res.data.status === "success") {
           setTimeout(() => {
             message.success(res.data.message);
           }, 1000);
+          localStorage.setItem("token", res.data.data);
+          // localStorage.setItem("loginstatus", "1");
         } else {
           setTimeout(() => {
             message.warning(res.data.message);

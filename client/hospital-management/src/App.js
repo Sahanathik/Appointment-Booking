@@ -55,34 +55,27 @@ function App() {
 
   return (
     <>
-      {/* <Router> */}
-      {/* navigate */}
-      {/* {role === "admin" ? <Dashboard /> : null}
-        {role === "user" ? <Patient /> : null}
-        {role === "department" ? <Dept_dashboard /> : null} */}
-
-      {/* <Route path="/admin" element={<Dashboard />} /> */}
-      {/* <Dashboard /> */}
-      {/* <Dept_dashboard></Dept_dashboard> */}
-      {/* <Routes>
-          <Route exact path="/" element={<Homepage />} />
+      <Router>
+        <Routes>
+          {/* <Route exact path="/" element={<Homepage />} /> */}
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/management-login" element={<Managemtnt_Login />} />
           <Route path="/map" element={<Map />} />
           <Route exact path="/login" element={<Managemtnt_Login />} />
           <Route path="/sign-up" element={<Sign_up />} />
           <Route path="/doctor-list" element={<Doctorlist />} />
-          <Route path="/patient-data" element={<Patient />} />
+          {/* <Route path="/patient-data" element={<Patient />} /> */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/payment" element={<Payment />} />
+          {/* <Route path="/payment" element={<Payment />} /> */}
         </Routes>
-      </Router> */}
+      </Router>
       {state.det === "data" ? (
         <Router>
           <Routes>
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/login" element={<Managemtnt_Login />} />
+            <Route path="/doctor-list" element={<Doctorlist />} />
           </Routes>
         </Router>
       ) : null}

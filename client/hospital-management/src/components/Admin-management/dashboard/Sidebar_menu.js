@@ -46,11 +46,11 @@ const Sidebar_menu = [
     title: "Query Section",
     link: "/query-tab",
   },
-  {
-    key: "7",
-    icon: <CreditCardOutlined />,
-    title: "Payment Setting",
-    link: "/payment-setting",
-  },
+  // {
+  //   key: "7",
+  //   icon: <CreditCardOutlined />,
+  //   title: "Payment Setting",
+  //   link: "/payment-setting",
+  // },
 ];
 export default Sidebar_menu;

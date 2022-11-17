@@ -37,91 +37,95 @@ const Dashboard = () => {
   // const navigate = useNavigate();
   return (
     <Router>
-    <Layout>
       <Layout>
-        <Sider
-          trigger={null}
-          collapsible
-          collapsed={collapsed}
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "sticky",
-            left: 0,
-            top: 0,
-            bottom: 0,
-          }}
-        >
-          <div className="logo" />
-          <Menu theme="dark" mode="inline">
-            {Sidebar_menu.map((val, key) => {
-              return (
-                <Menu.Item key={key} icon={val.icon}>
-                  <NavLink style={{ textDecoration: "none" }} to={val.link}>
-                    <span>{val.title}</span>
-                  </NavLink>
-                </Menu.Item>
-              );
-            })}
-            <Menu.Item icon={<LogoutOutlined />} key="8">
-              Logout
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout className="site-layout">
-          <Header
-            className="site-layout-background"
+        <Layout>
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
             style={{
-              padding: 0,
-            }}
-          >
-            {React.createElement(
-              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: () => setCollapsed(!collapsed),
-              }
-            )}
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: "24px 16px 0",
-              height: "73vh",
               overflow: "auto",
+              height: "100vh",
+              position: "sticky",
+              left: 0,
+              top: 0,
+              bottom: 0,
             }}
           >
-            <div style={{ padding: 24, background: "#fff" }}>
-              <Routes>
-                {/* <Route exact path="/home" element={<Homepage />} /> */}
-                <Route exact path="/" element={<Setting />} />
-                <Route
-                  exact
-                  path="/department-setting"
-                  element={<Departmentsetting />}
-                />
-                <Route
-                  exact
-                  path="/specialist-setting"
-                  element={<Specialistsetting />}
-                />
-                <Route exact path="/patient-log" element={<Patientlog />} />
-                <Route exact path="/doctor-log" element={<Doctorsettings />} />
-                <Route exact path="/query-tab" element={<Query_tab />} />
-                <Route path="/payment-setting" element={<PaymentSetting />} />
-                <Route path="*" element={<p>Path not resolved</p>} />
-                {/* <Route path="/Logout" element= {<Logout/>} /> */}
-              </Routes>
-            </div>
-          </Content>
-          <Footer className="footer-color">
-            <div className="text-light text-center">
-              Hospital Management @2022
-            </div>
-          </Footer>
+            <div className="logo" />
+            <Menu theme="dark" mode="inline">
+              {Sidebar_menu.map((val, key) => {
+                return (
+                  <Menu.Item key={key} icon={val.icon}>
+                    <NavLink style={{ textDecoration: "none" }} to={val.link}>
+                      <span>{val.title}</span>
+                    </NavLink>
+                  </Menu.Item>
+                );
+              })}
+              <Menu.Item icon={<LogoutOutlined />} key="7">
+                Logout
+              </Menu.Item>
+            </Menu>
+          </Sider>
+          <Layout className="site-layout">
+            <Header
+              className="site-layout-background"
+              style={{
+                padding: 0,
+              }}
+            >
+              {React.createElement(
+                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                {
+                  className: "trigger",
+                  onClick: () => setCollapsed(!collapsed),
+                }
+              )}
+            </Header>
+            <Content
+              className="site-layout-background"
+              style={{
+                margin: "24px 16px 0",
+                height: "73vh",
+                overflow: "auto",
+              }}
+            >
+              <div style={{ padding: 24, background: "#fff" }}>
+                <Routes>
+                  {/* <Route exact path="/home" element={<Homepage />} /> */}
+                  <Route exact path="/" element={<Setting />} />
+                  <Route
+                    exact
+                    path="/department-setting"
+                    element={<Departmentsetting />}
+                  />
+                  <Route
+                    exact
+                    path="/specialist-setting"
+                    element={<Specialistsetting />}
+                  />
+                  <Route exact path="/patient-log" element={<Patientlog />} />
+                  <Route
+                    exact
+                    path="/doctor-log"
+                    element={<Doctorsettings />}
+                  />
+                  <Route exact path="/query-tab" element={<Query_tab />} />
+                  <Route path="/payment-setting" element={<PaymentSetting />} />
+                  <Route path="*" element={<p>Path not resolved</p>} />
+                  {/* <Route path="/Logout" element= {<Logout/>} /> */}
+                </Routes>
+              </div>
+            </Content>
+            <Footer className="footer-color">
+              <div className="text-light text-center">
+                Hospital Management @2022
+              </div>
+            </Footer>
+          </Layout>
         </Layout>
       </Layout>
-    </Layout>
     </Router>
   );
 };

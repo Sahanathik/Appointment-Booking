@@ -20,16 +20,19 @@ const Managemtnt_Login = () => {
         console.log("res", res.data.data);
         console.log("decode", jwt_decode(res.data.data));
 
-        if (res.data.status === "success") {
+        localStorage.setItem("token", res.data.data);
+
+        if (res.data.status === true) {
           setTimeout(() => {
             message.success(res.data.message);
           }, 1000);
-          localStorage.setItem("token", res.data.data);
-          // localStorage.setItem("loginstatus", "1");
         } else {
+          console.log("login");
           setTimeout(() => {
             message.warning(res.data.message);
           }, 1000);
+
+          window.location.href = "/";
         }
       })
       .catch((err) => {
